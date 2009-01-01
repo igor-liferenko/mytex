@@ -8,6 +8,4 @@ dvitype -output-level 0 $file | \
   sed '/^Postamble starts at byte/,$!d;/^Font [0-9]\+:/!d;s///;/scaled/!s/\w\+/& scaled 1000/' | \
   sed s/scaled/$resolution/ | while read REPLY; do ~/mytex/MakePK $REPLY || exit; done || exit
 eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/' | sed 's/391582..sp/39158280sp/;s/553809..sp/55380996sp/')"
-export TEXCONFIG=~/dvips
-export DVIPSHEADERS=~/dvips
-~/dvips/dvips -q -T $p -O $((x-4736286))sp,$((y-4736286))sp -D $resolution -o $2 $file
+dvips -q -T $p -O $((x-4736286))sp,$((y-4736286))sp -D $resolution -o $2 $file
