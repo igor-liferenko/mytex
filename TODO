@@ -1,0 +1,5 @@
+Use this to add kpathsea:
+http://ftp.math.utah.edu/pub/tex/historic/systems/web2c/web2c-6.1-1.8/web2c.help.kpathsea
+Use commit 9c2569051f1422d58db2a1861e3b5489eaee82d5 from ~/tex/ to make it compile with libkpathsea-dev package (and maybe also use later commits which have word 'kpathsea' in commit log)
+
+When everything will be working, add inputting UTF-8 file via wide characters.
