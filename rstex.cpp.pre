@@ -11652,13 +11652,13 @@ void copypath(char *s1, char *s2, int n)
 void set_paths()
 {
 	char *envpath;
-	if ((envpath = getenv("TEXINPUTS")) != NULL)
+	if ((envpath = getenv("MYTEXINPUTS")) != NULL)
 		copypath(input_path, envpath, MAX_INPUT_CHARS);
-	if ((envpath = getenv("TEXFONTS")) != NULL)
+	if ((envpath = getenv("MYTEXFONTS")) != NULL)
 		copypath(font_path, envpath, MAX_INPUT_CHARS);
-	if ((envpath = getenv("TEXFORMATS")) != NULL)
+	if ((envpath = getenv("MYTEXFORMATS")) != NULL)
 		copypath(format_path, envpath, MAX_INPUT_CHARS);
-	if ((envpath = getenv("TEXPOOL")) != NULL)
+	if ((envpath = getenv("MYTEXPOOL")) != NULL)
 		copypath(pool_path, envpath, MAX_INPUT_CHARS);
 }
 
