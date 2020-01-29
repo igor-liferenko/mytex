@@ -3,6 +3,6 @@ export MYTEXINPUTS=.:/usr/share/texlive/texmf-dist/tex/plain/base:/usr/share/tex
 export MYTEXPOOL=/home/user/mytex
 export MYTEXFORMATS=/home/user/mytex 
 
-/home/user/mytex/initex plain # type `\dump'
+/home/user/mytex/initex ../tex/lhplain.ini && mv lhplain.fmt mytex.fmt
 
-/home/user/mytex/virtex -format=plain story # type `\end'
+/home/user/mytex/virtex -format=tex story # type `\end'
