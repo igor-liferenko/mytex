@@ -59,18 +59,6 @@ const char pool_name[] = "tex.pool"; // String of file_name_size; tells where th
 @z
 
 @x
-		overflow(/*pool size*/1290, pool_size - init_pool_ptr);\
-@y
-		overflow(/*pool size*/1288, pool_size - init_pool_ptr);\
-@z
-
-@x
-	print_nl(/*! */1291);\
-@y
-	print_nl(/*! */1289);\
-@z
-
-@x
 const int mem_top = 30000; // largest index in the mem_array dumped by INITEX; must be substantially larger
 @y
 const int mem_top = 500000; // largest index in the mem_array dumped by INITEX; must be substantially larger
@@ -115,18 +103,6 @@ typedef int halfword; // min_halfword..max_halfword, 1/2 of a word, NOTE: This p
 @z
 
 @x
-		overflow(/*save size*/1292,save_size);\
-@y
-		overflow(/*save size*/1290,save_size);\
-@z
-
-@x
-		overflow(/*input stack size*/1293, stack_size);\
-@y
-		overflow(/*input stack size*/1291, stack_size);\
-@z
-
-@x
 pool_pointer area_delimiter; // the most recent `>' or `:', if any
 pool_pointer ext_delimiter; // the relevant `.', if any
 @y
@@ -135,29 +111,11 @@ pool_pointer ext_delimiter; // the most recent `.', if any
 @z
 
 @x
-#define TEX_area /**/591 // NOTE: I don't use any paths at all for now
-#define TEX_font_area /**/591 // NOTE: I don't use any paths at all for now
+#define TEX_area TEX_STRING("") // NOTE: I don't use any paths at all for now
+#define TEX_font_area TEX_STRING("") // NOTE: I don't use any paths at all for now
 @y
-//#define TEX_area /**/591 // NOTE: I don't use any paths at all for now
-//#define TEX_font_area /**/591 // NOTE: I don't use any paths at all for now
-@z
-
-@x
-		pack_job_name(/*.dvi*/1294);\
-@y
-		pack_job_name(/*.dvi*/1292);\
-@z
-
-@x
-			prompt_file_name(/*file name for output*/1295, /*.dvi*/1294);\
-@y
-			prompt_file_name(/*file name for output*/1293, /*.dvi*/1292);\
-@z
-
-@x
-		print(/* scaled */1296);\
-@y
-		print(/* scaled */1294);\
+//#define TEX_area TEX_STRING("") // NOTE: I don't use any paths at all for now
+//#define TEX_font_area TEX_STRING("") // NOTE: I don't use any paths at all for now
 @z
 
 @x
@@ -195,19 +153,6 @@ const int pool_file_path = 5;
 
 ///////////////////////////////////////////////////////////////////////////
 
-
-@z
-
-@x
-#define format_extension /*.fmt*/1297 // the extension as a WEB constant
-@y
-#define format_extension /*.fmt*/1295 // the extension as a WEB constant
-@z
-
-@x
-#define math_spacing /*0234000122*4000133**3**344*0400400*000000234000111*1111112341011*/1298
-@y
-#define math_spacing /*0234000122*4000133**3**344*0400400*000000234000111*1111112341011*/1296
 @z
 
 @x
