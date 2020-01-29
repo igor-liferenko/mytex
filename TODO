@@ -1,1 +1,2 @@
+remove TEX_POOL via sed - there is no point in it
 add inputting UTF-8 file via wide characters
