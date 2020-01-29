@@ -1,8 +1,8 @@
-export TEXFONTS=/usr/share/texlive/texmf-dist/fonts/tfm/public/knuth-lib/:/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/
-export TEXINPUTS=/usr/share/texlive/texmf-dist/tex/plain/base/:/usr/share/texlive/texmf-dist/tex/generic/hyphen/:.
+export TEXFONTS=/usr/share/texlive/texmf-dist/fonts/tfm/public/knuth-lib:/usr/share/texlive/texmf-dist/fonts/tfm/public/cm
+export TEXINPUTS=/usr/share/texlive/texmf-dist/tex/plain/base:/usr/share/texlive/texmf-dist/tex/generic/hyphen:/usr/share/texlive/texmf-dist/tex/plain/knuth-lib
 export TEXPOOL=/home/user/mytex
 export TEXFORMATS=/home/user/mytex 
 
-/home/user/mytex/initex # type `plain' and `\dump'
+/home/user/mytex/initex plain # type `\dump'
 
-/home/user/mytex/virtex -format=plain story
+/home/user/mytex/virtex -format=plain story # type `\end'
