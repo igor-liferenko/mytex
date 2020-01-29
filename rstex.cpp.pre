@@ -10575,7 +10575,6 @@ void close_files_and_terminate()
 			print_char('.');
 		}
 	}
-	print_ln();
 	if(ed_name_start != 0 && interaction > batch_mode)
 		call_edit(&str_pool[ed_name_start], ed_name_length, edit_line);
 }
