@@ -1,6 +1,8 @@
 initex
 mkpool
 rstex.cpp
+rstex.cpp.bak
 rstex.h
+rstex.h.bak
 tex.pool
 virtex
