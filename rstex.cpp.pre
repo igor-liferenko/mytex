@@ -4022,7 +4022,7 @@ found:
 		 while (link(q) != p) {
 			 q = link(q);
 			 switch (info(q)) {
-			 
+			
 			 case yz_OK:
 				info(q) = y_OK;
 				break;
