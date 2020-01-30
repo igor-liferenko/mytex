@@ -1,4 +1,4 @@
-This is the same as TeX, except that it accepts only valid UTF-8 input.
+This is the same as TeX, except that it accepts only valid UTF-8 input (TODO: add checking if invalid input is read).
 
 Change-files are nimilar to Knuth's changes for SPARC.
 
