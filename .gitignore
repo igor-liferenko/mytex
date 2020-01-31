@@ -2,5 +2,8 @@ initex
 mkpool
 tex.pool
 virtex
-mytex.fmt
+myplain.fmt
+myplain.log
+lhplain.fmt
+lhplain.log
 .build/

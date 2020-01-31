@@ -49,6 +49,12 @@ const int save_size = 1200; // Space for saving values outside of current group;
 @z
 
 @x
+const int trie_size = 8000; // Space for hyphenation patterns; should be larger for INITEX than it is in production
+@y
+const int trie_size = 14000; // Space for hyphenation patterns; should be larger for INITEX than it is in production
+@z
+
+@x
 const int dvi_buf_size = 800; // size of the output buffer; must be a multiple of 8
 const int file_name_size = 40; // File names shouldn't be longer than this
 const char pool_name[file_name_size+1] = "tex.pool"; // String of file_name_size; tells where the string pool appears
