@@ -3,9 +3,9 @@ This is the same as TeX, except that it accepts only valid UTF-8 input.
 Change-files are nimilar to Knuth's changes for SPARC.
 
 Multiple languages may be adopted as explained here: https://www.tug.org/TUGboat/tb19-4/tb61olsa.pdf
-  (you will need to set \lccode etc and font each time you switch to different language)
+  (create e.g. \uordcode and use it (also set \lccode etc and font) each time you switch to different language)
 
-export MYTEXFONTS=/usr/share/texlive/texmf-dist/fonts/tfm/public/knuth-lib:/usr/share/texlive/texmf-dist/fonts/tfm/public/cm
+export MYTEXFONTS=/usr/share/texlive/texmf-dist/fonts/tfm/public/knuth-lib:/usr/share/texlive/texmf-dist/fonts/tfm/public/cm:/usr/local/share/texmf/fonts/tfm/lh/lh-lcy
 export MYTEXINPUTS=.:/usr/share/texlive/texmf-dist/tex/plain/base:/usr/share/texlive/texmf-dist/tex/generic/hyphen:/usr/share/texlive/texmf-dist/tex/plain/knuth-lib
 export MYTEXPOOL=/home/user/mytex
 export MYTEXFORMATS=/home/user/mytex

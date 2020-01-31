@@ -779,8 +779,7 @@ bool get_strings_started()
 
 	#pragma region <Make the first 256 strings 48>
 	for (k = 0; k <= 255; k++) {
-		if ( k < TEX_STRING(" ") || 
-			 k > TEX_STRING("~")) {
+		if ( k < TEX_STRING(" ") || k == 127 ) {
 			append_char(TEX_STRING("^")); 
 			append_char(TEX_STRING("^"));
 			if (k < 0100)
@@ -3187,7 +3186,10 @@ bool input_ln(FILE *fp, bool bypass_eoln)
 		if (buffer[last - 1] != TEX_STRING(" "))
 			last_nonblank = last;
 	}
-	if (c == WEOF && !feof(fp)) assert(0 == 1);
+	if (c == WEOF && !feof(fp)) {
+          fwprintf(stderr, L"Input is not valid UTF-8\n");
+          assert(0 == 1);
+        }
 	last = last_nonblank;
 	return true;
 }

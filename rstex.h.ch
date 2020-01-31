@@ -17,6 +17,12 @@ const int mem_max = 500000; // Greatest index in rsTeX's internal mem array; mus
 @z
 
 @x
+const int buf_size = 500; // Maximum number of characters simultaneously present in current lines of open files
+@y
+const int buf_size = 3000; // Maximum number of characters simultaneously present in current lines of open files
+@z
+
+@x
 const int stack_size = 200; // Maximum number of simultaneous input sources
 const int max_in_open = 6; // Maximum number of input files and error insertions that can be going on simultaneously
 const int font_max = 75; // Maximum internal font number; must not exceed max_quarterword and must be at most font_base + 256

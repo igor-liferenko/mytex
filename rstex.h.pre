@@ -121,10 +121,13 @@ unsigned char xord(wchar_t wc) // Specifies conversion of input characters
   if (wc <= 127) return (unsigned char) wc;
 
   int z;
-  for (z = 0x00; z <= 0xff; z++)
+  for (z = 0x80; z <= 0xff; z++)
     if (xchr[z] == wc)
       break;
-  if (z == 256) assert(0 == 1);
+  if (z == 256) {
+    fwprintf(stderr, L"Character not in map: %lc\n", wc);
+    assert(0 == 1);
+  }
   return (unsigned char) z;
 }
 
