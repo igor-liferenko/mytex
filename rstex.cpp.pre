@@ -39,6 +39,7 @@ bool myodd(int c)
 // 21,23,24
 void setup_char_arrays()
 {
+/*
 	for (int i = 0; i < 32; i++)
 		xchr[i] = L' ';
 
@@ -64,6 +65,7 @@ void setup_char_arrays()
 	xchr[112] = L'p'; xchr[113] = L'q'; xchr[114] = L'r'; xchr[115] = L's'; xchr[116] = L't';
 	xchr[117] = L'u'; xchr[118] = L'v'; xchr[119] = L'w'; xchr[120] = L'x'; xchr[121] = L'y';
 	xchr[122] = L'z'; xchr[123] = L'{'; xchr[124] = L'|'; xchr[125] = L'}'; xchr[126] = L'~';
+*/
 }
 
 // 34
