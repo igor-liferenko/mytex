@@ -10,8 +10,10 @@ This is the unix specific version of rstex.
 @z
 
 @x
+	for (int i = 127; i < 256; i++)
 		xchr[i] = L' ';
 @y
+	for (int i = 127; i < 256; i++)
 		xchr[i] = L' ';
   xchr[0x80] = L'А';
   xchr[0xa0] = L'а';
