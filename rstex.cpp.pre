@@ -23,7 +23,7 @@ int myabs(int x)
 {
 	// overflow check
 	if (x == INT_MIN && -(INT_MIN + 1) == INT_MAX) {
-		printf("Overflow myabs.\n");
+		wprintf(L"Overflow myabs.\n");
 		exit(1);
 	}
 	///////////////////////
@@ -40,42 +40,30 @@ bool myodd(int c)
 void setup_char_arrays()
 {
 	for (int i = 0; i < 32; i++)
-		xchr[i] = i;
+		xchr[i] = L' ';
 
 	for (int i = 127; i < 256; i++)
-		xchr[i] = ' ';
+		xchr[i] = L' ';
 
-	xchr[32] = ' '; xchr[33] = '!'; xchr[34] = '\"'; xchr[35] = '#'; xchr[36] = '$';
-	xchr[37] = '%'; xchr[38] = '&'; xchr[39] = '\''; xchr[40] = '('; xchr[41] = ')';
-	xchr[42] = '*'; xchr[43] = '+'; xchr[44] = ','; xchr[45] = '-'; xchr[46] = '.';
-	xchr[47] = '/'; xchr[48] = '0'; xchr[49] = '1'; xchr[50] = '2'; xchr[51] = '3';
-	xchr[52] = '4'; xchr[53] = '5'; xchr[54] = '6'; xchr[55] = '7'; xchr[56] = '8';
-	xchr[57] = '9'; xchr[58] = ':'; xchr[59] = ';'; xchr[60] = '<'; xchr[61] = '=';
-	xchr[62] = '>'; xchr[63] = '?'; xchr[64] = '@'; xchr[65] = 'A'; xchr[66] = 'B';
-	xchr[67] = 'C'; xchr[68] = 'D'; xchr[69] = 'E'; xchr[70] = 'F'; xchr[71] = 'G';
-	xchr[72] = 'H'; xchr[73] = 'I'; xchr[74] = 'J'; xchr[75] = 'K'; xchr[76] = 'L';
-	xchr[77] = 'M'; xchr[78] = 'N'; xchr[79] = 'O'; xchr[80] = 'P'; xchr[81] = 'Q';
-	xchr[82] = 'R'; xchr[83] = 'S'; xchr[84] = 'T'; xchr[85] = 'U'; xchr[86] = 'V';
-	xchr[87] = 'W'; xchr[88] = 'X'; xchr[89] = 'Y'; xchr[90] = 'Z'; xchr[91] = '[';
-	xchr[92] = '\\'; xchr[93] = ']'; xchr[94] = '^'; xchr[95] = '_'; xchr[96] = '`';
-	xchr[97] = 'a'; xchr[98] = 'b'; xchr[99] = 'c'; xchr[100] = 'd'; xchr[101] = 'e';
-	xchr[102] = 'f'; xchr[103] = 'g'; xchr[104] = 'h'; xchr[105] = 'i'; xchr[106] = 'j';
-	xchr[107] = 'k'; xchr[108] = 'l'; xchr[109] = 'm'; xchr[110] = 'n'; xchr[111] = 'o';
-	xchr[112] = 'p'; xchr[113] = 'q'; xchr[114] = 'r'; xchr[115] = 's'; xchr[116] = 't';
-	xchr[117] = 'u'; xchr[118] = 'v'; xchr[119] = 'w'; xchr[120] = 'x'; xchr[121] = 'y';
-	xchr[122] = 'z'; xchr[123] = '{'; xchr[124] = '|'; xchr[125] = '}'; xchr[126] = '~';
-	
-	for (int i = 0; i < 256; i++) {
-		xord[i] = 127;
-	}
-	for (int i = 128; i < 256; i++) {
-		int ind = xchr[i];
-		xord[ind] = i;
-	}
-	for (int i = 0; i < 127; i++) {
-		int ind = xchr[i];
-		xord[ind] = i;
-	}
+	xchr[32] = L' '; xchr[33] = L'!'; xchr[34] = L'\"'; xchr[35] = L'#'; xchr[36] = L'$';
+	xchr[37] = L'%'; xchr[38] = L'&'; xchr[39] = L'\''; xchr[40] = L'('; xchr[41] = L')';
+	xchr[42] = L'*'; xchr[43] = L'+'; xchr[44] = L','; xchr[45] = L'-'; xchr[46] = L'.';
+	xchr[47] = L'/'; xchr[48] = L'0'; xchr[49] = L'1'; xchr[50] = L'2'; xchr[51] = L'3';
+	xchr[52] = L'4'; xchr[53] = L'5'; xchr[54] = L'6'; xchr[55] = L'7'; xchr[56] = L'8';
+	xchr[57] = L'9'; xchr[58] = L':'; xchr[59] = L';'; xchr[60] = L'<'; xchr[61] = L'=';
+	xchr[62] = L'>'; xchr[63] = L'?'; xchr[64] = L'@'; xchr[65] = L'A'; xchr[66] = L'B';
+	xchr[67] = L'C'; xchr[68] = L'D'; xchr[69] = L'E'; xchr[70] = L'F'; xchr[71] = L'G';
+	xchr[72] = L'H'; xchr[73] = L'I'; xchr[74] = L'J'; xchr[75] = L'K'; xchr[76] = L'L';
+	xchr[77] = L'M'; xchr[78] = L'N'; xchr[79] = L'O'; xchr[80] = L'P'; xchr[81] = L'Q';
+	xchr[82] = L'R'; xchr[83] = L'S'; xchr[84] = L'T'; xchr[85] = L'U'; xchr[86] = L'V';
+	xchr[87] = L'W'; xchr[88] = L'X'; xchr[89] = L'Y'; xchr[90] = L'Z'; xchr[91] = L'[';
+	xchr[92] = L'\\'; xchr[93] = L']'; xchr[94] = L'^'; xchr[95] = L'_'; xchr[96] = L'`';
+	xchr[97] = L'a'; xchr[98] = L'b'; xchr[99] = L'c'; xchr[100] = L'd'; xchr[101] = L'e';
+	xchr[102] = L'f'; xchr[103] = L'g'; xchr[104] = L'h'; xchr[105] = L'i'; xchr[106] = L'j';
+	xchr[107] = L'k'; xchr[108] = L'l'; xchr[109] = L'm'; xchr[110] = L'n'; xchr[111] = L'o';
+	xchr[112] = L'p'; xchr[113] = L'q'; xchr[114] = L'r'; xchr[115] = L's'; xchr[116] = L't';
+	xchr[117] = L'u'; xchr[118] = L'v'; xchr[119] = L'w'; xchr[120] = L'x'; xchr[121] = L'y';
+	xchr[122] = L'z'; xchr[123] = L'{'; xchr[124] = L'|'; xchr[125] = L'}'; xchr[126] = L'~';
 }
 
 // 34
@@ -167,7 +155,7 @@ void print_char(ASCII_code s)
 			break;
 
 		default:
-			fputc(xchr[s], write_file[selector]);
+			fputwc(xchr[s], write_file[selector]);
 			break;
 	}
 	incr(tally);
@@ -283,7 +271,7 @@ void print_ln()
 			//do_nothing:
 			break;
 		default:
-			fputc('\n', write_file[selector]);
+			fputwc(L'\n', write_file[selector]);
 			break;
 
 	}
@@ -825,9 +813,9 @@ bool get_strings_started()
 					a = 0;
 					k = 1;
 					while (1) {
-						if (xord[n] < '0' || xord[n] > '9')
+						if (n < '0' || n > '9')
 							bad_pool("! tex.pool check sum doesn\'t have nine digits.", true);
-						a = 10 * a + xord[n] - '0';
+						a = 10 * a + xord(n) - '0';
 						if (k == 9) goto done;
 						k++;
 						n = fgetc(pool_file);
@@ -839,9 +827,9 @@ bool get_strings_started()
 				}
 					#pragma endregion
 				else {
-					if (xord[m] < TEX_STRING("0") || xord[m]> TEX_STRING("9") || xord[n] < TEX_STRING("0") || xord[n] > TEX_STRING("9"))
+					if (m < TEX_STRING("0") || m> TEX_STRING("9") || n < TEX_STRING("0") || n > TEX_STRING("9"))
 						bad_pool("! tex.pool line does not begin with two digits.", true);
-					l = xord[m] * 10 + xord[n] - TEX_STRING("0") * 11;
+					l = m * 10 + n - TEX_STRING("0") * 11;
 					if (pool_ptr + l + string_vacancies > pool_size)
 						bad_pool("! You have to increase POOLSIZE.", true);
 					for (k = 1; k <= l; k++) {
@@ -850,7 +838,7 @@ bool get_strings_started()
 							m = ' ';
 						else
 							m = ch;
-						append_char(xord[m]);
+						append_char(m);
 					}
 					fgetc(pool_file); // read and discard new line
 					make_string();
@@ -2646,7 +2634,7 @@ void show_node_list(int p)
 							// Check for overflow
 							float ftemp = round(unity*g);
 							if(ftemp > 2147483583 || ftemp < -2147483583) {
-								printf("Overflow in 186.\n");
+								wprintf(L"Overflow in 186.\n");
 								exit(1);
 							}
 							/////////////////////////
@@ -3168,20 +3156,21 @@ bool input_ln(FILE *fp, bool bypass_eoln)
 	last = first;
 
 	last_nonblank = first;
-	int c;
-	c = fgetc(fp);
-	if (c == EOF)
+	wchar_t c;
+	c = fgetwc(fp);
+	if (c == WEOF)
 		return false;
 	else
-		ungetc(c, fp);
-	while ((c = fgetc(fp)) != '\n' && c != EOF) {
+		ungetwc(c, fp);
+	while ((c = fgetwc(fp)) != L'\n' && c != WEOF) {
 		if (last >= max_buf_stack) {
 			max_buf_stack = last + 1;
 			if (max_buf_stack == buf_size) 
 				#pragma region <Report overflow of the input buffer, and abort 35>
 			{
 				if (format_ident == 0) {
-					puts("Buffer size exceeded!");
+					fputws(L"Buffer size exceeded!", stdout);
+					fputwc(L'\n', stdout);
 					do_final_end();
 				}
 				else {
@@ -3192,10 +3181,11 @@ bool input_ln(FILE *fp, bool bypass_eoln)
 			}
 				#pragma endregion
 		}
-		buffer[last] = xord[c]; incr(last);		
+		buffer[last] = xord(c); incr(last);		
 		if (buffer[last - 1] != TEX_STRING(" "))
 			last_nonblank = last;
 	}
+	if (c == WEOF && !feof(fp)) assert(0 == 1);
 	last = last_nonblank;
 	return true;
 }
@@ -3320,11 +3310,11 @@ bool init_terminal(int argc, char **argv)
 			while (k > 0 && argv[i][k] == ' ')
 				decr(k);
 			while (j <= k) {
-				buffer[last] = xord[argv[i][j]];
+				buffer[last] = argv[i][j];
 				incr(j); incr(last);
 			}
 			if(k > 0) {
-				buffer[last] = xord[' '];
+				buffer[last] = ' ';
 				incr(last);
 			}
 		}
@@ -3340,10 +3330,10 @@ bool init_terminal(int argc, char **argv)
 	
 	
 	while (1) {
-		fputs("**", term_out);
+		fputws(L"**", term_out);
 		if (!input_ln(term_in, true)) {
-			fputc('\n', term_out);
-			fputs("! End of file on terminal... why?", term_out);
+			fputwc(L'\n', term_out);
+			fputws(L"! End of file on terminal... why?", term_out);
 			return false;
 		}
 		loc = first;
@@ -3351,7 +3341,7 @@ bool init_terminal(int argc, char **argv)
 			incr(loc);
 		if (loc < last)
 			return true;
-		fputs("Please type the name of your input file.\n", term_out);
+		fputws(L"Please type the name of your input file.\n", term_out);
 	}
 }
 
@@ -3385,10 +3375,10 @@ void pack_buffered_name(small_number n, int a, int b)
 	if (n + b - a + 1 + format_ext_length > file_name_size)
 		b = a + file_name_size - n - 1 - format_ext_length;
 	k = 0;
-	for (j = 1; j <= n; j++) append_to_name(xord[TEX_format_default[j]]);
+	for (j = 1; j <= n; j++) append_to_name(TEX_format_default[j]);
 	for (j = a; j <= b; j++) append_to_name(buffer[j]);
 	for (j = format_default_length - format_ext_length + 1; j <= format_default_length; j++)
-		append_to_name(xord[TEX_format_default[j]]);
+		append_to_name(TEX_format_default[j]);
 	if (k <= file_name_size) name_length = k;
 	else name_length = file_name_size;
 
@@ -3412,13 +3402,13 @@ bool open_fmt_file()
 		if (w_open_in(&fmt_file)) goto found;
 		pack_buffered_name(format_area_length, loc, j - 1);
 		if (w_open_in(&fmt_file)) goto found;
-		wake_up_terminal(); wterm_ln_s("Sorry, I can't find that format; will try PLAIN.");
+		wake_up_terminal(); wterm_ln_s(L"Sorry, I can't find that format; will try PLAIN.");
 		update_terminal();
 	}
 	pack_buffered_name(format_default_length - format_ext_length, 1, 0);
 	if (!w_open_in(&fmt_file)) {
 		wake_up_terminal();
-		wterm_ln_s("I can't find the PLAIN format file!");
+		wterm_ln_s(L"I can't find the PLAIN format file!");
 		return false;
 	}
 found:
@@ -5386,7 +5376,7 @@ void fin_align()
 								// Check for overflow
 								float ftemp = round(_float(glue_set(p)) * stretch(v));
 								if(ftemp > 2147483583 || ftemp < -2147483583) {
-									printf("Overflow in 809.\n");
+									wprintf(L"Overflow in 809.\n");
 									exit(1);
 								}
 								/////////////////////////
@@ -5400,7 +5390,7 @@ void fin_align()
 								// Check for overflow
 								float ftemp = round(_float(glue_set(p)) * shrink(v));
 								if(ftemp > 2147483583 || ftemp < -2147483583) {
-									printf("Overflow in 809.\n");
+									wprintf(L"Overflow in 809.\n");
 									exit(1);
 								}
 								/////////////////////////
@@ -6208,7 +6198,7 @@ void open_log_file()
 	unsigned int old_setting;
 	int k;
 	int l;
-	char months[37]; // 1..36
+	wchar_t months[37]; // 1..36
 	old_setting = selector;
 	if (job_name == 0) job_name = TEX_STRING("texput");
 	pack_job_name(TEX_STRING(".log"));
@@ -6228,7 +6218,7 @@ void open_log_file()
 	#pragma region <Print the banner line, including the date and time 536>
 	wlog_s(banner); slow_print(format_ident); print(TEX_STRING("  "));
 	print_int(day); print_char(TEX_STRING(" "));
-	strcpy(months, "JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
+	wcscpy(months, L"JANFEBMARAPRMAYJUNJULAUGSEPOCTNOVDEC");
 	months[36] = 0;
 	for (k = 3 * month - 2; k <= 3 * month; k++) wlog_c(months[k-1]);
 	print_char(TEX_STRING(" "));
@@ -6255,7 +6245,7 @@ str_number make_name_string()
 	if (pool_ptr + name_length > pool_size || str_ptr == max_strings || cur_length > 0)
 		return TEX_STRING("?");
 	else {
-		for (k = 1; k <= name_length; k++) append_char(xord[name_of_file[k]]);
+		for (k = 1; k <= name_length; k++) append_char(name_of_file[k]);
 		return make_string();
 	}
 }
@@ -7150,7 +7140,7 @@ void scan_dimen(bool mu, bool inf, bool shortcut)
 					
 					// overflow check
 					if (info(p) > 255) {
-						printf("overflow in 452\n");
+						wprintf(L"overflow in 452\n");
 						exit(1);
 					}
 					//////////////////
@@ -8988,7 +8978,7 @@ internal_font_number read_font_info(pointer u, str_number nom, str_number aire, 
 
 	// overflow check
 	if (bc < 0 || bc > 255 || ec < 0 || ec > 255) {
-		printf("overflow in 576\n");
+		wprintf(L"overflow in 576\n");
 		exit(1);
 	}
 	/////////////////
@@ -10447,66 +10437,63 @@ void close_files_and_terminate()
 	if (tracing_stats > 0)
 		#pragma region <Output statistics about this job 1334>
 		if (log_opened) {
-			wlog_ln_s(" "); wlog_ln_s("Here is how much of TeX\'s memory you used:");
+			wlog_ln_s(L" "); wlog_ln_s(L"Here is how much of TeX\'s memory you used:");
 			{
-				std::stringstream oss;
-				oss << " " << str_ptr - init_str_ptr << " string";
-				wlog_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" %d string", str_ptr - init_str_ptr);
+				wlog_s(oss);
 				if (str_ptr != init_str_ptr + 1) {
-					wlog_s("s");
+					wlog_s(L"s");
 				}
 			}
 			{
-				std::stringstream oss;
-				oss << " out of " << max_strings - init_str_ptr;
-				wlog_ln_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" out of %d", max_strings - init_str_ptr);
+				wlog_ln_s(oss);
 			}
 			{
-				std::stringstream oss;
-				oss << " " << pool_ptr - init_pool_ptr << " string characters out of " << pool_size - init_pool_ptr;
-				wlog_ln_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" %d string characters out of %d", pool_ptr - init_pool_ptr, pool_size - init_pool_ptr);
+				wlog_ln_s(oss);
 			}
 			{
-				std::stringstream oss;
-				oss << " " << lo_mem_max - mem_min + mem_end - hi_mem_min + 2 << " words of memory out of ";
-				oss << mem_end + 1 - mem_min;
-				wlog_ln_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" %d words of memory out of %d", lo_mem_max - mem_min + mem_end - hi_mem_min + 2, mem_end + 1 - mem_min);
+				wlog_ln_s(oss);
 			}
 			{
-				std::stringstream oss;
-				oss << " " << cs_count << " multiletter control sequences out of " << hash_size;
-				wlog_ln_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" %d multiletter control sequences out of %d", cs_count, hash_size);
+				wlog_ln_s(oss);
 			}
 			{
-				std::stringstream oss;
-				oss << " " << fmem_ptr << " words of font info for " << font_ptr - font_base << " font";
-				wlog_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" %d words of font info for %d font", fmem_ptr, font_ptr - font_base);
+				wlog_s(oss);
 			}
 			if (font_ptr != font_base + 1)
-				wlog_s("s");
+				wlog_s(L"s");
 			{
-				std::stringstream oss;
-				oss << ", out of " << font_mem_size << " for " << font_max - font_base;
-				wlog_ln_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L", out of %d for %d", font_mem_size, font_max - font_base);
+				wlog_ln_s(oss);
 			}
 			{
-				std::stringstream oss;
-				oss << " " << hyph_count << " hyphenation exception";
-				wlog_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" %d hyphenation exception", hyph_count);
+				wlog_s(oss);
 			}
 			if (hyph_count != 1)
-				wlog_s("s");
+				wlog_s(L"s");
 			{
-				std::stringstream oss;
-				oss << " out of " << hyph_size;
-				wlog_ln_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" out of %d", hyph_size);
+				wlog_ln_s(oss);
 			}
 			{
-				std::stringstream oss;
-				oss << " " << max_in_stack << "i," << max_nest_stack << "n," << max_param_stack << "p," <<
-					max_buf_stack + 1 << "b," << max_save_stack + 6 << "s stack positions out of " <<
-					stack_size << "i," << nest_size << "n," << param_size << "p," << buf_size << "b," << save_size << "s";
-				wlog_ln_s(oss.str().c_str());
+				wchar_t oss[10000];
+				swprintf(oss, 10000, L" %di,%dn,%dp,%db,%ds stack positions out of %di,%dn,%dp,%db,%ds", max_in_stack, max_nest_stack, max_param_stack, max_buf_stack + 1, max_save_stack + 6, stack_size, nest_size, param_size, buf_size, save_size);
+				wlog_ln_s(oss);
 			}
 		}
 		#pragma endregion
@@ -11139,7 +11126,7 @@ void new_interaction()
 	
 	// Overflow check
 	if (cur_chr > 255) {
-		printf("overflow in 1265\n");
+		wprintf(L"overflow in 1265\n");
 		exit(1);
 	}
 	///////////////////
@@ -12444,7 +12431,7 @@ void append_kern()
 	
 	// overflow check
 	if (cur_chr > 255) {
-		printf("Overflow assignment append_kern\n");
+		wprintf(L"Overflow assignment append_kern\n");
 		exit(1);
 	}
 	//--------
@@ -12772,7 +12759,7 @@ void open_or_close_in()
 	
 	// overflow check
 	if (cur_chr > 255) {
-		printf("Overflow assignment open_or_close_in\n");
+		wprintf(L"Overflow assignment open_or_close_in\n");
 		exit(1);
 	}
 	// ----
@@ -12800,7 +12787,7 @@ void issue_message()
 
 	// overflow check
 	if (cur_chr > 255) {
-		printf("Overflow assignment issue_message\n");
+		wprintf(L"Overflow assignment issue_message\n");
 		exit(1);
 	}
 	//////////////////
@@ -13013,7 +13000,7 @@ void math_limit_switch()
 {
 	// overflow check
 	if (cur_chr > 255) {
-		printf("Overflow assignment math_limit_switch\n");
+		wprintf(L"Overflow assignment math_limit_switch\n");
 		exit(1);
 	}
 	////////////////
@@ -13332,8 +13319,8 @@ bool load_fmt_file()
 	#pragma endregion
 
 	#pragma region <Undump the string pool 1310>
-	undump_size(0, pool_size, "string pool size", pool_ptr);
-	undump_size(0, max_strings, "max strings", str_ptr);
+	undump_size(0, pool_size, L"string pool size", pool_ptr);
+	undump_size(0, max_strings, L"max strings", str_ptr);
 	for (k = 0; k <= str_ptr; k++)
 		undump(0, pool_ptr, str_start[k]);
 	k = 0;
@@ -13397,9 +13384,9 @@ bool load_fmt_file()
 	#pragma endregion
 
 	#pragma region <Undump the font information 1321>
-	undump_size(7, font_mem_size, "font mem size", fmem_ptr);
+	undump_size(7, font_mem_size, L"font mem size", fmem_ptr);
 	for (k = 0; k <= fmem_ptr - 1; k++) undump_wd(&font_info[k]);
-	undump_size(font_base, font_max, "font max", font_ptr);
+	undump_size(font_base, font_max, L"font max", font_ptr);
 	for (k = null_font; k <= font_ptr; k++)
 		#pragma region <Undump the array info for internal font number k 1323>
 	{
@@ -13427,7 +13414,7 @@ bool load_fmt_file()
 		undump(0, hyph_size, j); undump(0, str_ptr, hyph_word[j]);
 		undump(min_halfword, max_halfword, hyph_list[j]);
 	}
-	undump_size(0, trie_size, "trie size", j);
+	undump_size(0, trie_size, L"trie size", j);
 	//init
 #ifndef NO_INIT
 	trie_max = j;
@@ -13435,7 +13422,7 @@ bool load_fmt_file()
 	//tini
 
 	for (k = 0; k <= j; k++) undump_hh(&trie[k]);
-	undump_size(0, trie_op_size, "trie op size", j);
+	undump_size(0, trie_op_size, L"trie op size", j);
 	//init
 #ifndef NO_INIT
 	trie_op_ptr = j;
@@ -13481,7 +13468,7 @@ bool load_fmt_file()
 	return true;
 
 bad_fmt:
-	wake_up_terminal(); wterm_ln_s("(Fatal format file error; I'm stymied)");
+	wake_up_terminal(); wterm_ln_s(L"(Fatal format file error; I'm stymied)");
 	return false;
 }
 
@@ -13925,7 +13912,7 @@ bool fin_col()
 
 			//overflow check
 			if (n > 255) {
-				printf("overflow assignment fin_col 796\n");
+				wprintf(L"overflow assignment fin_col 796\n");
 				exit(1);
 			}
 			//--------------------------
@@ -14338,7 +14325,7 @@ reswitch:
 	case mmode+math_comp:
 		// overflow check
 		if (cur_chr > 255) {
-			printf("Overflow assignment 1158\n");
+			wprintf(L"Overflow assignment 1158\n");
 			exit(1);
 		}
 		//////////////////
@@ -14499,7 +14486,7 @@ main_loop:
 	
 	// overflow check
 	if (cur_l > 255) {
-		printf("Overflow assignment 1034\n");
+		wprintf(L"Overflow assignment 1034\n");
 		exit(1);
 	}
 	///////////////
@@ -14533,7 +14520,7 @@ main_loop_move_plus2:
 	
 		// Overflow check
 		if (cur_chr > 255) {
-			printf("overflow char_warning1 1036\n");
+			wprintf(L"overflow char_warning1 1036\n");
 			exit(1);
 		}
 		//////////////
@@ -14545,7 +14532,7 @@ main_loop_move_plus2:
 	
 		// Overflow check
 		if (cur_chr > 255) {
-			printf("overflow char_warning2 1036\n");
+			wprintf(L"overflow char_warning2 1036\n");
 			exit(1);
 		}
 		////////////////
@@ -14576,7 +14563,7 @@ main_loop_lookahead_plus1:
 
 	// overflow check
 	if (cur_r > 255) {
-		printf("Overflow assignment 1038\n");
+		wprintf(L"Overflow assignment 1038\n");
 		exit(1);
 	}
 	////////////////
@@ -15132,7 +15119,7 @@ void make_accent()
 		if (cur_cmd == letter || cur_cmd == other_char || cur_cmd == char_given) {
 			// overflow check
 			if (cur_chr > 255) {
-				printf("Overflow assignment make_accent\n");
+				wprintf(L"Overflow assignment make_accent\n");
 				exit(1);
 			}
 			//////////////
@@ -15156,7 +15143,7 @@ void make_accent()
 			// Check for overflow
 			float ftemp = round((w - a) / 2.0f + h * t - x * s);
 			if(ftemp > 2147483583 || ftemp < -2147483583) {
-				printf("Overflow in 1125.\n");
+				wprintf(L"Overflow in 1125.\n");
 				exit(1);
 			}
 			/////////////////////////
@@ -16003,7 +15990,7 @@ mycontinue:
 
 									// overflow check
 									if (qi(hu[j + 1]) > 255) {
-										printf("overflow assignment2 911\n");
+										wprintf(L"overflow assignment2 911\n");
 										exit(1);
 									}
 									/////////////
@@ -16029,7 +16016,7 @@ mycontinue:
 							else {
 								// overflow check
 								if (cur_r > 255) {
-									printf("Overflow assignment4 911\n");
+									wprintf(L"Overflow assignment4 911\n");
 									exit(1);
 								}
 								/////////////
@@ -17229,6 +17216,7 @@ void store_fmt_file()
 
 int main(int argc, char **argv)
 {
+  setlocale(LC_CTYPE, "C.UTF-8");
 	// 1332
 	history = fatal_error_stop;
 	// t_open_out open the terminal for ouput
@@ -17277,7 +17265,7 @@ int main(int argc, char **argv)
 	#pragma endregion
 
 	if (bad > 0) {
-		fprintf(term_out, "Ouch---my internal constants have been clobbered!\n---case %d\n", bad);
+		fwprintf(term_out, L"Ouch---my internal constants have been clobbered!\n---case %d\n", bad);
 		goto final_end;
 	}
 	initialize();
@@ -17299,7 +17287,7 @@ start_of_TEX:
 
 	// 61
 	wterm_s(banner);
-	if (format_ident == 0) wterm_ln_s(" (no format preloaded)");
+	if (format_ident == 0) wterm_ln_s(L" (no format preloaded)");
 	else {
 		slow_print(format_ident);
 		print_ln();

@@ -5,9 +5,9 @@ This is the unix specific version of rstex.
 @z
 
 @x
-#define banner "This is rsTeX, Version 1.1.6" // printed when rsTeX starts
+#define banner L"This is rsTeX, Version 1.1.6" // printed when rsTeX starts
 @y
-#define banner "This is rsTeX, Version 1.1.7 for Unix" // printed when rsTeX starts
+#define banner L"This is rsTeX, Version 1.1.7 for Unix" // printed when rsTeX starts
 @z
 
 @x

@@ -30,7 +30,7 @@ struct Array
 };
 
 // 2
-#define banner "This is rsTeX, Version 1.1.6" // printed when rsTeX starts
+#define banner L"This is rsTeX, Version 1.1.6" // printed when rsTeX starts
 
 // 36
 #define loc cur_input.loc_field // location of first unread character in buffer
@@ -83,8 +83,18 @@ const int first_text_char = 0; // Ordinal number of the smallest element of text
 const int last_text_char = 255; // Ordinal number of the largest element of text_char
 
 // 20
-Array<ASCII_code, 0, 255> xord; // Specifies conversion of input characters
-Array<text_char, 0, 255> xchr; // Specifies conversion of output characters
+Array<wchar_t, 0, 255> xchr; // Specifies conversion of output characters
+unsigned char xord(wchar_t wc) // Specifies conversion of input characters
+{
+  if (wc <= 127) return (unsigned char) wc;
+
+  int z;
+  for (z = 0x00; z <= 0xff; z++)
+    if (xchr[z] == wc)
+      break;
+  if (z == 256) assert(0 == 1);
+  return (unsigned char) z;
+}
 
 // 38
 #define so(s) s // convert from ASCII_code to packed_ASCII_code
@@ -135,25 +145,25 @@ int trick_count; // threshold for pseudoprinting
 int first_count; // another variable for pseudoprinting
 
 // 56
-#define wterm_s(s) fputs(s, term_out)
-#define wterm_c(s) fputc(s, term_out)
-#define wterm_ln_s(s) do {fputs(s, term_out);fputc('\n',term_out);} while(0)
-#define wterm_cr fputc('\n',term_out)
+#define wterm_s(s) fputws(s, term_out)
+#define wterm_c(s) fputwc(s, term_out)
+#define wterm_ln_s(s) do {fputws(s, term_out);fputwc(L'\n',term_out);} while(0)
+#define wterm_cr fputwc(L'\n',term_out)
 #define wlog_s(s) do{\
-	fputs(s, log_file);\
+	fputws(s, log_file);\
 } while(0)
 
 #define wlog_c(s) do{\
-	fputc(s, log_file);\
+	fputwc(s, log_file);\
 } while(0)
 
 #define wlog_ln_s(s) do{\
-	fputs(s, log_file);\
-	fputc('\n', log_file);\
+	fputws(s, log_file);\
+	fputwc(L'\n', log_file);\
 } while (0)
 
 #define wlog_cr do{\
-	fputc('\n',log_file);\
+	fputwc(L'\n',log_file);\
 } while(0)
 
 // 16
@@ -1618,7 +1628,7 @@ bool log_opened; // has the transcript file been opened?
 	c = s;\
 	incr(k);\
 	if(k <= file_name_size)\
-		name_of_file[k] = xchr[c];\
+		name_of_file[k] = c;\
 } while(0)
 
 // 529
@@ -2611,7 +2621,7 @@ str_number format_ident;
 // 1303
 #define too_small(s) do{\
 	wake_up_terminal();\
-	wterm_s("---! Must increase the ");\
+	wterm_s(L"---! Must increase the ");\
 	wterm_ln_s(s);\
 	goto bad_fmt;\
 } while(0)

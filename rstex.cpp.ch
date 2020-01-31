@@ -10,9 +10,76 @@ This is the unix specific version of rstex.
 @z
 
 @x
-		xchr[i] = ' ';
+		xchr[i] = L' ';
 @y
-		xchr[i] = i;
+		xchr[i] = L' ';
+  xchr[0x80] = L'А';
+  xchr[0xa0] = L'а';
+  xchr[0x81] = L'Б';
+  xchr[0xa1] = L'б';
+  xchr[0x82] = L'В';
+  xchr[0xa2] = L'в';
+  xchr[0x83] = L'Г';
+  xchr[0xa3] = L'г';
+  xchr[0x84] = L'Д';
+  xchr[0xa4] = L'д';
+  xchr[0x85] = L'Е';
+  xchr[0xa5] = L'е';
+  xchr[0xf0] = L'Ё';
+  xchr[0xf1] = L'ё';
+  xchr[0x86] = L'Ж';
+  xchr[0xa6] = L'ж';
+  xchr[0x87] = L'З';
+  xchr[0xa7] = L'з';
+  xchr[0x88] = L'И';
+  xchr[0xa8] = L'и';
+  xchr[0x89] = L'Й';
+  xchr[0xa9] = L'й';
+  xchr[0x8a] = L'К';
+  xchr[0xaa] = L'к';
+  xchr[0x8b] = L'Л';
+  xchr[0xab] = L'л';
+  xchr[0x8c] = L'М';
+  xchr[0xac] = L'м';
+  xchr[0x8d] = L'Н';
+  xchr[0xad] = L'н';
+  xchr[0x8e] = L'О';
+  xchr[0xae] = L'о';
+  xchr[0x8f] = L'П';
+  xchr[0xaf] = L'п';
+  xchr[0x90] = L'Р';
+  xchr[0xe0] = L'р';
+  xchr[0x91] = L'С';
+  xchr[0xe1] = L'с';
+  xchr[0x92] = L'Т';
+  xchr[0xe2] = L'т';
+  xchr[0x93] = L'У';
+  xchr[0xe3] = L'у';
+  xchr[0x94] = L'Ф';
+  xchr[0xe4] = L'ф';
+  xchr[0x95] = L'Х';
+  xchr[0xe5] = L'х';
+  xchr[0x96] = L'Ц';
+  xchr[0xe6] = L'ц';
+  xchr[0x97] = L'Ч';
+  xchr[0xe7] = L'ч';
+  xchr[0x98] = L'Ш';
+  xchr[0xe8] = L'ш';
+  xchr[0x99] = L'Щ';
+  xchr[0xe9] = L'щ';
+  xchr[0x9a] = L'Ъ';
+  xchr[0xea] = L'ъ';
+  xchr[0x9b] = L'Ы';
+  xchr[0xeb] = L'ы';
+  xchr[0x9c] = L'Ь';
+  xchr[0xec] = L'ь';
+  xchr[0x9d] = L'Э';
+  xchr[0xed] = L'э';
+  xchr[0x9e] = L'Ю';
+  xchr[0xee] = L'ю';
+  xchr[0x9f] = L'Я';
+  xchr[0xef] = L'я';
+  xchr[0xfc] = L'№';
 @z
 
 @x
@@ -89,10 +156,10 @@ bool a_open_in(FILE **f, int path_specifier)
 @x
 		pack_buffered_name(format_area_length, loc, j - 1);
 		if (w_open_in(&fmt_file)) goto found;
-		wake_up_terminal(); wterm_ln_s("Sorry, I can't find that format; will try PLAIN.");
+		wake_up_terminal(); wterm_ln_s(L"Sorry, I can't find that format; will try PLAIN.");
 @y
 		wake_up_terminal(); 
-		wterm_ln_s("Sorry, I can't find that format; will try PLAIN.");
+		wterm_ln_s(L"Sorry, I can't find that format; will try PLAIN.");
 @z
 
 @x
@@ -123,9 +190,9 @@ bool a_open_in(FILE **f, int path_specifier)
 @z
 
 @x
-		for (k = 1; k <= name_length; k++) append_char(xord[name_of_file[k]]);
+		for (k = 1; k <= name_length; k++) append_char(name_of_file[k]);
 @y
-		for (k = 1; k <= (int)strlen(name_of_file.get_c_str()); k++) append_char(xord[name_of_file[k]]);
+		for (k = 1; k <= (int)strlen(name_of_file.get_c_str()); k++) append_char(name_of_file[k]);
 @z
 
 @x
@@ -183,7 +250,7 @@ void call_edit(packed_ASCII_code *filename, int fnlength, int linenumber)
 		texeditvalue = temp;
 	
 	if (NULL == (command = (char*)malloc(strlen(texeditvalue) + fnlength + 25))) {
-		fprintf(stderr, "! Not enough memory to issue editor command\n");
+		fwprintf(stderr, L"! Not enough memory to issue editor command\n");
 		exit(1);
 	}
 	temp = command;
@@ -192,7 +259,7 @@ void call_edit(packed_ASCII_code *filename, int fnlength, int linenumber)
 			switch (c = *texeditvalue++) {
 				case 'd':
 					if(ddone) {
-						fprintf(stderr, "! Line number cannot appear twice in editor command\n");
+						fwprintf(stderr, L"! Line number cannot appear twice in editor command\n");
 						exit(1);
 					}
 					sprintf(temp, "%d", linenumber);
@@ -202,7 +269,7 @@ void call_edit(packed_ASCII_code *filename, int fnlength, int linenumber)
 					break;
 				case 's':
 					if (sdone) {
-						fprintf(stderr, "! Filename cannot appear twice in editor command\n");
+						fwprintf(stderr, L"! Filename cannot appear twice in editor command\n");
 						exit(1);
 					}
 					i = 0;
@@ -226,7 +293,7 @@ void call_edit(packed_ASCII_code *filename, int fnlength, int linenumber)
 	*temp = 0;
 	
 	if (0 != system(command))
-		fprintf(stderr, "! Trouble executing command %s\n", command);
+		fwprintf(stderr, L"! Trouble executing command %s\n", command);
 	
 	
 	exit(1);
@@ -269,7 +336,7 @@ void copypath(char *s1, char *s2, int n)
 {
 	while ((*s1++ = *s2++) != 0) {
 		if (--n == 0) {
-			fprintf(stderr, "! Environment search path is too big\n");
+			fwprintf(stderr, L"! Environment search path is too big\n");
 			*--s1 = 0;
 			return;
 		}
@@ -309,7 +376,7 @@ void pack_real_name_of_file(char **cpp)
 	
 	while (*p != 0) {
 		if (real_name >= &real_name_of_file[file_name_size]) {
-			fprintf(stderr, "! Full file name is too long\n");
+			fwprintf(stderr, L"! Full file name is too long\n");
 			break;
 		}
 		*real_name++ = *p++;
@@ -332,7 +399,7 @@ bool test_access(int filepath)
 	case format_file_path: cur_path_place = format_path; break;
 	case pool_file_path: cur_path_place = pool_path; break;
 	default:
-		fprintf(stderr, "! This should not happen, test_access\n");
+		fwprintf(stderr, L"! This should not happen, test_access\n");
 		exit(1);
 		break;
 	}
@@ -399,9 +466,9 @@ bool test_access(int filepath)
 @z
 
 @x
-		fprintf(term_out, "Ouch---my internal constants have been clobbered!\n---case %d\n", bad);
+		fwprintf(term_out, L"Ouch---my internal constants have been clobbered!\n---case %d\n", bad);
 @y
-		wterm_ln_s("Ouch---my internal constants have been clobbered");
+		wterm_ln_s(L"Ouch---my internal constants have been clobbered");
 @z
 
 @x
@@ -445,7 +512,7 @@ start_of_TEX:
 			w_close(fmt_file);
 		}
 		if (!fmt_loaded) {
-			printf("! Error loading format file %s\n", formatname);
+			wprintf(L"! Error loading format file %s\n", formatname);
 			goto final_end;
 		}
 	}

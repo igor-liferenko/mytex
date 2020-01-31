@@ -1,6 +1,8 @@
-This is the same as TeX, except that it accepts only valid UTF-8 input (TODO: add checking if invalid input is read).
+This is the same as TeX, except that it accepts only valid UTF-8 input.
 
 Change-files are nimilar to Knuth's changes for SPARC.
+
+Multiple languages may be adopted as explained here: <Olsak's article about xordcode (encTeX v1)>
 
 export MYTEXFONTS=/usr/share/texlive/texmf-dist/fonts/tfm/public/knuth-lib:/usr/share/texlive/texmf-dist/fonts/tfm/public/cm
 export MYTEXINPUTS=.:/usr/share/texlive/texmf-dist/tex/plain/base:/usr/share/texlive/texmf-dist/tex/generic/hyphen:/usr/share/texlive/texmf-dist/tex/plain/knuth-lib
