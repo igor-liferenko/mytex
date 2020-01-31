@@ -1,6 +1,6 @@
 This is the same as TeX, except that it accepts only valid UTF-8 input.
 
-Change-files are nimilar to Knuth's changes for SPARC.
+Change-files are similar to Knuth's changes for SPARC.
 
 Multiple languages may be adopted as explained here: https://www.tug.org/TUGboat/tb19-4/tb61olsa.pdf
   (create e.g. \uordcode and use it (also set \lccode etc and font) each time you switch to different language)
