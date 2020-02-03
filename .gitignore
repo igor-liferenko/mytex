@@ -6,4 +6,10 @@ myplain.fmt
 myplain.log
 lhplain.fmt
 lhplain.log
+lhplain-no-offset.ini
+lhplain-no-offset.log
+lhplain-no-offset.fmt
+myplain-no-offset.ini
+myplain-no-offset.log
+myplain-no-offset.fmt
 .build/

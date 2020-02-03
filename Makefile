@@ -8,3 +8,7 @@ all:
 	@g++ -g -o virtex -O3 -std=c++14 -Wno-unused-result -Wno-dangling-else .build/rstex.cpp -DNO_DEBUG -DNO_INIT
 	@./initex myplain.ini
 	@./initex lhplain.ini
+	@sed /hoffset/,/catcode...=12/d myplain.ini >myplain-no-offset.ini
+	@./initex myplain-no-offset.ini
+	@sed /hoffset/,/catcode...=12/d lhplain.ini >lhplain-no-offset.ini
+	@./initex lhplain-no-offset.ini
