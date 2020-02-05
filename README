@@ -12,6 +12,6 @@ export MYTEXFORMATS=/home/user/mytex
 
 /home/user/mytex/initex plain # type `\dump'
 
-/home/user/mytex/virtex -format=tex story # type `\end'
+/home/user/mytex/virtex -format=plain story # type `\end'
 
 On differences in DVI output, see this question: https://tex.stackexchange.com/questions/416376/
