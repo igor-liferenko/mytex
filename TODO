@@ -1,1 +1,1 @@
-This does not work: tex -format=lhplain \\relax привет мир \\bye
+This does not work: ./virtex -format=lhplain \\relax привет мир \\bye
