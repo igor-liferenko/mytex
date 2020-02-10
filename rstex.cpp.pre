@@ -808,7 +808,7 @@ bool get_strings_started()
 					while (1) {
 						if (n < '0' || n > '9')
 							bad_pool("! tex.pool check sum doesn\'t have nine digits.", true);
-						a = 10 * a + xord(n) - '0';
+						a = 10 * a + n - '0';
 						if (k == 9) goto done;
 						k++;
 						n = fgetc(pool_file);
