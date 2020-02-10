@@ -10,11 +10,13 @@ This is the unix specific version of rstex.
 @z
 
 @x
-	for (int i = 127; i < 256; i++)
-		xchr[i] = L' ';
+void setup_char_arrays()
+{
 @y
-	for (int i = 127; i < 256; i++)
-		xchr[i] = L' ';
+void setup_char_arrays()
+{
+  for (int i = 128; i < 256; i++)
+    xchr[i] = ' ';
   xchr[0x80] = L'А';
   xchr[0xa0] = L'а';
   xchr[0x81] = L'Б';
