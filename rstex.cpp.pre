@@ -771,7 +771,7 @@ bool get_strings_started()
 
 	#pragma region <Make the first 256 strings 48>
 	for (k = 0; k <= 255; k++) {
-		if ( k < TEX_STRING(" ") || k == 127 ) {
+		if ( k < TEX_STRING(" ") || k == 127 || xchr[k] == ' ') {
 			append_char(TEX_STRING("^")); 
 			append_char(TEX_STRING("^"));
 			if (k < 0100)

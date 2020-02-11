@@ -89,7 +89,7 @@ unsigned char xord(wchar_t wc) // Specifies conversion of input characters
   char mb[MB_CUR_MAX];
   if (wctomb(mb, wc) == 1) {
     if (*mb < 32) return 127;
-    if (*mb <= 127) return (unsigned char) *mb;
+    return (unsigned char) *mb;
   }
 
   int z;
