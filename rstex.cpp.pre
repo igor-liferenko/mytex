@@ -6247,8 +6247,8 @@ str_number make_name_string()
 	if (pool_ptr + name_length > pool_size || str_ptr == max_strings || cur_length > 0)
 		return TEX_STRING("?");
 	else {
-		for (k = 1; k <= name_length; k++) append_char(name_of_file[k]);
-		return make_string();
+//convert from UTF-8 to UCS and append_char(xord(UCS))
+	for (k = 1; k <= name_length; k++) append_char(name_of_file[k]);        		return make_string();
 	}
 }
 
