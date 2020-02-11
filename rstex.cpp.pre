@@ -3298,6 +3298,7 @@ bool init_terminal(int argc, char **argv)
 		last = first;
 		for (int i = 1; i < argc; i++) {
 			int j = 0;
+//TODO: do it by calling mbtowc() repeatedly and do not use malloc()
 			wchar_t *wcs = (wchar_t *) malloc(strlen(argv[i]) * 4 + 4);
 				/* upper bound + |L'\0'| */
 			if (wcs == NULL) {
