@@ -1630,9 +1630,13 @@ bool log_opened; // has the transcript file been opened?
 // 519
 #define append_to_name(s) do{\
 	c = s;\
-	incr(k);\
-	if(k <= file_name_size)\
-		name_of_file[k] = c;\
+        char mb[MB_CUR_MAX];\
+        int len = wctomb(mb, xchr[c]);\
+        for (int i = 0; i < len; i++) {\
+		incr(k);\
+		if(k <= file_name_size)\
+			name_of_file[k] = mb[i];\
+	}\
 } while(0)
 
 // 529
