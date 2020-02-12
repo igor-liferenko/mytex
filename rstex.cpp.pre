@@ -892,7 +892,24 @@ bool a_open_in(FILE **f)
 
 bool a_open_out(FILE **f)
 {
-	*f = fopen(name_of_file.get_c_str(), "w");
+        char *p = name_of_file.get_c_str();
+        wchar_t wcs[1000];
+        wchar_t *wptr = wcs;
+        do {
+          *wptr = xchr[(unsigned char)*p];
+          wptr++; p++;
+        } while (*p != '\0');
+        *wptr = L'\0';
+        p = (char *) malloc(wcslen(wcs) * 6 + 1); /* upper bound + |'\0'| */
+        if (p == NULL) {
+                fwprintf(stderr, L"Error allocating memory: %m\n");
+                exit(EXIT_FAILURE);
+        }
+        snprintf(p, wcslen(wcs) * 6 + 1, "%ls", wcs); /* |+1| ensures that the string
+                will not be truncated by trailing |'\0'| */
+
+	*f = fopen(p, "w");
+	free(p);
 	return *f;
 }
 
@@ -904,7 +921,24 @@ bool b_open_in(FILE **f)
 
 bool b_open_out(FILE **f)
 {
-	*f = fopen(name_of_file.get_c_str(), "wb");
+        char *p = name_of_file.get_c_str();
+        wchar_t wcs[1000];
+        wchar_t *wptr = wcs;
+        do {
+          *wptr = xchr[(unsigned char)*p];
+          wptr++; p++;
+        } while (*p != '\0');
+        *wptr = L'\0';
+        p = (char *) malloc(wcslen(wcs) * 6 + 1); /* upper bound + |'\0'| */
+        if (p == NULL) {
+                fwprintf(stderr, L"Error allocating memory: %m\n");
+                exit(EXIT_FAILURE);
+        }
+        snprintf(p, wcslen(wcs) * 6 + 1, "%ls", wcs); /* |+1| ensures that the string
+                will not be truncated by trailing |'\0'| */
+
+        *f = fopen(p, "wb");
+        free(p);
 	return *f;
 }
 
@@ -3298,7 +3332,6 @@ bool init_terminal(int argc, char **argv)
 		last = first;
 		for (int i = 1; i < argc; i++) {
 			int j = 0;
-//TODO: do it by calling mbtowc() repeatedly and do not use malloc()
 			wchar_t *wcs = (wchar_t *) malloc(strlen(argv[i]) * 4 + 4);
 				/* upper bound + |L'\0'| */
 			if (wcs == NULL) {

@@ -377,7 +377,22 @@ void pack_real_name_of_file(char **cpp)
 		*real_name++ = '/';
 	}
 	p = name_of_file.get_c_str();
+	wchar_t wcs[1000];
+	wchar_t *wptr = wcs;
+	do {
+	  *wptr = xchr[(unsigned char)*p];
+	  wptr++; p++;
+	} while (*p != '\0');
+	*wptr = L'\0';
+	p = (char *) malloc(wcslen(wcs) * 6 + 1); /* upper bound + |'\0'| */
+	if (p == NULL) {
+		fwprintf(stderr, L"Error allocating memory: %m\n");
+		exit(EXIT_FAILURE);
+	}
+	snprintf(p, wcslen(wcs) * 6 + 1, "%ls", wcs); /* |+1| ensures that the string
+		will not be truncated by trailing |'\0'| */
 	
+	char *s = p;
 	while (*p != 0) {
 		if (real_name >= &real_name_of_file[file_name_size]) {
 			fwprintf(stderr, L"! Full file name is too long\n");
@@ -386,7 +401,7 @@ void pack_real_name_of_file(char **cpp)
 		*real_name++ = *p++;
 	}
 	*real_name = 0;
-	
+	free(s);
 }
 
 bool test_access(int filepath)
