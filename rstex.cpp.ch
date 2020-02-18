@@ -16,7 +16,7 @@ void setup_char_arrays()
 void setup_char_arrays()
 {
   for (int i = 128; i < 256; i++)
-    xchr[i] = L' ';
+    xchr[i] = 0;
   xchr[0x80] = L'А';
   xchr[0xa0] = L'а';
   xchr[0x81] = L'Б';
