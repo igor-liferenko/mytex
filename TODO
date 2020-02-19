@@ -1,1 +1,0 @@
-maybe use default global array values of 0 instead of L' ' before assigning values >128 and when determining printable (but only if it will not give warnings on `==0')
