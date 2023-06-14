@@ -1,10 +1,9 @@
 #!/bin/sh
-# For checking if all necessary fonts were installed to ~/tex/TeXfonts/screen/
 export fontname=$1
-file=$2
+file=$2.dvi
 mkdir /tmp/mf.$$
 resolution=$(cd /tmp/mf.$$; ~/mf/plain "\mode=screen; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
 rm -r /tmp/mf.$$
 echo Generate these with mode=screen and copy them to TeXfonts/ and TeXfonts/screen/:
-$fontname.tfm
+echo $fontname.tfm
 ~/mytex/dvifnt/dvifnt $file /dev/null '' '' '' $resolution/1 '' || exit
