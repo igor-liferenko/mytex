@@ -1,7 +1,7 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
 export name=/tmp/name.$$
-export screen_size=$(~/rstex/screen-size)
+export screen_size=$(~/mytex/screen-size)
 ~/mf/plain "$@"
 ret=$?
 ~/tex/newline
@@ -11,7 +11,7 @@ if [ $ret = 0 ]; then
   if [ "$tfm_file" ]; then
     gf_file=`grep -s gf$ $name`
     if [ "$gf_file" ]; then
-      ~/rstex/gftopk $gf_file
+      ~/mytex/gftopk $gf_file
       ret=$?
     fi
   fi

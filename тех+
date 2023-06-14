@@ -8,7 +8,7 @@ ret=$?
 if [ $ret = 0 ]; then
   dvi_file=`cat $name 2>/dev/null`
   if [ "$dvi_file" ]; then
-    mode=screen ~/rstex/dvips $dvi_file && ~/rstex/open ${dvi_file%dvi}ps
+    mode=screen ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
   fi
 fi
 rm -f $edit

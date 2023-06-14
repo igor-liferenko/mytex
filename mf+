@@ -8,9 +8,9 @@ ret=$?
 if [ $ret = 0 ]; then
   gf_file=`grep -s gf$ $name`
   if [ "$gf_file" ]; then
-    if ~/rstex/gftodvi $gf_file; then
+    if ~/mytex/gftodvi $gf_file; then
       dvi_file=${gf_file%.*}.dvi
-      mode=localfont ~/rstex/dvips $dvi_file && ~/rstex/open ${dvi_file%dvi}ps
+      mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
     fi
   fi
 fi

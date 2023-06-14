@@ -1,4 +1,4 @@
 #!/bin/sh
 pkill -KILL -x gv
-PATH=~/rstex/bin:$PATH
+PATH=~/mytex/bin:$PATH
 gv -geometry 1302x582 $1 &
