@@ -1,6 +1,7 @@
-We cannot determine from dvips exits status if a font was not found.
-Therefore we run this program before running dvips in rstex/dvips.
+We run this program before running dvips in rstex/dvips.
 Here missing fonts are automatically generated.
+This is to avoid creating missfont.log if font generation failed
+when MakeTeXPK is used instead.
 
 @x
 @h

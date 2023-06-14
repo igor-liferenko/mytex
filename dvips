@@ -10,5 +10,4 @@ export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
 export TEXFONTS=~/tex/TeXfonts # TODO: add '-d 255' and see if tfm are read
 export PKFONTS=~/tex/TeXfonts/$mode
-export MAKETEXPK='~/mytex/MakeTeXPK %n %d %b %m'
 ~/dvips/dvips -T $p -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q "$@"
