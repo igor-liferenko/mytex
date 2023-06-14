@@ -31,7 +31,7 @@ else
     else sprintf(ff, "%s", f);
     sprintf(cmd, "cd /tmp/mf.$PPID;"
       "~/mf/plain '\\mode=%s; mag=%d+%d/1000; batchmode; input %s' </dev/null >/dev/null &&"
-      "diff *.tfm " default_directory_name "%s.tfm >/dev/null 2>&1 && ~/rstex/gftopk *.%dgf &&"
+      "diff *.tfm " default_directory_name "%s.tfm >/dev/null 2>&1 && ~/mytex/gftopk *.%dgf &&"
       "mkdir -p " default_directory_name "$mode && mv *pk " default_directory_name "$mode && rm *",
       getenv("mode"), m/1000, m%1000, ff, f, dpi);
     if (system(cmd) != 0) printf("DVIFONT: failed to make font %s\n", f), exit(1);
