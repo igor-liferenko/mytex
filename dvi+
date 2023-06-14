@@ -1,0 +1,3 @@
+#!/bin/sh
+# For viewing results of experiments in chapter 6 of TeXbook.
+mode=screen ~/rstex/dvips $1.dvi && ~/rstex/open $1.ps

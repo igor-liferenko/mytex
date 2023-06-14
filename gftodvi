@@ -1,0 +1,61 @@
+#!/bin/sh
+# to use portrait paper run: touch .portrait
+if [ -e .portrait ]; then
+  export geometry=39158276x55380990+4186205+6377204
+else
+  export geometry=55380990x39158276+6377204+4186205
+fi
+
+# for custom fonts add to z.mf: special "...";
+x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
+[ $x = cmsl10 ] && set $1 'slantfont slant16667'
+[ $x = cmti10 ] && set $1 'slantfont slant25000'
+[ $x = cmssqi8 ] && set $1 'slantfont slant21255'
+[ $x = cmff10 ] && set $1 'slantfont slant-10001'
+[ $x = cmfi10 ] && set $1 'slantfont slant10001'
+[ $x = cmbsy10 ] && set $1 'slantfont slant25000'
+[ $x = cmbxsl10 ] && set $1 'slantfont slant16667'
+[ $x = cmbxti10 ] && set $1 'slantfont slant25000'
+[ $x = cmitt10 ] && set $1 'slantfont slant25000'
+[ $x = cmmi10 ] && set $1 'slantfont slant25000'
+[ $x = cmmi12 ] && set $1 'slantfont slant25000'
+[ $x = cmmi5 ] && set $1 'slantfont slant25000'
+[ $x = cmmi6 ] && set $1 'slantfont slant25000'
+[ $x = cmmi7 ] && set $1 'slantfont slant25000'
+[ $x = cmmi8 ] && set $1 'slantfont slant25000'
+[ $x = cmmi9 ] && set $1 'slantfont slant25000'
+[ $x = cmmib10 ] && set $1 'slantfont slant25000'
+[ $x = cmsl12 ] && set $1 'slantfont slant16667'
+[ $x = cmsl8 ] && set $1 'slantfont slant16667'
+[ $x = cmsl9 ] && set $1 'slantfont slant16667'
+[ $x = cmsltt10 ] && set $1 'slantfont slant16667'
+[ $x = cmssi10 ] && set $1 'slantfont slant21255'
+[ $x = cmssi12 ] && set $1 'slantfont slant21255'
+[ $x = cmssi17 ] && set $1 'slantfont slant21255'
+[ $x = cmssi8 ] && set $1 'slantfont slant21255'
+[ $x = cmssi9 ] && set $1 'slantfont slant21255'
+[ $x = cmsy10 ] && set $1 'slantfont slant25000'
+[ $x = cmsy5 ] && set $1 'slantfont slant25000'
+[ $x = cmsy6 ] && set $1 'slantfont slant25000'
+[ $x = cmsy7 ] && set $1 'slantfont slant25000'
+[ $x = cmsy8 ] && set $1 'slantfont slant25000'
+[ $x = cmsy9 ] && set $1 'slantfont slant25000'
+[ $x = cmtex10 ] && set $1 'slantfont slant25000'
+[ $x = cmtex8 ] && set $1 'slantfont slant25000'
+[ $x = cmtex9 ] && set $1 'slantfont slant25000'
+[ $x = cmti12 ] && set $1 'slantfont slant25000'
+[ $x = cmti7 ] && set $1 'slantfont slant25000'
+[ $x = cmti8 ] && set $1 'slantfont slant25000'
+[ $x = cmti9 ] && set $1 'slantfont slant25000'
+
+~/gftodvi/gftodvi /tmp/gftodvi.$$ "$@"
+ret=$?
+if [ $ret = 0 ]; then
+  grep -q '\[' /tmp/gftodvi.$$ || ret=1 # example: mf+ '\special "rule"; end'
+  grep -o "Sorry, I can't make diagonal rules of slant.*!" /tmp/gftodvi.$$
+elif [ $ret != 2 ]; then
+  cat /tmp/gftodvi.$$
+  echo
+fi
+rm -f /tmp/gftodvi.$$
+exit $ret

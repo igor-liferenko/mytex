@@ -1,0 +1,18 @@
+#!/bin/sh
+export edit=/tmp/edit.$$
+export name=/tmp/name.$$
+~/mf/plain "$@"
+ret=$?
+~/tex/newline
+[ -e $edit ] && em `cat $edit`
+if [ $ret = 0 ]; then
+  gf_file=`grep -s gf$ $name`
+  if [ "$gf_file" ]; then
+    if ~/rstex/gftodvi $gf_file; then
+      dvi_file=${gf_file%.*}.dvi
+      mode=localfont ~/rstex/dvips $dvi_file && ~/rstex/open ${dvi_file%dvi}ps
+    fi
+  fi
+fi
+rm -f $edit
+rm -f $name

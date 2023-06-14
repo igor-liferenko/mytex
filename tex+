@@ -1,0 +1,15 @@
+#!/bin/sh
+export edit=/tmp/edit.$$
+export name=/tmp/name.$$
+~/tex/plain "$@"
+ret=$?
+~/tex/newline
+[ -e $edit ] && em `cat $edit`
+if [ $ret = 0 ]; then
+  dvi_file=`cat $name 2>/dev/null`
+  if [ "$dvi_file" ]; then
+    mode=screen ~/rstex/dvips $dvi_file && ~/rstex/open ${dvi_file%dvi}ps
+  fi
+fi
+rm -f $edit
+rm -f $name

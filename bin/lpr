@@ -1,0 +1,18 @@
+#!/bin/sh
+[ $# != 2 ] && exit 1; [ $1 != none ] && [ $1 != long ] && [ $1 != short ] && exit 1
+(
+  printf '\e%%-12345X'
+  echo @PJL JOB
+  if [ $1 = long ]; then
+    echo @PJL SET DUPLEX=ON
+  elif [ $1 = short ]; then
+    echo @PJL SET DUPLEX=ON
+    echo @PJL SET BINDING=SHORTEDGE
+  fi
+  echo @PJL SET RESOLUTION=600 # if you change this, change also pixels_per_inch
+  echo @PJL ENTER LANGUAGE=POSTSCRIPT
+  cat $2
+  printf '\e%%-12345X'
+  echo @PJL EOJ
+  printf '\e%%-12345X'
+) | ~/rstex/printer

@@ -1,0 +1,3 @@
+#!/bin/sh
+# For checking if all necessary fonts were installed to ~/tex/TeXfonts/localfont/
+mode=localfont ~/rstex/dvips -? $1.dvi

@@ -1,0 +1,4 @@
+#!/bin/sh
+pkill -KILL -x gv
+PATH=~/rstex/bin:$PATH
+gv -geometry $(~/rstex/screen-size) $1 2>/dev/null & # 2>/dev/null avoids "The X11 connection broke" error on terminal when closing with right mouse button

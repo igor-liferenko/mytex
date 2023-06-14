@@ -1,0 +1,21 @@
+#!/bin/sh
+export edit=/tmp/edit.$$
+export name=/tmp/name.$$
+export screen_size=$(~/rstex/screen-size)
+~/mf/plain "$@"
+ret=$?
+~/tex/newline
+[ -e $edit ] && em `cat $edit`
+if [ $ret = 0 ]; then
+  tfm_file=`grep -s tfm$ $name`
+  if [ "$tfm_file" ]; then
+    gf_file=`grep -s gf$ $name`
+    if [ "$gf_file" ]; then
+      ~/rstex/gftopk $gf_file
+      ret=$?
+    fi
+  fi
+fi
+rm -f $edit
+rm -f $name
+exit $ret

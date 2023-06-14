@@ -1,0 +1,13 @@
+#!/bin/sh
+unset name # metafont called below and in dvifont (this script may be called from mf+/mf-, tex+/tex-)
+mkdir /tmp/mf.$$
+resolution=$(cd /tmp/mf.$$; ~/mf/plain "\mode=$mode; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
+rm -r /tmp/mf.$$
+eval file=\${$#}
+~/rstex/dvifont/dvifont $file /dev/null '' '' '' $resolution/1 '' || exit
+eval "$(hexdump -s 15 -n `hexdump -s 14 -n 1 -e '/1 "%d"' $file` -v -e '/1 "%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
+export TEXCONFIG=~/dvips
+export DVIPSHEADERS=~/dvips
+export TEXFONTS=~/tex/TeXfonts # TODO: add '-d 255' and see if tfm are read
+export PKFONTS=~/tex/TeXfonts/$mode
+~/dvips/dvips -T $p -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q "$@"
