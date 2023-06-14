@@ -15,4 +15,4 @@
   printf '\e%%-12345X'
   echo @PJL EOJ
   printf '\e%%-12345X'
-) | ~/rstex/printer
+) | ~/mytex/printer
