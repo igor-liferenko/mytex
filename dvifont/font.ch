@@ -1,14 +1,10 @@
-We run this program before running dvips in rstex/dvips.
-Here missing fonts are automatically generated.
-This is to avoid creating missfont.log if font generation failed
-when MakeTeXPK is used instead.
-
 @x
 @h
 @y
 #include <unistd.h>
 @h
 void cleanup(void) { system("rm -r /tmp/mf.$PPID"); }
+int ret = 0;
 @z
 
 @x
@@ -35,7 +31,7 @@ else
       "diff *.tfm " default_directory_name "%s.tfm >/dev/null 2>&1 && ~/mytex/gftopk *.%dgf &&"
       "mkdir -p " default_directory_name "$mode && mv *pk " default_directory_name "$mode && rm *",
       getenv("mode"), m/1000, m%1000, ff, f, dpi);
-    if (system(cmd) != 0) printf("DVIFONT: failed to make font %s\n", f), exit(1);
+    if (system(cmd) != 0) printf("DVIFONT: failed to make font %s.%dpk\n", f, dpi), ret = 1;
   }
 @z
 
@@ -44,5 +40,5 @@ else
 @y
   system("mkdir /tmp/mf.$PPID"); atexit(cleanup);
   in_postamble=true;read_postamble();in_postamble=false;
-  exit(0);
+  exit(ret);
 @z
