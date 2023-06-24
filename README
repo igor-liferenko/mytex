@@ -1,7 +1,8 @@
 For checking which PK files for <font> are used in <file> with given <mode>:
+
 1. run 'tex? <file>' (change `?' to `+' if <mode> is `screen', to `-'
    if <mode> is `localfont')
 2. generate all PK files shown in DVIFONT error(s) and copy them to
-   ~/tex/TeXfonts/<mode>/ (ignore DVIFONT error(s) for <font>, if any)
+   ~/tex/TeXfonts/<mode>/, if any (ignore DVIFONT error(s) for <font>, if any)
 3. rm -f ~/tex/TeXfonts/<mode>/<font>.*
 4. run 'tex? <file>' - the necessary PK files will be shown in DVIFONT error(s)
