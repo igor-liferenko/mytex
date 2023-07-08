@@ -27,11 +27,23 @@ else
     if (system(cmd) == 0) sprintf(ff, "%s/mf/%s", getenv("HOME"), f);
     else sprintf(ff, "%s", f);
     sprintf(cmd, "cd /tmp/mf.$PPID;"
-      "~/mf/plain '\\mode=%s; mag=%d+%d/1000; batchmode; input %s' </dev/null >/dev/null &&"
-      "diff *.tfm " default_directory_name "%s.tfm >/dev/null 2>&1 && ~/mytex/gftopk *.%dgf &&"
-      "mkdir -p " default_directory_name "$mode && mv *pk " default_directory_name "$mode && rm *",
+      "~/mf/plain '\\mode=%s; mag=%d+%d/1000; batchmode; input %s' </dev/null >/dev/null"
+      "|| exit 3; test -e *.tfm || exit 4; diff *.tfm " default_directory_name "%s.tfm >/dev/null"
+      "|| exit 5; ~/mytex/gftopk *.%dgf || exit 6;"
+      "mkdir -p " default_directory_name "$mode; mv *pk " default_directory_name "$mode; rm *",
       getenv("mode"), m/1000, m%1000, ff, f, dpi);
-    if (system(cmd) != 0) printf("DVIFONT: failed to make font %s.%dpk\n", f, dpi), ret = 1;
+    int r = system(cmd);
+    if (r != 0) ret = 1;
+    if (r == 3)
+      printf("DVIFONT: %s.%dpk not in MFinputs\n", f, dpi); // fonts in MFinputs should always work
+    if (r == 4)
+      printf("DVIFONT: tfm is not generated in mode %s (i.e., fontmaking is 0)\n", getenv("mode"));
+    if (r == 5)
+      printf("DVIFONT: there is one of the following problems:\n"
+             "         1) this font name is already used in MFinputs\n"
+             "         2) TeXfonts/%s.tfm is out-of-date\n", f);
+    if (r == 6)
+      printf("DVIFONT: gftopk failed\n");
   }
 @z
 
