@@ -1,8 +1,9 @@
-For checking which PK files for <font> are used in <file> with given <mode>:
+To see all PK files for <font> (assuming that <font> is not contained in MFinputs),
+used in <document>, do:
+rm -f ~/tex/TeXfonts/<mode>/<font>.*
+tex? <document> (`?' = `+' for <mode> `screen', `?' = `-' for <mode> `localfont')
 
-1. run 'tex? <file>' (change `?' to `+' if <mode> is `screen', to `-'
-   if <mode> is `localfont')
-2. generate all PK files shown in DVIFONT error(s) using <mode> and copy them to
-   ~/tex/TeXfonts/<mode>/, if any (ignore DVIFONT error(s) for <font>, if any)
-3. rm -f ~/tex/TeXfonts/<mode>/<font>.*
-4. run 'tex? <file>' - the necessary PK files will be shown in DVIFONT error(s)
+----------------------------------
+
+Disable auto reload in evince/okular (in gv disabled by default):
+tex- тех- dvi- use different mode and dvipdf uses type1
