@@ -2,8 +2,3 @@ To see all PK files for <font> (assuming that <font> is not contained in MFinput
 used in <document>, do:
 rm -f ~/tex/TeXfonts/<mode>/<font>.*
 tex? <document> (`?' = `+' for <mode> `screen', `?' = `-' for <mode> `localfont')
-
-----------------------------------
-
-Disable auto reload in evince/okular (in gv disabled by default):
-tex- тех- dvi- use different mode and dvipdf uses type1
