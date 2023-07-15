@@ -1,4 +1,8 @@
 #!/bin/sh
 pkill -KILL -x gv
 PATH=~/mytex/bin:$PATH
-gv -geometry 1302x582 $1 &
+if [ `whereami` = notebook ]; then
+  gv -geometry 1302x582 $1 &
+#elif [ `whereami` = home ]; then
+#  gv -geometry 1302x582 $1 &
+fi
