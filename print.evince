@@ -4,5 +4,5 @@ PATH=~/mytex/bin:$PATH
 if [ `whereami` = notebook ]; then
   gv -geometry 1302x582 $1 &
 #elif [ `whereami` = home ]; then
-#  gv -geometry 1302x582 $1 &
+#  gv -geometry ...x... $1 &
 fi
