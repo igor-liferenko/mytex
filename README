@@ -1,4 +1,3 @@
-To see all PK files for <font> (assuming that <font> is not contained in MFinputs),
-used in <document>, do:
-rm -f ~/tex/TeXfonts/<mode>/<font>.*
-tex? <document> (`?' = `+' for <mode> `screen', `?' = `-' for <mode> `localfont')
+Use this command to be sure that all pk-files for font xyz are updated:
+
+    rm -f ~/tex/TeXfonts/*/xyz.*
