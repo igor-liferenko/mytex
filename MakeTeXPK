@@ -17,8 +17,7 @@ else
 fi
 mkdir /tmp/mf.$$
 cd /tmp/mf.$$
-if ! ~/mf/plain '\\mode='$mode'; mag='$mag'; batchmode; input '$fullname </dev/null >/dev/null
-then
+if ! ~/mf/plain '\mode='$mode'; mag='$mag'; batchmode; input '$fullname </dev/null >/dev/null; then
   cd - >/dev/null
   rm -r /tmp/mf.$$
   echo \`$name\' not in MFinputs \(TeXfonts/$mode/$name.${dpi}pk must be created manually\) # other causes are not considered because fonts in MFinputs are guaranteed to work
