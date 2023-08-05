@@ -9,6 +9,6 @@ eval "$(hexdump -s 15 -n `hexdump -s 14 -n 1 -e '/1 "%d"' $file` -v -e '/1 "%c"'
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
 export VFFONTS=/none
-export TEXFONTS=/none
+export TEXFONTS=~/tex/TeXfonts
 export PKFONTS=~/tex/TeXfonts/$mode
 ~/dvips/dvips -T $p -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q $file
