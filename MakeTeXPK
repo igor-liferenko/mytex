@@ -7,6 +7,16 @@
 # missfont.log) - MakeTeXPK is never called again
 # (see loadfont.c:177).
 
+# This change is done in loadfont.c:
+# @@ -262 +262 @@
+# -   error(errbuf) ;
+# +//   error(errbuf) ;
+
+# This change is done in makefont.c:
+# @@ -300 +300 @@
+# -                  "Appending font creation commands to missfont.log\n") ;
+# +                  "") ;
+
 name=$1
 dpi=$2
 mag=$4
