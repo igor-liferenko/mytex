@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# dvips behaves the following way:
+#
+# If MakeTeXPK fails, all the rest non-found fonts are
+# just reported as errors on terminal (and in
+# missfont.log) - MakeTeXPK is never called again
+# (see loadfont.c:177).
+
+name=$1
+dpi=$2
+mag=$4
+if [ -L ~/tex/TeXfonts/$name.tfm ]; then
+  fullname=~/mf/$name
+else
+  fullname=$name
+fi
+mkdir /tmp/mf.$$
+cd /tmp/mf.$$
+if ! ~/mf/plain '\\mode='$mode'; mag='$mag'; batchmode; input '$fullname </dev/null >/dev/null
+then
+  cd - >/dev/null
+  rm -r /tmp/mf.$$
+  echo \`$name\' not in MFinputs \(TeXfonts/$mode/$name.${dpi}pk must be created manually\) # other causes are not considered because fonts in MFinputs are guaranteed to work
+  touch missfont.log
+  exit
+elif ! test -e *.tfm; then
+  cd - >/dev/null
+  rm -r /tmp/mf.$$
+  echo tfm is not generated in mode $mode \(i.e., fontmaking is 0\)
+  touch missfont.log
+  exit
+elif ! diff *.tfm ~/tex/TeXfonts/$name.tfm >/dev/null; then
+  cd - >/dev/null
+  rm -r /tmp/mf.$$
+  echo there is one of the following problems:
+  echo 1\) this font name is already used in MFinputs
+  echo 2\) TeXfonts/$name.tfm is out-of-date
+  touch missfont.log
+  exit
+elif ! ~/mytex/gftopk *.${dpi}gf; then
+  cd - >/dev/null
+  rm -r /tmp/mf.$$
+  echo gftopk failed
+  touch missfont.log
+  exit
+fi
+mkdir -p ~/tex/TeXfonts/$mode
+mv *pk ~/tex/TeXfonts/$mode
+rm *
+cd - >/dev/null
+rm -r /tmp/mf.$$
