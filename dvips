@@ -12,3 +12,8 @@ export VFFONTS=/none
 export TEXFONTS=~/tex/TeXfonts
 export PKFONTS=~/tex/TeXfonts/$mode
 ~/dvips/dvips -T $p -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q $file
+if [ -e missfont.log ]; then
+  sh missfont.log
+  rm missfont.log
+  exit 1
+fi
