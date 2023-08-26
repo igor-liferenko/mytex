@@ -1,3 +1,2 @@
 #!/bin/sh
 cat >/tmp/0000
-notify-send OK

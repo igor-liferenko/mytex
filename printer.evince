@@ -5,5 +5,4 @@ if [ $ret = 10 ]; then zenity --error --title 'Printing failed' --text 'Printer 
 elif [ $ret = 11 ]; then zenity --error --title 'Printing failed' --text 'write() error' &
 elif [ $ret = 12 ]; then zenity --error --title 'Printing failed' --text 'TODO: loop until all bytes are written' &
 elif [ $ret = 13 ]; then zenity --error --title 'Printing failed' --text 'read() error' &
-elif [ $ret != 0 ]; then zenity --error --title 'Printing failed' --text 'Network error' &
-else zenity --info --title 'Success' --text 'Printed' & fi
+elif [ $ret != 0 ]; then zenity --error --title 'Printing failed' --text 'Network error' & fi
