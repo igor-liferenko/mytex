@@ -1,0 +1,12 @@
+#!/bin/sh
+# Bind this script to a key in desktop environment.
+pid="$(pgrep -f ~/tex/plain; pgrep -f ~/tex/тех; pgrep -f ~/mf/plain)"
+if [ "$pid" ]; then
+  if echo $pid | grep ' ' >/dev/null; then
+    zenity --info --text 'Close other instances of TeX and METAFONT and try again' &
+  else
+    kill -USR1 $pid
+  fi
+else
+  zenity --info --text 'No TeX or METAFONT found' &
+fi
