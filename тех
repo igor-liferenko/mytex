@@ -1,8 +1,9 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
+export log=/tmp/log.$$
 ~/tex/тех "$@"
 ret=$?
 ~/tex/newline
 [ -e $edit ] && em `cat $edit`
-rm -f $edit
+rm -f $edit $log
 exit $ret

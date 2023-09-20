@@ -1,21 +1,22 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
-export name=/tmp/name.$$
+export tfm=/tmp/tfm.$$
+export gf=/tmp/gf.$$
+export log=/tmp/log.$$
 export screen_size=$(~/mytex/screen-size)
 ~/mf/plain "$@"
 ret=$?
 ~/tex/newline
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
-  tfm_file=`grep -s tfm$ $name`
+  tfm_file=`cat $tfm 2>/dev/null`
   if [ "$tfm_file" ]; then
-    gf_file=`grep -s gf$ $name`
+    gf_file=`cat $gf 2>/dev/null`
     if [ "$gf_file" ]; then
       ~/mytex/gftopk $gf_file
       ret=$?
     fi
   fi
 fi
-rm -f $edit
-rm -f $name
+rm -f $edit $tfm $gf $log
 exit $ret

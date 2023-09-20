@@ -1,15 +1,15 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
-export name=/tmp/name.$$
+export dvi=/tmp/dvi.$$
+export log=/tmp/log.$$
 ~/tex/тех "$@"
 ret=$?
 ~/tex/newline
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
-  dvi_file=`cat $name 2>/dev/null`
+  dvi_file=`cat $dvi 2>/dev/null`
   if [ "$dvi_file" ]; then
     mode=screen ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
   fi
 fi
-rm -f $edit
-rm -f $name
+rm -f $edit $dvi $log

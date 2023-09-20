@@ -1,5 +1,5 @@
 #!/bin/sh
-unset name # this script is called from mf+/mf-, tex+/tex- (metafont is called here and in dvifont; it must not write anything to that file)
+unset gf log # this script is called from mf+/mf-, tex+/tex- (metafont is called here, by MakeTeXPK and via missfont.log; it must not write anything to that files)
 mkdir /tmp/mf.$$
 resolution=$(cd /tmp/mf.$$; ~/mf/plain "\mode=$mode; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
 rm -r /tmp/mf.$$
