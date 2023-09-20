@@ -5,7 +5,7 @@ export log=/tmp/log.$$
 ~/tex/тех "$@"
 ret=$?
 ~/tex/newline
-awk `cat $log`
+perl -i -0777 -pe 's%(?<=^\n$)\n(! OK.)$%https://tug.org/texmfbug/nobug.html#blanklog ?\n$1%mg' `cat $log`
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
   dvi_file=`cat $dvi 2>/dev/null`
