@@ -4,6 +4,7 @@ export log=/tmp/log.$$
 ~/tex/тех "$@"
 ret=$?
 ~/tex/newline
+awk `cat $log`
 [ -e $edit ] && em `cat $edit`
 rm -f $edit $log
 exit $ret

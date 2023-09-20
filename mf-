@@ -1,7 +1,6 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
 export gf=/tmp/gf.$$
-export log=/tmp/log.$$
 ~/mf/plain "$@"
 ret=$?
 ~/tex/newline
@@ -15,4 +14,4 @@ if [ $ret = 0 ]; then
     fi
   fi
 fi
-rm -f $edit $gf $log
+rm -f $edit $gf

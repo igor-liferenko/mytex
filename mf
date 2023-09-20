@@ -2,7 +2,6 @@
 export edit=/tmp/edit.$$
 export tfm=/tmp/tfm.$$
 export gf=/tmp/gf.$$
-export log=/tmp/log.$$
 export screen_size=$(~/mytex/screen-size)
 ~/mf/plain "$@"
 ret=$?
@@ -18,5 +17,5 @@ if [ $ret = 0 ]; then
     fi
   fi
 fi
-rm -f $edit $tfm $gf $log
+rm -f $edit $tfm $gf
 exit $ret

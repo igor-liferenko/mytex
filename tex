@@ -4,7 +4,7 @@ export log=/tmp/log.$$
 ~/tex/plain "$@"
 ret=$?
 ~/tex/newline
-sed -i '' `cat $log`
+perl -i -0777 -pe 's%(?<=^\n$)\n(! OK.)$%https://tug.org/texmfbug/nobug.html#blanklog ?\n$1%mg' `cat $log`
 [ -e $edit ] && em `cat $edit`
 rm -f $edit $log
 exit $ret
