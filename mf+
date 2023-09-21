@@ -10,7 +10,7 @@ if [ $ret = 0 ]; then
   if [ "$gf_file" ]; then
     if ~/mytex/gftodvi $gf_file; then
       dvi_file=${gf_file%.*}.dvi
-      mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
+      mode=localfont gf=/dev/null ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
     fi
   fi
 fi

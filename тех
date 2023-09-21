@@ -1,10 +1,8 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
-export log=/tmp/log.$$
 ~/tex/тех "$@"
 ret=$?
 ~/tex/newline
-perl -i -0777 -pe 's%(?<=^\n$)\n(! OK.)$%https://tug.org/texmfbug/nobug.html#blanklog ?\n$1%mg' `cat $log`
 [ -e $edit ] && em `cat $edit`
-rm -f $edit $log
+rm -f $edit
 exit $ret

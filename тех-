@@ -1,11 +1,9 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
 export dvi=/tmp/dvi.$$
-export log=/tmp/log.$$
 ~/tex/тех "$@"
 ret=$?
 ~/tex/newline
-perl -i -0777 -pe 's%(?<=^\n$)\n(! OK.)$%https://tug.org/texmfbug/nobug.html#blanklog ?\n$1%mg' `cat $log`
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
   dvi_file=`cat $dvi 2>/dev/null`
@@ -13,4 +11,4 @@ if [ $ret = 0 ]; then
     mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/print ${dvi_file%dvi}ps
   fi
 fi
-rm -f $edit $dvi $log
+rm -f $edit $dvi
