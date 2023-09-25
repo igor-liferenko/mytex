@@ -27,18 +27,17 @@ else
 fi
 mkdir /tmp/mf.$$
 cd /tmp/mf.$$
-if ! ~/mf/plain '\mode='$mode'; mag='$mag'; batchmode; input '$fullname </dev/null >/dev/null; then
+if ! ~/mf/plain "\mode=$mode; mag=$mag; batchmode; input $fullname" </dev/null >/dev/null; then # don't use `mytex/mf' wrapper to avoid calling gftopk automatically in order to determine the reason of failure more precisely (gftopk is called below)
   cd $OLDPWD
   rm -r /tmp/mf.$$
-  echo \`$name\' not in MFinputs \(TeXfonts/$mode/$name.${dpi}pk must be created manually\) # other
-    # causes are not considered because fonts in MFinputs are guaranteed to work
+  echo \`$name\' not in MFinputs \(TeXfonts/$mode/$name.${dpi}pk must be created manually\) # other causes are not considered because fonts in MFinputs are guaranteed to work
   touch missfont.log
   exit
 fi
 if ! test -e $name.tfm; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
-  echo tfm is not generated in mode $mode \(i.e., fontmaking is 0\)
+  echo \`fontmaking\' is not enabled in mode \`$mode\'
   touch missfont.log
   exit
 fi
