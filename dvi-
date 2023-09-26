@@ -1,3 +1,2 @@
 #!/bin/sh
-# For printing results of experiments in chapter 6 of TeXbook.
 mode=localfont ~/mytex/dvips $1.dvi && ~/mytex/print $1.ps

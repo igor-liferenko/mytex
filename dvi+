@@ -1,3 +1,2 @@
 #!/bin/sh
-# For viewing results of experiments in chapter 6 of TeXbook.
 mode=screen ~/mytex/dvips $1.dvi && ~/mytex/open $1.ps

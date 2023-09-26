@@ -27,7 +27,7 @@ else
 fi
 mkdir /tmp/mf.$$
 cd /tmp/mf.$$
-if ! ~/mf/plain "\mode=$mode; mag=$mag; batchmode; input $fullname" </dev/null >/dev/null; then # don't use `mytex/mf' wrapper to avoid calling gftopk automatically in order to determine the reason of failure more precisely (gftopk is called below)
+if ! ~/mf/plain "\mode=$mode; mag=$mag; batchmode; input $fullname" </dev/null >/dev/null; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
   echo \`$name\' not in MFinputs \(TeXfonts/$mode/$name.${dpi}pk must be created manually\) # other causes are not considered because fonts in MFinputs are guaranteed to work

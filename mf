@@ -1,6 +1,5 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
-export tfm=/tmp/tfm.$$
 export gf=/tmp/gf.$$
 export screen_size=$(~/mytex/screen-size)
 ~/mf/plain "$@"
@@ -8,11 +7,10 @@ ret=$?
 ~/tex/newline
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
-  [ -e $tfm ] && gf_file=`cat $gf 2>/dev/null`
+  gf_file=`cat $gf 2>/dev/null`
   if [ "$gf_file" ]; then
-    ~/mytex/gftopk $gf_file
-    ret=$?
+    [ -e ${gf_file%.*}.tfm ] && ~/mytex/gftopk $gf_file
   fi
 fi
-rm -f $edit $tfm $gf
+rm -f $edit $gf
 
