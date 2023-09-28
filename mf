@@ -13,4 +13,3 @@ if [ $ret = 0 ]; then
   fi
 fi
 rm -f $edit $gf
-
