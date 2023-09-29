@@ -8,9 +8,8 @@ ret=$?
 ~/tex/newline
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
-  gf_file=`cat $gf 2>/dev/null`
-  if [ "$gf_file" ]; then
-    [ -e $tfm ] && ~/mytex/gftopk $gf_file
+  if [ -e $gf ] && [ -e $tfm ]; then
+    ~/mytex/gftopk `cat $gf`
   fi
 fi
 rm -f $edit $gf $tfm
