@@ -6,8 +6,8 @@ ret=$?
 ~/tex/newline
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
-  gf_file=`cat $gf 2>/dev/null`
-  if [ "$gf_file" ]; then
+  if [ -e $gf ]; then
+    gf_file=`cat $gf`
     if ~/mytex/gftodvi $gf_file; then
       dvi_file=${gf_file%.*}.dvi
       mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/print ${dvi_file%dvi}ps

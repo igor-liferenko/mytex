@@ -34,7 +34,7 @@ if ! ~/mf/plain "\mode=$mode; mag=$mag; batchmode; input $fullname" </dev/null >
   touch missfont.log
   exit
 fi
-if ! test -e $name.tfm; then
+if ! [ -e $name.tfm ]; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
   echo \`fontmaking\' is not enabled in mode \`$mode\'

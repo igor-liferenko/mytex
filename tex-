@@ -6,8 +6,8 @@ ret=$?
 ~/tex/newline
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
-  dvi_file=`cat $dvi 2>/dev/null`
-  if [ "$dvi_file" ]; then
+  if [ -e $dvi ]; then
+    dvi_file=`cat $dvi`
     mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/print ${dvi_file%dvi}ps
   fi
 fi
