@@ -139,7 +139,7 @@
 \egroup
 \def\inchquote{"}
 
-\def\setverb{\def\do##1{\catcode`##1=12}\dospecials}
+\def\uncatcodespecials{\def\do##1{\catcode`##1=12}\dospecials}
 
 %%%%%%%%%%%%%%%%%% Příkazy \begtt, \endtt
 
@@ -265,12 +265,9 @@
 %% final settings
 
 \catcode`\"=\active
-\let\activeqq="
-\def"{\leavevmode\hbox\bgroup\let\leftcomment=\empty
-      \let\returntoBlack=\empty \let\linecomment=\empty \let"=\egroup 
+\def"{\leavevmode\hbox\bgroup\let"=\egroup 
       \def\par{\errmessage{\string\par\space inside \string"...\string"}}%
-      \setverb\tt\quotehook
-}
+      \uncatcodespecials\tt}
 
 \def\langleactive{\uccode`\~=`\<\catcode`\<=13
       \uppercase{\def~}##1>{{$\langle$\it##1\/$\rangle$}}}
