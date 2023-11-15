@@ -1,7 +1,7 @@
 #!/bin/sh
 pkill -x gv
 PATH=~/mytex/bin:$PATH
-gv $1 2>/dev/null & # "2>/dev/null" avoids printing "terminated by signal 15" on terminal
+gv $1 2>/dev/null &
 
 # To obtain geometry for ~/.gv, set red desktop backround, run gv, stretch borders to sides,
 # create screenshot of active window (enable «without borders» option), save it to x.png and
