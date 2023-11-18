@@ -1,13 +1,4 @@
 #!/bin/sh
 pkill -x gv
 PATH=~/mytex/bin:$PATH
-gv -geometry $(cat ~/.gv-geometry) $1 2>/dev/null &
-
-# To obtain ~/.gv-geometry, set red desktop backround*, run gv, stretch borders to sides,
-# create screenshot of active window (enable «without borders» option), save it to x.png and
-# see size via «file x.png» and put it to ~/.gv-geometry and run «tex- 'story \end'»
-# and decrease each value one by one separately until red stripe appears
-#
-# * - on Gnome3 this is done by:
-# gsettings set org.gnome.desktop.background picture-options 'none'
-# gsettings set org.gnome.desktop.background primary-color '#FF0000'
+gv -geometry $(gv-size) $1 2>/dev/null &
