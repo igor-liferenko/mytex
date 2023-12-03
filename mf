@@ -2,7 +2,7 @@
 export edit=/tmp/edit.$$
 export gf=/tmp/gf.$$
 export tfm=/tmp/tfm.$$
-export screen_size=$(screen-size)
+export screen_size=$(~/.screen-size)
 ~/mf/plain "$@"
 ret=$?
 ~/tex/newline

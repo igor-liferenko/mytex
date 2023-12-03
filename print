@@ -1,4 +1,4 @@
 #!/bin/sh
 pkill -x gv
 PATH=~/mytex/bin:$PATH
-gv -geometry $(gv-size) $1 2>/dev/null &
+gv -geometry $(~/.gv-size) $1 2>/dev/null &
