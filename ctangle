@@ -5,24 +5,20 @@ fi
 if [ $PWD = ~/tex/web2w ]; then
   sed -i /§/d web2w.ch # avoid "xord[c]!=invalid_code" error (comm-utf8.ch) in printable.ch
 fi
-while true; do
-  if [ "${1#+}" = "$1" ] && [ "${1#-}" = "$1" ]; then
-    break
-  fi
-  [ $1 = +u ] && u=1
-  opt="$opt $1"
+if [ $1 = +u ]; then
+  u=+u
   shift
-done
+fi
 file=$1
 if [ "$2" = "" ]; then
   ch=/dev/null
 else
   ch=${2%.ch}.ch
 fi
-[ "${file%.w}" != "$file" ] && file=${file%.w} # file has extension when it is used with full path (ctangle (in contrast to cweave) may be called with full path - see build-clock.sh for an example)
+file=${file%.w}
 test -e $file.w || { echo '! Cannot open input file' $file.w; exit 1; }
 test -e $ch || { echo '! Cannot open change file' $ch; exit 1; }
-~/cweb/ctangle -b -h -p $opt "$@" || exit
+~/cweb/ctangle $u -b -h -p "$@" || exit
 if [ "$3" ]; then
   out=$3.c
 else

@@ -1,14 +1,4 @@
 #!/bin/sh
-if [ $PWD = ~/cweb ] || [ $PWD = ~/dvitype ] || [ $PWD = ~/gftodvi ] || [ $PWD = ~/gftopk ]; then
-  exec ~/cweb/cweave -b -h -p "$@"
-fi
-while true; do
-  if [ "${1#+}" = "$1" ] && [ "${1#-}" = "$1" ]; then
-    break
-  fi
-  opt="$opt $1"
-  shift
-done
 file=$1
 if [ "$2" = "" ]; then
   ch=/dev/null
@@ -23,13 +13,12 @@ grep '@s sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep 'struct sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep '@s stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep 'struct stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
-~/cweb/cweave -b -h -p +c +d +y +z $opt "$@" || { rm $tmp; exit 1; }
-if [ $file != tel ] && sed 's/sig\xD0\xB0ction/sigaction/g;s/st\xD0\xB0t/stat/g' $tmp | grep -P '[^\x00-\x7F]' >/dev/null; then
+~/cweb/cweave -b -h -p "$@" || { rm $tmp; exit 1; }
+if sed 's/sig\xD0\xB0ction/sigaction/g;s/st\xD0\xB0t/stat/g' $tmp | grep -P '[^\x00-\x7F]' >/dev/null; then
   sed -i 1s/cwebmac/cwebmac-ru/ $file.tex
 fi
 rm $tmp
 sed -i 's/sig\xD0\xB0ction/sigaction/g' $file.tex
 sed -i 's/st\xD0\xB0t/stat/g' $file.tex
-sed -i 's/^\\inx$/\\end/' $file.tex
 
 grep -q -P '\\\|[^\x00-\x7F]' $file.tex && echo WARNING: one-letter identifiers must be ascii-only # I do not set \matcharcode for cyrillic letters (because I do not have cyrillic math fonts), so cyrillic one-letter identifiers will be typeset in roman font instead of italic
