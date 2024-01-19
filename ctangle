@@ -2,9 +2,6 @@
 if [ $PWD = ~/tex ]; then
   perl -i -pe 's/[\200-\377]/sprintf"\\x%x",ord$&/eg' tex.w # avoid "File is not UTF-8" error (comm-utf8.ch) due to printable.ch
 fi
-if [ $PWD = ~/tex/web2w ]; then
-  sed -i /§/d web2w.ch # avoid "xord[c]!=invalid_code" error (comm-utf8.ch) in printable.ch
-fi
 if [ $1 = +u ]; then
   u=+u
   shift
@@ -31,3 +28,4 @@ else
   sed -i 's/sigXA1ction/sigaction/g' $out
   sed -i 's/stXA1t/stat/g' $out
 fi
+perl -i -pe 'if(/const dev_desc/../const conf_desc/){if(/(\w+);/){s//$1@{[$a{$1}++||""]};/}}' $out
