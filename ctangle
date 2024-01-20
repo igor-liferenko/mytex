@@ -28,4 +28,4 @@ else
   sed -i 's/sigXA1ction/sigaction/g' $out
   sed -i 's/stXA1t/stat/g' $out
 fi
-perl -i -pe 'if(/const dev_desc/../const conf_desc/){if(/(\w+);/){s//$1@{[$a{$1}++||""]};/}}' $out
+perl -i -pe 'if(/const dev_desc/../const conf_desc/){if(/(\w+);/){s//$1@{[$a{$1}?"_".$a{$1}||""]};/;$a{$1}++}}' $out
