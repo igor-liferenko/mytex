@@ -29,3 +29,6 @@ else
   sed -i 's/stXA1t/stat/g' $out
 fi
 perl -i -pe 'if(/const dev_desc/../const conf_desc/){if(/(\w+);/){if($a{$1}){s//$1_$a{$1};/}$a{$1}++}}' $out
+sed -i s/SIZEOF_CONF_DESC/$(perl -ne 'if(/const dev_desc/../const conf_desc/){if(/(\w)\w+;/){if($1eq'w'){$a+=2}else{$a+=1}}}END{print$a}' $out)/ $out
+perl -i -pe 'if(/const dev_desc/../const conf_desc/){if(/^struct\{/){$v=1}if($v){if(/(\w)\w+;/){if($1eq'w'){$a+=2}else{$a+=1}}if(/\*:\d+\*/){$h{++$x}=$a;$a=0}}}if(/const conf_desc/../};/){if(/\*\d+:\*/){$y++}s/SIZEOF_THIS/$h{$y}/}' $out
+perl -ne 'if(/^#/||/^$/){next}if(/const dev_desc/../const conf_desc/){if(/^struct\{/){$v=1}if($v){if(/\w+;/){$n++}if(/\*:\d+\*/){$h{++$x}=$n;$n=0}}}if(/const conf_desc/../};/){if($w){$n++}if(/\*\d+:\*/){$y++;$w=1}if(/\*:(\d+)\*/){if($h{$y}!=$n-1){print"ERROR: number of parameters does not match in section $1\n";$e=1}$w=0;$n=0}}END{$?=$e}' $out || exit
