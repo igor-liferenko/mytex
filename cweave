@@ -14,7 +14,7 @@ grep 'struct sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep '@s stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep 'struct stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 ~/cweb/cweave -b -h -p "$@" || { rm $tmp; exit 1; }
-if sed 's/sig\xD0\xB0ction/sigaction/g;s/st\xD0\xB0t/stat/g' $tmp | grep -P '[^\x00-\x7F]' >/dev/null; then
+if [ $file != tel ] && sed 's/sig\xD0\xB0ction/sigaction/g;s/st\xD0\xB0t/stat/g' $tmp | grep -P '[^\x00-\x7F]' >/dev/null; then
   sed -i 1s/cwebmac/cwebmac-ru/ $file.tex
 fi
 rm $tmp
