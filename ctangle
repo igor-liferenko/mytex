@@ -28,7 +28,7 @@ else
   sed -i 's/sigXA1ction/sigaction/g' $out
   sed -i 's/stXA1t/stat/g' $out
 fi
-grep -o 'cfsetspeed\|cfset[io]speed([^,]\+, \?B0)' $out && exit 1 # do not use cfsetspeed - use cfsetispeed or cfsetospeed; do not use B0 - ...
+grep -o 'cfsetspeed\|cfset[io]speed([^,]\+, \?B0)' $out && exit 1 # do not use cfsetspeed - use cfsetispeed or cfsetospeed; do not use B0 - see its effect by printing wValue of set_control_line_state requests when you use B0, and when opening and closing the tty right after using B0
 perl -i -pe 'if(/const dev_desc/../const conf_desc/){if(/^struct\{/){$v=1}if($v){if(/\*\d+:\*/){$x++}}}if(/const conf_desc/../};/){if(/\*\d+:\*/){$y++}}END{if($x!=$y){print"ERROR: number of sections with declarations is not equal to number of sections with parameters\n";$?=1}}' $out || exit
 perl -ne 'if(/^#/||/^$/){next}if(/const dev_desc/../const conf_desc/){if(/^struct\{/){$v=1}if($v){if(/\w+;/){$n++}if(/\*:\d+\*/){$h{++$x}=$n;$n=0}}}if(/const conf_desc/../};/){if($w){$n++}if(/\*\d+:\*/){$y++;$w=1}if(/\*:(\d+)\*/){if($h{$y}!=$n-1){print"ERROR: number of parameters does not match in section $1\n";$e=1}$w=0;$n=0}}END{$?=$e}' $out || exit
 sed -i s/SIZEOF_CONF_DESC/$(perl -ne 'if(/const dev_desc/../const conf_desc/){if(/\w+;/){$a+=$&=~/^(w|bcd)/?2:1}}END{print$a}' $out)/ $out
