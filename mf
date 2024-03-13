@@ -6,7 +6,7 @@ export screen_size=$(cat ~/.screen-size)
 ~/mf/plain "$@"
 ret=$?
 ~/tex/newline
-[ -e $edit ] && em `cat $edit`
+[ -e $edit ] && ~/em/em `cat $edit`
 if [ $ret = 0 ]; then
   if [ -e $gf ] && [ -e $tfm ]; then
     ~/mytex/gftopk `cat $gf`
