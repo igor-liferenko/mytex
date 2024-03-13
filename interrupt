@@ -1,8 +1,3 @@
 #!/bin/sh
 # Bind this script to a key in desktop environment.
-pid="$(pgrep -f ~/tex/plain; pgrep -f ~/tex/тех; pgrep -f ~/mf/plain)"
-if echo $pid | grep ' ' >/dev/null; then
-  zenity --info --text 'Close other instance(s) of TeX (METAFONT)' &
-else
-  kill -USR1 $pid
-fi
+touch /tmp/my.interrupt
