@@ -4,7 +4,7 @@ export gf=/tmp/gf.$$
 ~/mf/plain "$@"
 ret=$?
 ~/tex/newline
-[ -e $edit ] && ~/em/em `cat $edit`
+[ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
   if [ -e $gf ]; then
     gf_file=`cat $gf`

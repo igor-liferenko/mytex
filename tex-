@@ -4,7 +4,7 @@ export dvi=/tmp/dvi.$$
 ~/tex/plain "$@"
 ret=$?
 ~/tex/newline
-[ -e $edit ] && ~/em/em `cat $edit`
+[ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ]; then
   if [ -e $dvi ]; then
     dvi_file=`cat $dvi`
