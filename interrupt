@@ -1,3 +1,0 @@
-#!/bin/sh
-# Bind this script to a key in desktop environment.
-touch /tmp/my.interrupt
