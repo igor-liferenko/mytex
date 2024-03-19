@@ -3,5 +3,5 @@ export edit=/tmp/edit.$$
 ~/tex/plain "$@"
 ret=$?
 ~/tex/newline
-[ -e $edit ] && ~/mytex/em `cat $edit`
+[ -e $edit ] && eval db=/dev/null `sed 's/\(.*\) \(.*\)/file=\1 line=\2/' $edit` ~/em/em
 rm -f $edit
