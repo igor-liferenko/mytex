@@ -4,7 +4,7 @@ export dvi=/tmp/dvi.$$
 ~/tex/тех "$@"
 ret=$?
 ~/tex/newline
-[ -e $edit ] && eval db=/dev/null `sed 's/.* /file=&line=/' $edit` ~/em/em
+[ -e $edit ] && db=/dev/null env `sed 's/.* /file=&line=/' $edit` ~/em/em
 if [ $ret = 0 ]; then
   if [ -e $dvi ]; then
     dvi_file=`cat $dvi`
