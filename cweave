@@ -19,6 +19,6 @@ grep -q -P '\\\|[^\x00-\x7F]' $file.tex && echo WARNING: one-letter identifiers 
 if [ $file != tel ] && sed 's/sig\xD0\xB0ction/sigaction/g;s/st\xD0\xB0t/stat/g;s/lin\xD0\xB5/line/g' $file.tex | grep -P '[^\x00-\x7F]' >/dev/null; then
   sed -i 1s/cwebmac/cwebmac-ru/ $file.tex
 fi
-sed -i 's/sig\xD0\xB0ction/sigaction/g' $file.tex $file.idx
-sed -i 's/st\xD0\xB0t/stat/g' $file.tex $file.idx
-sed -i 's/lin\xD0\xB5/line/g' $file.tex $file.idx
+sed -i 's/sig\xD0\xB0ction/sigaction/g' $file.tex $file.idx $file.scn
+sed -i 's/st\xD0\xB0t/stat/g' $file.tex $file.idx $file.scn
+sed -i 's/lin\xD0\xB5/line/g' $file.tex $file.idx $file.scn
