@@ -13,10 +13,12 @@ grep '@s sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep 'struct sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep '@s stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep 'struct stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
+grep -P '(?<!#\s*)\bline\b' $tmp && { echo ERROR: Use cyrillic e; rm $tmp; exit 1; }
 rm $tmp
 ~/cweb/cweave -b -h -p "$@" || exit 1
 sed -i 's/sig\xD0\xB0ction/sigaction/g' $file.tex $file.idx $file.scn
 sed -i 's/st\xD0\xB0t/stat/g' $file.tex $file.idx $file.scn
+sed -i 's/lin\xD0\xB5/line/g' $file.tex $file.idx $file.scn
 if [ $file != tel ] && grep -qP '[^\x00-\x7F]' $file.tex $file.idx $file.scn; then
   sed -i 1s/cwebmac/cwebmac-ru/ $file.tex
 fi
