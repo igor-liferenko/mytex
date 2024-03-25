@@ -3,5 +3,9 @@ export edit=/tmp/edit.$$
 ~/tex/plain "$@"
 ret=$?
 ~/tex/newline
-[ -e $edit ] && db=/dev/null env `sed 's/.* /file=&line=/' $edit` ~/em/em
+if [ -e $edit ]; then
+  sed -i 's/\(.*\) /file=\1\nline=/' $edit
+  env `cat $edit` sh -c 'printf chars=; wc -m $file | cut -d" " -f1' >>$edit
+  env `cat $edit` ~/em/em
+fi
 rm -f $edit
