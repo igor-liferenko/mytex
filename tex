@@ -2,6 +2,9 @@
 export edit=/tmp/edit.$$
 ~/tex/plain "$@"
 ret=$?
-~/tex/newline
+stty -icanon -echo
+tput u7
+awk -v RS=R '{ print $1; exit }' | sed -n '/.*;1$/!e echo'
+stty icanon echo
 [ -e $edit ] && env `sed 's/.* /file=&line=/' $edit` ~/em/em
 rm -f $edit
