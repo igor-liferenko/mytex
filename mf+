@@ -3,12 +3,7 @@ export edit=/tmp/edit.$$
 export gf=/tmp/gf.$$
 ~/mf/plain "$@"
 ret=$?
-if [ -t 0 ] && [ -t 1 ]; then
-  stty -icanon -echo
-  tput u7
-  awk -v RS=R '{ print $1; exit }' | sed -n '/.*;1$/!e echo'
-  stty icanon echo
-fi
+~/mytex/newline
 [ -e $edit ] && env `sed 's/.* /file=&line=/' $edit` ~/em/em
 if [ $ret = 0 ]; then
   if [ -e $gf ]; then
