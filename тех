@@ -1,7 +1,6 @@
 #!/bin/sh
 export edit=/tmp/edit.$$
 ~/tex/тех "$@"
-ret=$?
 ~/mytex/newline
-[ -e $edit ] && env `sed 's/.* /file=&line=/' $edit` ~/em/em
+[ -e $edit ] && ~/mytex/edit
 rm -f $edit

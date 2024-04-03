@@ -1,0 +1,3 @@
+#!/bin/sh
+# do not save cursor position by not putting `db' in the environment
+env `sed 's/.* /file=&line=/' $edit` ~/em/em
