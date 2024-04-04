@@ -15,12 +15,11 @@ grep '@s stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep 'struct stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 rm $tmp
 ~/cweb/cweave -b -h -p "$@" || exit 1
-grep -q -P '\\\|[^\x00-\x7F]' $file.tex $file.idx $file.scn && { echo ERROR: one-letter identifiers must be ascii-only; exit 1; } # I do not set \matcharcode for cyrillic letters (because I do not have cyrillic math fonts), so cyrillic one-letter identifiers will be typeset in roman font instead of italic
+LC_ALL=C grep -lq '\\|[^[:cntrl:][:print:]]' $file.tex $file.idx $file.scn && { echo ERROR: one-letter identifiers must be ascii-only; exit 1; } # I do not set \matcharcode for cyrillic letters (because I do not have cyrillic math fonts), so cyrillic one-letter identifiers will be typeset in roman font instead of italic
 grep -q '\\&{delete}' $file.tex $file.idx $file.scn && { echo ERROR: Use @s delete normal; exit 1; }
 grep -q '\\&{new}' $file.tex $file.idx $file.scn && { echo ERROR: Use @s new normal; exit 1; }
 grep -q '\\&{line}' $file.tex $file.idx $file.scn && { echo ERROR: Use @s line normal; exit 1; }
 sed -i 's/sig\xD0\xB0ction/sigaction/g' $file.tex $file.idx $file.scn
 sed -i 's/st\xD0\xB0t/stat/g' $file.tex $file.idx $file.scn
-if [ $file != tel ] && grep -q -P '[^\x00-\x7F]' $file.tex $file.idx $file.scn; then
-  sed -i 1s/cwebmac/cwebmac-ru/ $file.tex
-fi
+LC_ALL=C grep -lq '[^[:cntrl:][:print:]]' $file.tex $file.idx $file.scn && sed -i 1s/cwebmac/cwebmac-ru/ $file.tex
+[ $file = tel ] && sed -i 1s/cwebmac-ru/cwebmac/ $file.tex
