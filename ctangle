@@ -30,4 +30,4 @@ perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\*\d+:\*/){$x++}}if(/c
 perl -ne 'if(/begin conf_desc/../const conf_desc/){if(/\w+;/){$n++}if(/\*:\d+\*/){$h{++$x}=$n;$n=0}}if(/const conf_desc/../};/){if(/\*:(\d+)\*/){if($h{$z}){print"ERROR: number of parameters does not match in section $1\n";$e=1}$z=0}$h{$z}--unless/^#/||/^$/;if(/\*\d+:\*/){$y++;$z=$y}}END{$?=$e}' $out || exit
 sed -i s/SIZEOF_CONF_DESC/$(perl -ne 'if(/begin conf_desc/../const conf_desc/){if(/\w+;/){$a+=$&=~/^(w|bcd)/?2:1}}END{print$a}' $out)/ $out
 perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\w+;/){$a+=$&=~/^(w|bcd)/?2:1}if(/\*:\d+\*/){$h{++$x}=$a;$a=0}}if(/const conf_desc/../};/){if(/\*\d+:\*/){$y++}s/SIZEOF_THIS/$h{$y}/}' $out
-perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\*(\d+):\*/){$x=$1}s/(\w+);/$1_$x;/}' $out
+perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\*\d+:\*/){$x++}s/(\w+);/$1_$x;/}' $out
