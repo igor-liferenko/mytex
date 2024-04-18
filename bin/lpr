@@ -1,8 +1,18 @@
 #!/bin/sh
+
 # This script is called by viewer (if viewer uses lpr for printing).
 # It wraps the content to PJL and sends to printer directly.
+
 # NOTE: PDF is obtained from PS (not from DVI) to guarantee that
 # \special constructs produce the same result
+
+# Pages to be printed must be selected from viewer (and hence by viewer).
+# In PS pages are separated from each other. To see how viewer extracts the
+# selected pages, uncomment the following line and do diff of original
+# file with /tmp/file.ps - the diff must show only non-selected pages
+# (the selected ones must be identical to original).
+# eval cp \${$#} /tmp/file.ps; exit
+
 [ $# != 2 ] && exit 1; [ $1 != none ] && [ $1 != long ] && [ $1 != short ] && exit 1
 (
   printf '\e%%-12345X'
