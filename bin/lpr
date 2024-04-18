@@ -3,13 +3,8 @@
 # This script is called by viewer (if viewer uses lpr for printing).
 # It wraps the content to PJL and sends to printer directly.
 
-# Pages to be printed must be selected from viewer (and hence by viewer).
-# Algorithm for selection of pages is very simple,
-# because in PS each page is separate. To ensure
-# that pages selected by viewer are not changed during selection of pages,
-# uncomment the following line and do diff of original file with
-# /tmp/file.ps - the diff must show only non-selected pages.
-#
+# To ensure, that pages selected for printing in viewer are not changed,
+# uncomment the following line and do diff of original file with /tmp/file.ps
 # eval cp \${$#} /tmp/file.ps; exit
 
 [ $# != 2 ] && exit 1; [ $1 != none ] && [ $1 != long ] && [ $1 != short ] && exit 1
