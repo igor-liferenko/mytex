@@ -17,17 +17,17 @@ if [ "$3" ]; then
 else
   out=${file##*/}.c
 fi
-sed -i 's/sigXA1ction/sigaction/g' $out
-sed -i 's/stXA1t/stat/g' $out
+sed -i s/sigXA1ction/sigaction/g $out
+sed -i s/stXA1t/stat/g $out
 # ---------------- reminder -----------------
 grep -o 'cfsetspeed\|cfset[io]speed([^,]\+, \?B0)' $out && exit 1 # do not use cfsetspeed - use cfsetospeed or cfsetispeed; do not use B0 - see its effect by printing wValue of set_control_line_state requests when you use B0, and when opening and closing the tty right after using B0
 # ---------------- conf_desc ----------------
-grep -lq 'const conf_desc' $out && ed -s $out <<'EOF'
+grep -q 'const conf_desc' $out && ed -s $out <<'EOF'
 /const conf_desc/;?struct{?;.s/$/ \/\/ begin conf_desc/
 wq
 EOF
 perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\*\d+:\*/){$x++}}if(/const conf_desc/../};/){if(/\*\d+:\*/){$y++}}END{if($x!=$y){print"ERROR: number of sections with declarations is not equal to number of sections with parameters\n";$?=1}}' $out || exit
-perl -ne 'if(/begin conf_desc/../const conf_desc/){if(/\w+;/){$n++}if(/\*:\d+\*/){$h{++$x}=$n;$n=0}}if(/const conf_desc/../};/){if(/\*:(\d+)\*/){if($h{$z}){print"ERROR: number of parameters does not match in section $1\n";$e=1}$z=0}$h{$z}--unless/^#/||/^$/;if(/\*\d+:\*/){$y++;$z=$y}}END{$?=$e}' $out || exit
-sed -i s/SIZEOF_CONF_DESC/$(perl -ne 'if(/begin conf_desc/../const conf_desc/){if(/\w+;/){$a+=$&=~/^(w|bcd)/?2:1}}END{print$a}' $out)/ $out
-perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\w+;/){$a+=$&=~/^(w|bcd)/?2:1}if(/\*:\d+\*/){$h{++$x}=$a;$a=0}}if(/const conf_desc/../};/){if(/\*\d+:\*/){$y++}s/SIZEOF_THIS/$h{$y}/}' $out
+perl -ne 'if(/begin conf_desc/../const conf_desc/){if(/\*\d+:\*/){$x++}if(/\w+;/){$h{$x}++}}if(/const conf_desc/../};/){if(/\*:(\d+)\*/){if($h{$z}){print"ERROR: number of params does not match in section $1\n";$e=1}$z=0}$h{$z}--unless/^#/||/^$/;if(/\*\d+:\*/){$y++;$z=$y}}END{$?=$e}' $out || exit
+perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\w+;/){$a+=$&=~/^(w|bcd)/?2:1}}s/SIZEOF_CONF_DESC/$a/' $out
+perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\*\d+:\*/){$x++}if(/\w+;/){$h{$x}+=$&=~/^(w|bcd)/?2:1}}if(/const conf_desc/../};/){if(/\*\d+:\*/){$y++}s/SIZEOF_THIS/$h{$y}/}' $out
 perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\*\d+:\*/){$x++}s/(\w+);/$1_$x;/}' $out
