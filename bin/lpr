@@ -7,8 +7,9 @@
 # \special constructs produce the same result
 
 # Pages to be printed must be selected from viewer (and hence by viewer).
-# In PS pages are separated from each other (contrary to PDF). To ensure
-# that selected pages are identical to corresponding ones in original file,
+# Algorithm for selection of pages need not re-format the whole document,
+# because in PS pages are separated from each other (contrary to PDF). To ensure
+# that pages selected by viewer are identical to corresponding ones in original file,
 # uncomment the following line and do diff of original file with
 # /tmp/file.ps - the diff must show only non-selected pages.
 #
