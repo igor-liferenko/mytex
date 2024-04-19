@@ -1,13 +1,13 @@
 #!/bin/sh
 
-# This script is called by viewer (if viewer uses lpr for printing).
-# It wraps the content to PJL and sends to printer directly.
+# This script is called by viewer (viewer must use lpr for printing).
+
+[ $# != 2 ] && exit 1; [ $1 != none ] && [ $1 != long ] && [ $1 != short ] && exit 1
 
 # To ensure, that pages selected for printing in viewer are not changed,
 # uncomment the following line and do diff of original file with /tmp/file.ps
-# eval cp \${$#} /tmp/file.ps; exit
+# cp $2 /tmp/file.ps; exit
 
-[ $# != 2 ] && exit 1; [ $1 != none ] && [ $1 != long ] && [ $1 != short ] && exit 1
 (
   printf '\e%%-12345X'
   echo @PJL JOB
