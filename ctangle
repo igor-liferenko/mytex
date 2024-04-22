@@ -1,7 +1,4 @@
 #!/bin/sh
-if [ $PWD = ~/tex ]; then
-  perl -i -pe 's/[\200-\377]/sprintf"\\x%x",ord$&/eg' tex.w # avoid "File is not UTF-8" error (comm-utf8.ch) due to printable.ch
-fi
 file=$1
 if [ "$2" = "" ]; then
   ch=/dev/null
@@ -23,7 +20,8 @@ sed -i s/stXA1t/stat/g $out
 grep -o 'cfsetspeed\|cfset[io]speed([^,]\+, \?B0)' $out && exit 1 # do not use cfsetspeed - use cfsetospeed or cfsetispeed; do not use B0 - see its effect by printing wValue of set_control_line_state requests when you use B0, and when opening and closing the tty right after using B0
 # ---------------- conf_desc ----------------
 grep -q 'const conf_desc' $out && ed -s $out <<'EOF'
-/const conf_desc/;?struct{?;.s/$/ \/\/ begin conf_desc/
+/const conf_desc/;#
+?struct{?s/$/ \/\/ begin conf_desc/
 wq
 EOF
 perl -i -pe 'if(/begin conf_desc/../const conf_desc/){if(/\*\d+:\*/){$x++}}if(/const conf_desc/../};/){if(/\*\d+:\*/){$y++}}END{if($x!=$y){print"ERROR: number of sections with declarations is not equal to number of sections with parameters\n";$?=1}}' $out || exit
