@@ -2,5 +2,5 @@
 export edit=/tmp/edit.$$
 ~/tex/тех "$@"
 ~/mytex/newline
-[ -e $edit ] && ~/mytex/edit
+[ -e $edit ] && em `cat $edit`
 rm -f $edit

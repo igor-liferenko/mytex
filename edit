@@ -1,5 +1,0 @@
-#!/bin/sh
-# do not save cursor position by not putting `db' in the environment
-printf '\e]11;#d4e8db\a'
-env `sed 's/.* /file=&line=/' $edit` ~/em/em
-printf '\e]11;white\a'
