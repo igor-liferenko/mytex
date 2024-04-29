@@ -1,8 +1,0 @@
-#!/bin/sh
-# http://tug.org/texmfbug/nobug.html#ttynl
-if [ -t 0 ] && [ -t 1 ]; then
-  stty -icanon -echo
-  tput u7
-  awk -v RS=R '{ print $1; exit }' | sed -n '/.*;1$/!e echo'
-  stty icanon echo
-fi
