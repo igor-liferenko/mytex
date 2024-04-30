@@ -8,6 +8,11 @@ fi
 file=${file%.w}
 test -e $file.w || { echo '! Cannot open input file' $file.w; exit 1; }
 test -e $ch || { echo '! Cannot open change file' $ch; exit 1; }
+tmp=$file.cweave.$$
+ctie -m $tmp $file.w $ch >/dev/null || { rm -f $tmp; exit 1; } # expand @i
+iconv -f UTF-8 $1 >/dev/null 2>&1 || { echo File is not UTF-8; exit 1; }
+iconv -t UCS-2 $1 >/dev/null 2>&1 || { echo Not all codepoints fit into 16 bits; exit 1; }
+rm $tmp
 ~/cweb/ctangle -b -h -p "$@" || exit
 if [ "$3" ]; then
   out=$3.c
