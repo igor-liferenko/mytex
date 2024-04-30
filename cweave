@@ -9,8 +9,7 @@ test -e $file.w || { echo '! Cannot open input file' $file.w; exit 1; }
 test -e $ch || { echo '! Cannot open change file' $ch; exit 1; }
 tmp=$file.cweave.$$
 ctie -m $tmp $file.w $ch >/dev/null || { rm -f $tmp; exit 1; } # expand @i
-iconv -f UTF-8 $tmp >/dev/null 2>&1 || { echo File is not UTF-8; rm $tmp; exit 1; }
-iconv -t UCS-2 $tmp >/dev/null 2>&1 || { echo Not all codepoints fit into 16 bits; rm $tmp; exit 1; }
+iconv -f UTF-8 -t UCS-2 $tmp >/dev/null 2>&1 || { echo File is not UTF-8 or not all codepoints fit into 16 bits; rm $tmp; exit 1; }
 grep '@s sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep 'struct sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
 grep '@s stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
