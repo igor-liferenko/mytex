@@ -7,14 +7,13 @@ else
 fi
 test -e $file.w || { echo '! Cannot open input file' $file.w; exit 1; }
 test -e $ch || { echo '! Cannot open change file' $ch; exit 1; }
-tmp=$file.cweave.$$
-ctie -m $tmp $file.w $ch >/dev/null || { rm -f $tmp; exit 1; } # expand @i
-iconv -f UTF-8 -t UCS-2 $tmp >/dev/null 2>&1 || { echo File is not UTF-8 or not all codepoints fit into 16 bits; rm $tmp; exit 1; }
-grep '@s sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
-grep 'struct sigaction' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
-grep '@s stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
-grep 'struct stat' $tmp && { echo ERROR: Use cyrillic a; rm $tmp; exit 1; }
-rm $tmp
+ctie -m $file.m $file.w $ch >/dev/null || { rm -f $file.m; exit 1; } # expand @i
+iconv -f UTF-8 -t UCS-2 $file.m >/dev/null 2>&1 || { echo File is not UTF-8 or not all codepoints fit into 16 bits; rm $file.m; exit 1; }
+grep '@s sigaction' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
+grep 'struct sigaction' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
+grep '@s stat' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
+grep 'struct stat' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
+rm $file.m
 ~/cweb/cweave -b -h -p "$@" || exit 1
 LC_ALL=C grep -q '\\|[^[:cntrl:][:print:]]' $file.tex $file.idx $file.scn && { echo ERROR: one-letter identifiers must be ascii-only; exit 1; } # I do not set \matcharcode for cyrillic letters (because I do not have cyrillic math fonts), so cyrillic one-letter identifiers will be typeset in roman font instead of italic
 if [ $PWD != ~/cweb ] || [ $file != cweave ]; then
