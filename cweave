@@ -7,8 +7,8 @@ else
 fi
 test -e $file.w || { echo '! Cannot open input file' $file.w; exit 1; }
 test -e $ch || { echo '! Cannot open change file' $ch; exit 1; }
-ctie -m $file.m $file.w >/dev/null || { rm -f $file.m; exit 1; } # expand @i
-iconv -f UTF-8 -t UCS-2 $file.m $ch >/dev/null 2>&1 || { echo File is not UTF-8 or not all codepoints fit into 16 bits; rm $file.m; exit 1; }
+ctie -m $file.m $file.w $ch >/dev/null || { rm -f $file.m; exit 1; }
+iconv -f UTF-8 -t UCS-2 $file.m $ch >/dev/null 2>&1 || { echo Bad input; rm $file.m; exit 1; }
 grep '@s sigaction' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
 grep 'struct sigaction' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
 grep '@s stat' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
