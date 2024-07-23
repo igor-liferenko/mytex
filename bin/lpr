@@ -4,6 +4,9 @@
 
 [ $# != 2 ] && exit 1; [ $1 != none ] && [ $1 != long ] && [ $1 != short ] && exit 1
 
+# PostScript format makes it possible to separate pages without
+# changing the rest of a document. Due to the simplicity of
+# PostScript, this functionaly is implemented in any viewer.
 # To ensure, that pages selected for printing in viewer are not changed,
 # uncomment the following line and do diff of original file with /tmp/file.ps
 # cp $2 /tmp/file.ps; exit
