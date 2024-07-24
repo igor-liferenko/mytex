@@ -4,13 +4,6 @@
 
 [ $# != 2 ] && exit 1; [ $1 != none ] && [ $1 != long ] && [ $1 != short ] && exit 1
 
-# PostScript format is structured page by page. Due to this fact, the algorithm
-# for deleting pages, that were not selected for printing in viewer, from a file is
-# very easy and is therefore implemented in any viewer.
-# To ensure, that viewer does not change the pages selected for printing,
-# uncomment the following line and do diff of original file with /tmp/file.ps
-# cp $2 /tmp/file.ps; exit
-
 (
   printf '\e%%-12345X'
   echo @PJL JOB
