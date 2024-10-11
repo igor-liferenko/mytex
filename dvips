@@ -3,7 +3,6 @@ mkdir /tmp/mf.$$
 resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
 rm -r /tmp/mf.$$
 file=$1
-dvitype -output-level 0 $file | sed -n '/^Postamble starts at byte/,${s/^Font [0-9]\+: //p}' | grep -v '^[A-Za-z]\+[0-9]* ' && exit 1 # do not use fonts with path
 eval "$(hexdump -s 15 -n `hexdump -s 14 -n 1 -e '/1 "%d"' $file` -v -e '/1 "%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips

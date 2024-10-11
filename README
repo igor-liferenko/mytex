@@ -1,3 +1,15 @@
 Use this command to be sure that all PK-files for font xyz don't remain not updated:
 
     rm -f ~/tex/TeXfonts/*/xyz.*
+    rm -f xyz.*pk # when you use font via ./
+
+(PK-files for the same font with different resolutions are totally independent from
+each other, and therefore if a font is used in one document with different resolutions
+and we regenerate one PK-file after changing MF source, it cannot be determined
+automatically if another PK-file is out-of-date)
+
+----------------------------------------------------------------
+
+Use this command between tex- / tex+ (i.e., when changing mode):
+
+    rm -f xyz.*pk # when you use font via ./
