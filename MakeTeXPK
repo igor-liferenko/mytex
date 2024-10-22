@@ -1,25 +1,17 @@
 #!/bin/sh
-
-# dvips behaves the following way:
-#
-# If MakeTeXPK fails, all the rest non-found fonts are
-# just reported as errors on terminal (and in
-# missfont.log) - MakeTeXPK is never called again
-# (see loadfont.c:177).
-
-# This change is done in loadfont.c:
-# -   (void)sprintf(errbuf,
-# -      "Font %s%s not found, characters will be left blank.",
-# -      fd->area, name) ;
-# -   error(errbuf) ;
-
-# This change is done in makefont.c:
-# -                  "Appending font creation commands to missfont.log\n") ;
-# +                  "") ;
-
 name=$1
-dpi=$2
-mag=$4
+dpi=$(echo $3*$2/1000+0.5 | bc -l | cut -d. -f1)
+if [ $name != ${name#*/} ]; then
+  if [ ! -e $name.${dpi}pk ]; then
+    echo $name.${dpi}pk does not exist
+    touch MakeTeXPK.fail
+  fi
+  exit
+elif [ -e ~/tex/TeXfonts/$mode/$name.${dpi}pk ]; then
+  exit
+fi
+mag=$(echo $3/1000 | bc -l | cut -d. -f1)
+mag=$mag+$(echo $3-$mag*1000 | bc -l)/1000
 if [ -L ~/tex/TeXfonts/$name.tfm ]; then
   fullname=~/mf/$name
 else
@@ -31,14 +23,14 @@ if ! ~/mf/plain "\mode=$mode; mag=$mag; batchmode; input $fullname" </dev/null >
   cd $OLDPWD
   rm -r /tmp/mf.$$
   echo \`$name\' not in MFinputs \(TeXfonts/$mode/$name.${dpi}pk must be created manually\) # other causes are not considered because fonts in MFinputs are guaranteed to work
-  touch missfont.log
+  touch MakeTeXPK.fail
   exit
 fi
 if ! [ -e $name.tfm ]; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
   echo \`fontmaking\' is not enabled in mode \`$mode\'
-  touch missfont.log
+  touch MakeTeXPK.fail
   exit
 fi
 if ! diff $name.tfm ~/tex/TeXfonts/$name.tfm >/dev/null; then
@@ -47,14 +39,14 @@ if ! diff $name.tfm ~/tex/TeXfonts/$name.tfm >/dev/null; then
   echo there is one of the following problems:
   echo 1\) this font name is already used in MFinputs
   echo 2\) TeXfonts/$name.tfm is out-of-date
-  touch missfont.log
+  touch MakeTeXPK.fail
   exit
 fi
 if ! ~/mytex/gftopk $name.${dpi}gf; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
   echo gftopk failed
-  touch missfont.log
+  touch MakeTeXPK.fail
   exit
 fi
 mkdir -p ~/tex/TeXfonts/$mode
