@@ -1,6 +1,6 @@
 #!/bin/sh
 name=$1
-dpi=$(echo $3*$2/1000+0.5 | bc -l | cut -d. -f1)
+dpi=$(echo $2*$3/1000+0.5 | bc -l | cut -d. -f1)
 if [ $name != ${name#*/} ]; then
   if [ ! -e $name.${dpi}pk ]; then
     echo $name.${dpi}pk does not exist
@@ -22,32 +22,25 @@ cd /tmp/mf.$$
 if ! ~/mf/plain "\mode=$mode; mag=$mag; batchmode; input $fullname" </dev/null >/dev/null; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
-  echo \`$name\' not in MFinputs \(TeXfonts/$mode/$name.${dpi}pk must be created manually\) # other causes are not considered because fonts in MFinputs are guaranteed to work
-  touch MakeTeXPK.fail
-  exit
+  echo mf failed
+  exit 1
 fi
 if ! [ -e $name.tfm ]; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
-  echo \`fontmaking\' is not enabled in mode \`$mode\'
-  touch MakeTeXPK.fail
-  exit
+  echo \`fontmaking\' is not enabled for mode \`$mode\'
+  exit 1
 fi
-if ! diff $name.tfm ~/tex/TeXfonts/$name.tfm >/dev/null; then
+if ! diff $name.tfm ~/tex/TeXfonts/$name.tfm; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
-  echo there is one of the following problems:
-  echo 1\) this font name is already used in MFinputs
-  echo 2\) TeXfonts/$name.tfm is out-of-date
-  touch MakeTeXPK.fail
-  exit
+  exit 1
 fi
 if ! ~/mytex/gftopk $name.${dpi}gf; then
   cd $OLDPWD
   rm -r /tmp/mf.$$
   echo gftopk failed
-  touch MakeTeXPK.fail
-  exit
+  exit 1
 fi
 mkdir -p ~/tex/TeXfonts/$mode
 mv $name.${dpi}pk ~/tex/TeXfonts/$mode
