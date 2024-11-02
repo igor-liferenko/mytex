@@ -2,6 +2,7 @@
 export edit=/tmp/edit.$$
 export screen_size=$(cat ~/.screen-size)
 ~/mf/plain "$@"
+ret=$?
 if [ -t 0 ] && [ -t 1 ]; then
   stty -icanon -echo
   tput u7
@@ -10,3 +11,4 @@ if [ -t 0 ] && [ -t 1 ]; then
 fi
 [ -e $edit ] && em `cat $edit`
 rm -f $edit
+exit $ret
