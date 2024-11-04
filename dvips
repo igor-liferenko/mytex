@@ -10,7 +10,5 @@ dvitype -output-level 0 $file | \
 eval "$(hexdump -s 15 -n `hexdump -s 14 -n 1 -e '/1 "%d"' $file` -v -e '/1 "%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
-export VFFONTS=/none
-export TEXFONTS=~/tex/TeXfonts
 export PKFONTS=~/tex/TeXfonts/$mode
 ~/dvips/dvips -T $p -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q $file
