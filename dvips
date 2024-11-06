@@ -1,4 +1,5 @@
 #!/bin/sh
+export PKFONTS=~/.PKfonts/$mode # used in MakeTeXPK and dvips (if you change here, change also in mf/Makefile)
 mkdir /tmp/mf.$$
 resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
 rm -r /tmp/mf.$$
@@ -10,5 +11,4 @@ dvitype -output-level 0 $file | \
 eval "$(hexdump -s 15 -n `hexdump -s 14 -n 1 -e '/1 "%d"' $file` -v -e '/1 "%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
-export PKFONTS=~/tex/TeXfonts/$mode
 ~/dvips/dvips -T $p -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q $file
