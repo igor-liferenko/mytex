@@ -13,10 +13,17 @@ else
     mv $name.tfm.$$ $name.tfm
     exit 1
   fi
+  tfm_hash=`xxd -b -s24 -l4 -g4 $name.tfm | cut -c11-42`
   hash=`md5sum $name.tfm | head -c32`
   mv $name.tfm.$$ $name.tfm
-  if [ $hash != `md5sum $name.tfm | head -c32` ]; then
-    echo ERROR: $name.tfm does not match $name.mf
+  if [ $tfm_hash != `xxd -b -s24 -l4 -g4 $name.tfm | cut -c11-42` ]; then
+    echo ERROR: check sum in auto-generated $name.tfm does not agree with DVI
+    exit 1
+  fi
+  if [ $hash != `md5sum $name.tfm | head -c32` ]; then # not sure
+    echo OOPS: tfm hash does not include all parameters in TFM - find out via tftopl what they \
+      are and document them in MakePK and change MakePK to keep auto-generated $name.tfm instead \
+      of pre-existing $name.tfm when tfm_hash does not differ and delete this
     exit 1
   fi
   if ! ~/mytex/gftopk $name.${dpi}gf; then
