@@ -1,6 +1,10 @@
 #!/bin/sh
+export format=plain
 export edit=/tmp/edit.$$
-~/tex/plain "$@"
+if [ $# = 1 ] && [ -e "$1" ]; then
+  head -n1 "$1" | grep -q '^%&' && format=`sed -n 1s/^%&//p "$1"`
+fi
+~/tex/virtex "$@"
 if [ -t 0 ] && [ -t 1 ]; then
   stty -icanon -echo
   tput u7

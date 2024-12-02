@@ -1,7 +1,8 @@
 #!/bin/sh
+export base=plain
 export edit=/tmp/edit.$$
 export screen_size=$(cat ~/.screen-size)
-~/mf/plain "$@"
+~/mf/virmf "$@"
 ret=$?
 if [ -t 0 ] && [ -t 1 ]; then
   stty -icanon -echo

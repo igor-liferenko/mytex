@@ -1,7 +1,8 @@
 #!/bin/sh
+export base=plain
 export edit=/tmp/edit.$$
 export gf=/tmp/gf.$$
-~/mf/plain "$@"
+~/mf/virmf "$@"
 ret=$?
 if [ -t 0 ] && [ -t 1 ]; then
   stty -icanon -echo
@@ -10,13 +11,11 @@ if [ -t 0 ] && [ -t 1 ]; then
   stty icanon echo
 fi
 [ -e $edit ] && em `cat $edit`
-if [ $ret = 0 ]; then
-  if [ -e $gf ]; then
-    gf_file=`cat $gf`
-    if ~/mytex/gftodvi $gf_file; then
-      dvi_file=${gf_file%.*}.dvi
-      mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
-    fi
+if [ $ret = 0 ] && [ -e $gf ]; then
+  gf_file=`cat $gf`
+  if ~/mytex/gftodvi $gf_file; then
+    dvi_file=${gf_file%.*}.dvi
+    mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
   fi
 fi
 rm -f $edit $gf
