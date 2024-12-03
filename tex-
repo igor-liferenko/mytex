@@ -2,8 +2,8 @@
 export format=plain
 export edit=/tmp/edit.$$
 export dvi=/tmp/dvi.$$
-if [ $# = 1 ] && [ -e "$1" ]; then
-  head -n1 "$1" | grep -q '^%&' && format=`sed -n 1s/^%&//p "$1"`
+if [ "$1" ] && grep -sn '^%&' "$1" | grep -q ^1:; then
+  format=`sed -n 1s/^%&//p "$1"`
 fi
 ~/tex/virtex "$@"
 ret=$?
