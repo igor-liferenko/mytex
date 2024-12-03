@@ -10,7 +10,7 @@ dvitype -output-level 0 $file | \
 dvitype -output-level 0 $file | \
   sed -n '/^Postamble starts at byte/,${s/---.*//;s/^Font [0-9]\+:/~\/mytex\/MakePK/p}' | \
   sed '/scaled/!s/$/ scaled 1000/' | sed s/scaled/$resolution/ | \
-  while read; do eval $REPLY || exit; done || exit
+  while read REPLY; do eval $REPLY || exit; done || exit
 eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
