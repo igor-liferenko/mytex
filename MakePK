@@ -32,6 +32,7 @@ else
   fi
   exit 0
 fi
+[ $name = trip ] && { echo ERROR: font \'trip\' is reserved; exit 1; }
 if [ -L ~/tex/TeXfonts/$name.tfm ]; then
   fullname=~/mf/$name
 else

@@ -3,11 +3,12 @@ all: tex mf
 
 tex:
 	ln -sf ~/cweb/cwebmac.tex ~/tex/TeXinputs/
-	ln -sf ~/mytex/TeXinputs/cwebmac-ru.tex ~/tex/TeXinputs/
-	ln -sf ~/mytex/TeXinputs/epsf.tex ~/tex/TeXinputs/
+	ln -sf ~/prt/docmy.tex ~/tex/TeXinputs/
+	cd TeXinputs; for i in *; do ln -sf ~/mytex/TeXinputs/$$i ~/tex/TeXinputs/; done
 	perl -ne 'BEGIN{open F,"cd TeXfonts; ls om*|";@a=<F>}s!(\\font.*?=)c(\w+)!$$a=$$1;$$b=$$2;$$a.(grep(/^o$$b.tfm/,@a)?"o":"c").$$b!e if!/^%/; print' ~/tex/plain.tex >plain.tex
 	sed -i 's|input hyphen|input ../tex/hyphen|' plain.tex
 	sed 's|hyph-ru|TeXformats/&|' TeXformats/тех.tex >тех.tex
+	cd ~/mf; for i in *.tfm; do ln -sf ~/mf/$$i ~/tex/TeXfonts/; done
 	cp TeXfonts/* ~/tex/TeXfonts/
 	~/tex/initex 'тех \input ../tex/paper+origin \dump' >/dev/null && mv тех.fmt ~/tex/TeXformats/
 	echo '\input тех \input TeXformats/12pt' >12pt.tex

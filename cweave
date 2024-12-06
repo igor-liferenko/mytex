@@ -24,4 +24,3 @@ grep -q '\\&{line}' $file.tex $file.idx $file.scn && { echo ERROR: Use @s line n
 sed -i 's/sig\xD0\xB0ction/sigaction/g' $file.tex $file.idx $file.scn
 sed -i 's/st\xD0\xB0t/stat/g' $file.tex $file.idx $file.scn
 iconv -f ASCII $file.tex $file.idx $file.scn >/dev/null 2>&1 || sed -i '1s/$/-ru/;1i %&тех' $file.tex
-[ $file = tel ] && sed -i '1s/-ru//;1i %&тех' $file.tex
