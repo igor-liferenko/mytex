@@ -1,11 +1,8 @@
-\def\today{\number\year-\twodigits=\month \printtwodigits-\twodigits=\day \printtwodigits}
+\def\today{\number\year-\twodigits=\month \ifnum\twodigits<10 0\fi\number\twodigits
+                       -\twodigits=\day \ifnum\twodigits<10 0\fi\number\twodigits}
 \newcount\twodigits
-\def\hours{\twodigits=\time \divide\twodigits by 60 \printtwodigits
-  \multiply\twodigits by-60 \advance\twodigits by\time :\printtwodigits}
-\def\gobbleone1{}
-\def\printtwodigits{\advance\twodigits100
-  \expandafter\gobbleone\number\twodigits
-  \advance\twodigits-100 }
+\def\hours{\twodigits=\time \divide\twodigits by 60 \ifnum\twodigits<10 0\fi\number\twodigits
+  \multiply\twodigits by-60 \advance\twodigits by\time :\ifnum\twodigits<10 0\fi\number\twodigits}
 
 \newcount\ttlineno
 \def\Blue{} % TODO: purge this everywhere - it is stub for dvi mode
@@ -21,10 +18,6 @@
           \def\tittoc{Obsah}
           \def\titindex{Rejstrik}
           \def\opartname{>> CAST}
-
-\def\titversion{}
-\def\projectversion{\today\ \hours}
-
 
 %%%%%%%%%%%%%%%%%% Parametry a pomocná makra pro nastavení vzhledu
 
@@ -88,13 +81,9 @@
 
 %%%%%%%%%%%%%%%%%%%% Titul, autor
 
-\def\title{\def\tmpA{title}\futurelet\nextchar\secparam}
-   \def\iititle {\par
-      \ifx\projectversion\empty \else 
-        \line{\hss\rmsmall\titversion\projectversion}\nobreak\medskip\fi
-      \centerline{\bbbf \the\sectitle}\nobreak\medskip}
-
-\ifx\projectversion\undefined \def\projectversion{}\fi
+\def\title#1\par{\par
+  \line{\hss\rmsmall\today\ \hours}\nobreak\medskip
+  \centerline{\bbbf #1}\nobreak\medskip}
 
 %%%%%%%%%%%%%%%%%%%% Footline
 
@@ -179,73 +168,6 @@
     \expandafter \printsubsec \expandafter{\the\sectitle}% vlozi horni mezeru, text, nakonec \par
     \savetoctrue \printsubsecbelow
 }
-
-%%%%%%%%%%%%%%%%%%%%%%% Part (doplneno leden 2009)
-
-\newcount\partnum
-\def\thepart{\ifcase\partnum --\or A\or B\or C\or D\or E\or F\or G\or
-  H\or I\or J\or K\or L\or M\or N\or O\or P\or Q\or R\or S\or T\or
-  U\or V\or W\or X\or Y\or Z\else +\the\partnum\fi}
-
-\def\part{\def\tmpA{part}\futurelet\nextchar\secparam}
-\def\iipart{% 
-    \ifsavetoc \global\advance\partnum by1 \fi
-    \expandafter \printpart \expandafter{\the\sectitle}% vlozi horni mezeru, text, nakonec \par
-    \savetoctrue \printpartbelow
-}
-
-%%%%%%%%%%%%%%%%%%%%%%% Odkazy, reference
-
-\ifx\pdfoutput\undefined
-   \def\savelink[#1]{}
-   \def\ilink [#1]#2{#2}
-   \def\savepglink{}
-   \def\pglink{\afterassignment\dopglink\tempnum=}
-   \def\dopglink{\the\tempnum}
-   \def\ulink[#1]#2{#2}
-\else
-   \def\savelink[#1]{\ifvmode\nointerlineskip\fi
-      \vbox to0pt{\def\nb{/_}\vss\pdfdest name{#1} xyz\vskip\linkskip}}
-   \def\ilink [#1]#2{{\def\nb{/_}\pdfstartlink height 9pt depth 3pt
-      attr{/Border[0 0 0]} goto name{#1}}\Blue#2\Black\pdfendlink}
-   \def\savepglink{\ifnum\pageno=1 \pdfdest name{sec::start} xyz\relax\fi % viz \bookmarks
-       \pdfdest num\pageno fitv\relax}
-   \def\pglink{\afterassignment\dopglink\tempnum=}
-   \def\dopglink{\pdfstartlink height 9pt depth 3pt
-       attr{/Border[0 0 0]} goto num\tempnum\relax\Blue\the\tempnum\Black\pdfendlink}
-   \def\ulink[#1]#2{\pdfstartlink height 9pt depth 3pt 
-   user{/Border[0 0 0]/Subtype/Link/A << /Type/Action/S/URI/URI(#1)>>}\relax
-   \Green{\tt #2}\Black\pdfendlink}
-\fi
-\newdimen\linkskip \linkskip=12pt
-
-\def\reflabel #1#2#3{%
-   \undef{^^Y#1}\iftrue
-      \ifx^^X#2^^X\else\defsec{^^X#1}{#2}\fi
-      \defsec{^^Y#1}{#3}%
-   \else
-      \dbtwarning{The label [#1] is declared twice}%
-   \fi
-}
-\def\numref [#1]{\undef{^^X#1}\iftrue \else \csname^^X#1\endcsname\fi}
-\def\pgref [#1]{\undef{^^Y#1}\iftrue-1000\else \csname^^Y#1\endcsname\fi}
-
-\def\labeltext[#1]#2{\savelink[#1]\writelabel[#1]{#2}}
-\def\writelabel[#1]#2{\edef\tmp{\noexpand\writelabelinternal{#2}}\tmp{#1}}
-\def\writelabelinternal#1#2{\write\reffile{\string\reflabel{#2}{#1}{\the\pageno}}}
-
-\def\label[#1]{\labeltext[#1]{}}
-
-\def\cite[#1]{\ifnum \pgref[#1]=-1000
-      \dbtwarning{label [#1] is undeclared}\Red??\Black
-   \else \edef\tmp{\numref[#1]}%
-      \ifx\tmp\empty \edef\tmp{\pgref[#1]}\fi
-      \ilink[#1]{\tmp}%
-   \fi
-}
-
-\def\api #1{\label[+#1]\write\reffile{\string\refapiword{#1}}}
-\def\apitext{$\succ$}
 
 %% final settings
 
