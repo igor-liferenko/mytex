@@ -1,0 +1,3 @@
+Fonts committed here are not done via
+b-* (as opposed to fonts in ../sauter/),
+because they are processed in ../../Makefile
