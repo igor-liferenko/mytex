@@ -257,24 +257,6 @@
 \def\langleactive{\uccode`\~=`\<\catcode`\<=13
       \uppercase{\def~}##1>{{$\langle$\it##1\/$\rangle$}}}
 
-\font\eightrm=omr8
-\font\eighttt=omtt8
-\font\eightbf=ombx8
-\font\eightsl=omsl8
-\font\eightit=omti8
-
-%FIXME: why it stops working if we put \baselineskip and \eightrm inside
-%\begingroup-\endgroup to avoid using \normalbaselines\rm?
-%(for example see \eighttt in tex/listing.tex - why it works?)
-\def\begincomment{\baselineskip9pt\eightrm\begingroup
-  \def\rm{\eightrm}%
-  \def\tt{\eighttt}%
-  \def\sl{\eightsl}%
-  \def\bf{\eightbf}%
-  \def\it{\eightit}%
-  \parindent=0pt}
-\def\endcomment{\endgroup\vskip1mm\normalbaselines\rm}
-
 \def\setupverbatim{\setsmallprinting
   \def\par{\leavevmode\endgraf}
   \catcode`\`=\active
