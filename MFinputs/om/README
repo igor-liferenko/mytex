@@ -1,3 +1,3 @@
 Fonts committed here are not done via
-b-* (as opposed to fonts in ../sauter/),
+b-* (as opposed to fonts in sauter package),
 because they are processed in ../../Makefile
