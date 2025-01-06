@@ -5,11 +5,11 @@ resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; e
 rm -r /tmp/mf.$$
 file=${1##*/}
 dvitype -output-level 0 $file | \
-  sed -n 's/^Font.*:/\\\\mode=localfont; batchmode; input/;s/ scaled [0-9]\+//;/.---not loaded/s/---.*//p' | \
-  while read REPLY; do mf "$REPLY" >/dev/null || exit; done || exit
+  sed -n 's/^Font.*:/mode=localfont; batchmode; input/;s/ scaled [0-9]\+//;/.---not loaded/s/---.*//p' | \
+  while read REPLY; do mf "\\$REPLY" >/dev/null || exit; done || exit
 dvitype -output-level 0 $file | \
   sed 's/^Font [0-9]\+/ERROR/;s/ scaled [0-9]\+//;/check sum/s/---.*/ --- check sum does not agree with TFM/' | \
-  grep -m1 'check sum' && exit 1
+  grep 'check sum' && exit 1
 dvitype -output-level 0 $file | \
   sed -n '/^Postamble starts at byte/,${s/^Font.*://p}' | \
   sed '/scaled/!s/$/ scaled 1000/' | sed s/scaled/$resolution/ | \
