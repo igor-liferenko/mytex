@@ -17,7 +17,7 @@ else
   mv $name.tfm.$$ $name.tfm
   if [ $tfm_hash != `xxd -b -s24 -l4 -g4 $name.tfm | cut -c11-42` ]; then
     echo ERROR: checksum in auto-generated $name.tfm does not agree with DVI\; to update, run:
-    echo " mf '\\mode=localfont; input ${name#*/}'"
+    echo " mf '\\mode=$mode; input $name'"
     exit 1
   fi
   if [ $hash != `md5sum $name.tfm | head -c32` ]; then # not sure

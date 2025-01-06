@@ -1,6 +1,6 @@
 #!/bin/sh
-# used by dvi+,dvi- for ./ fonts
-if ! mf "\mode=localfont; batchmode; input $1" >/dev/null; then
+# used when we have only DVI file (no TEX file) and MF file (for ./ fonts)
+if ! mf "\mode=$mode; batchmode; input $1" >/dev/null; then
   echo ERROR: failed to create $1.tfm
   exit 1
 fi
