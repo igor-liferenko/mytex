@@ -1,5 +1,5 @@
 #!/bin/sh
-export geometry=55380990x39158276+6377204+4186205 # set \pdf* and use dvitype
+export geometry=55380990x39158276+6377204+4186205 # see ~/gftodvi/README
 
 # for custom fonts, add to z.mf: special "...";
 x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
