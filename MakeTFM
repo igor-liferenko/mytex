@@ -1,6 +1,5 @@
 #!/bin/sh
 # used when we have only DVI file (no TEX file) and MF file (for ./ fonts)
-[ -e $1.mf ] || { echo ERROR: $1.mf does not exist; exit 1; }
 if ! mf "\mode=$mode; batchmode; input $1" >/dev/null; then
   echo ERROR: failed to create $1.tfm
   exit 1
