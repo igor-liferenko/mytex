@@ -5,20 +5,25 @@ resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; e
 rm -r /tmp/mf.$$
 file=${1##*/}
 dvitype -output-level 0 $file | \
-  sed 's/^Font [0-9]\+/ERROR/;s/ scaled [0-9]\+//;/not loaded/s/---.*/.tfm does not exist/' | \
-  grep -m1 'tfm does not exist' && exit 1
+  sed -n 's/^Font.*:/\\\\mode=localfont; batchmode; input/;s/ scaled [0-9]\+//;/.---not loaded/s/---.*//p' | \
+  while read REPLY; do mf "$REPLY" >/dev/null || exit; done || exit
 dvitype -output-level 0 $file | \
   sed 's/^Font [0-9]\+/ERROR/;s/ scaled [0-9]\+//;/check sum/s/---.*/ --- check sum does not agree with TFM/' | \
   grep -m1 'check sum' && exit 1
 dvitype -output-level 0 $file | \
-  sed -n '/^Postamble starts at byte/,${s/^Font [0-9]\+:/~\/mytex\/MakePK/p}' | \
+  sed -n '/^Postamble starts at byte/,${s/^Font.*://p}' | \
   sed '/scaled/!s/$/ scaled 1000/' | sed s/scaled/$resolution/ | \
-  while read REPLY; do eval $REPLY || exit; done || exit
+  while read REPLY; do ~/mytex/MakePK $REPLY || exit; done || exit
 eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
-[  $p  = 39158276sp,55380990sp ] && p='-t a4'
-[ "$p" = 55380990sp,39158276sp ] && p='-t a4 -t landscape'
-[ "$p" = 39158274sp,55380990sp ] && p='-t a4'
-echo $p | grep sp && exit 1
-~/dvips/dvips $p -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q $file
+if   [ $p = 39158276sp,55380990sp ]; then p=a4
+elif [ $p = 55380990sp,39158276sp ]; then p='a4 -t landscape'
+elif [ $p = 39158272sp,55380987sp ]; then p=a4
+elif [ $p = 39158275sp,55380990sp ]; then p=a4
+elif [ $p = 39158274sp,55380990sp ]; then p=a4
+elif [ $p = 39158273sp,55380989sp ]; then p=a4
+elif [ $p = 39158268sp,55380987sp ]; then p=a4
+elif [ $p = 39158271sp,55380986sp ]; then p=a4
+else echo $p; exit 1; fi
+~/dvips/dvips -t $p -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q $file
