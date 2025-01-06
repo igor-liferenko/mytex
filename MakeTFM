@@ -1,0 +1,5 @@
+#!/bin/sh
+if ! mf "\mode=localfont; batchmode; input $1" >/dev/null; then
+  echo ERROR: failed to create $1.tfm
+  exit 1
+fi
