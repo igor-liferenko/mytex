@@ -8,7 +8,7 @@ dvitype -output-level 0 $file | \
   sed -n '0,/^Postamble starts at byte/{s/^Font.*://;s/ scaled [0-9]\+//;s/---not loaded.*//p}' | \
   sort | uniq | while read REPLY; do ~/mytex/MakeTFM $REPLY || exit; done || exit
 dvitype -output-level 0 $file | \
-  sed -n 's/^Font [0-9]\+/ERROR/;s/ scaled [0-9]\+//;s/---beware.*/ --- check sum does not agree with TFM/p' | \
+  sed -n 's/^Font [0-9]\+/ERROR/;s/ scaled [0-9]\+//;s/---beware:.*/ --- check sum does not agree with TFM/p' | \
   sort | uniq | grep ^ && exit 1
 dvitype -output-level 0 $file | \
   sed -n '/^Postamble starts at byte/,${s/^Font.*://p}' | \

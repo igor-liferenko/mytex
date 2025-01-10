@@ -1,5 +1,6 @@
 #!/bin/sh
 export geometry=55380990x39158276+2797019+2797019 # see ~/gftodvi/README
+#               297mm    210mm    15mm    15mm
 
 # for custom fonts, add to z.mf: special "...";
 x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
