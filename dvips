@@ -5,13 +5,13 @@ resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; e
 rm -r /tmp/mf.$$
 file=${1##*/}
 dvitype -output-level 0 $file | \
-  sed -n '0,/^Postamble starts at byte/{s/^Font.*://;s/ scaled [0-9]\+//;s/---not loaded.*//p}' | \
+  sed -n '0,/^Postamble starts at byte/{s/^Font [0-9]\+://;s/ scaled [0-9]\+//;/TFM file/s/---.*//p}' | \
   sort | uniq | while read REPLY; do ~/mytex/MakeTFM $REPLY || exit; done || exit
 dvitype -output-level 0 $file | \
-  sed -n 's/^Font [0-9]\+/ERROR/;s/ scaled [0-9]\+//;s/---beware:.*/ --- check sum does not agree with TFM/p' | \
+  sed -n 's/^Font [0-9]\+/ERROR/;s/ scaled [0-9]\+//;/check sum/s/---.*/ --- check sum does not agree with TFM/p' | \
   sort | uniq | grep ^ && exit 1
 dvitype -output-level 0 $file | \
-  sed -n '/^Postamble starts at byte/,${s/^Font.*://p}' | \
+  sed -n '/^Postamble starts at byte/,${s/^Font [0-9]\+://p}' | \
   sed '/scaled/!s/$/ scaled 1000/' | sed s/scaled/$resolution/ | \
   while read REPLY; do ~/mytex/MakePK $REPLY || exit; done || exit
 eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
