@@ -1,0 +1,3 @@
+hyph-ru.tex was taken from hyphenation.org and modified by deleting the «Additional patterns
+with hyphen/dash» part (hyphenation of compound words is impossible - by design; instead,
+use \tolerance etc.)
