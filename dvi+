@@ -1,2 +1,0 @@
-#!/bin/sh
-mode=screen ~/mytex/dvips $1.dvi && ~/mytex/open $1.ps

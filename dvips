@@ -5,12 +5,6 @@ resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; e
 rm -r /tmp/mf.$$
 file=${1##*/}
 dvitype -output-level 0 $file | \
-  sed '/TFM file/!d;/^Font [0-9]\+:/!d;s///;s/ scaled [0-9]\+//;s/---.*//' | \
-  sort | uniq | while read REPLY; do ~/mytex/MakeTFM $REPLY || exit; done || exit
-dvitype -output-level 0 $file | \
-  sed '/check sum/!d;s/^Font [0-9]\+/CHECKSUM ERROR/;s/ scaled [0-9]\+//;s/---.*//' | \
-  sort | uniq | grep ^ && exit 1
-dvitype -output-level 0 $file | \
   sed '/^Postamble starts at byte/,$!d;/^Font [0-9]\+:/!d;s///;/scaled/!s/\w\+/& scaled 1000/' | \
   sed s/scaled/$resolution/ | while read REPLY; do ~/mytex/MakePK $REPLY || exit; done || exit
 eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"

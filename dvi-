@@ -1,2 +1,0 @@
-#!/bin/sh
-mode=localfont ~/mytex/dvips $1.dvi && ~/mytex/print $1.ps

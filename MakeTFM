@@ -1,6 +1,0 @@
-#!/bin/sh
-# used by dvi+ and dvi- for fonts with path
-if ! mf "\mode=$mode; batchmode; input $1" >/dev/null; then
-  echo ERROR: failed to create $1.tfm
-  exit 1
-fi
