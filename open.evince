@@ -1,2 +1,3 @@
 #!/bin/sh
+pkill -x gv
 evince $1 &

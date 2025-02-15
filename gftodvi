@@ -1,8 +1,14 @@
 #!/bin/sh
-pdfpagewidth=297mm
-pdfpageheight=210mm
-pdfhorigin=15mm
-pdfvorigin=15mm
+! printenv g >/dev/null || [ $g = p ] && g=$g+2cm+2cm
+if [ $g = ${g#p} ]; then
+  pdfpagewidth=297mm
+  pdfpageheight=210mm
+else
+  pdfpagewidth=210mm
+  pdfpageheight=297mm
+fi
+pdfhorigin=`echo ${g#p} | sed 's/[+-][^+-]*$//'`
+pdfvorigin=`echo ${g#p} | sed 's/^[+-][^+-]*//'`
 
 # for custom fonts, add to z.mf: special "...";
 x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
@@ -49,10 +55,10 @@ x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
 mkdir /tmp/tex.$$
 pdfpagewidth=$(cd /tmp/tex.$$; tex "\dimen0=$pdfpagewidth\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
 pdfpageheight=$(cd /tmp/tex.$$; tex "\dimen0=$pdfpageheight\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
-pdfhorigin=$(cd /tmp/tex.$$; tex "\dimen0=$pdfhorigin\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
-pdfvorigin=$(cd /tmp/tex.$$; tex "\dimen0=$pdfvorigin\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
+pdfhorigin=$(cd /tmp/tex.$$; tex "\dimen0=$pdfhorigin\count0=\dimen0\message{\the\count0}\end" | sed -n '/-/!s/^/+/;2p')
+pdfvorigin=$(cd /tmp/tex.$$; tex "\dimen0=$pdfvorigin\count0=\dimen0\message{\the\count0}\end" | sed -n '/-/!s/^/+/;2p')
 rm -r /tmp/tex.$$
-export geometry=${pdfpagewidth}x$pdfpageheight+$pdfhorigin+$pdfvorigin
+export geometry=${pdfpagewidth}x${pdfpageheight}${pdfhorigin}${pdfvorigin}
 ~/gftodvi/gftodvi /tmp/gftodvi.$$ "$@"
 ret=$?
 if [ $ret = 0 ]; then
