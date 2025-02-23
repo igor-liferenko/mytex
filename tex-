@@ -16,6 +16,7 @@ fi
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ] && [ -e $dvi ]; then
   dvi_file=`cat $dvi`
-  mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/print ${dvi_file%dvi}ps
+  ps_file=/tmp/PRINT.ps
+  mode=localfont ~/mytex/dvips $dvi_file $ps_file && ~/mytex/print $ps_file
 fi
 rm -f $edit $dvi

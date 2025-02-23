@@ -15,7 +15,8 @@ if [ $ret = 0 ] && [ -e $gf ]; then
   gf_file=`cat $gf`
   if ~/mytex/gftodvi $gf_file; then
     dvi_file=${gf_file%.*}.dvi
-    mode=localfont ~/mytex/dvips $dvi_file && ~/mytex/print ${dvi_file%dvi}ps # if you change 'mode' here, change also in mf/Makefile
+    ps_file=/tmp/PRINT.ps
+    mode=localfont ~/mytex/dvips $dvi_file $ps_file && ~/mytex/print $ps_file # if you change 'mode' here, change also in mf/Makefile
   fi
 fi
 rm -f $edit $gf

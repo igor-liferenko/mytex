@@ -1,3 +1,2 @@
 #!/bin/sh
-pkill -x gv
 okular --unique $1 2>/dev/null &
