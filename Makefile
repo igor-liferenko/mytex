@@ -7,6 +7,7 @@ all:
 	@cd ~/mf; for i in *.tfm; do ln -sf ~/mf/$$i ~/tex/TeXfonts/; done
 	@cp TeXfonts/* ~/tex/TeXfonts/
 	@~/tex/initex 'тех \input ../tex/paper+origin \dump' >/dev/null && mv тех.fmt ~/tex/TeXformats/
+	@sed -i '/TENRM/,$$d' тех.tex
 	@echo '\input тех \input TeXformats/12pt' >12pt.tex
 	@~/tex/initex '12pt \input ../tex/paper+origin \dump' >/dev/null && mv 12pt.fmt ~/tex/TeXformats/
 	@echo '\input тех \input TeXformats/14pt' >14pt.tex
