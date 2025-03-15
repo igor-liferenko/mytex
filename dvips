@@ -11,4 +11,4 @@ eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | 
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
 ~/dvips/dvips -t a4 `[ ${p#*,} \< ${p%,*} ] && echo -t landscape` \
-  -O $((x-4736287))sp,$((y-4736287))sp -D $resolution -q `[ $# = 2 ] && echo -o $2` $file
+  -O $((x-4736286))sp,$((y-4736286))sp -D $resolution -q `[ $# = 2 ] && echo -o $2` $file
