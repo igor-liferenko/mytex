@@ -1,11 +1,14 @@
 all:
+	@find ~/tex/TeXinputs/ -xtype l -exec rm {} \;
+	@for i in `ls ~/tex/TeXfonts`; do [ $$i = trip.tfm ] && continue; grep -q $${i%.tfm} ~/tex/plain.tex && continue; rm ~/tex/TeXfonts/$$i; done
+	@find ~/mf/MFinputs/ -xtype l -exec rm {} \;
 	@ln -sf ~/cweb/cwebmac.tex ~/tex/TeXinputs/
 	@cd TeXinputs; for i in *; do ln -sf ~/mytex/TeXinputs/$$i ~/tex/TeXinputs/; done
 	@sed 's|input hyphen|input ../tex/hyphen|' ~/tex/plain.tex >plain.tex
 	@perl -i -pe 'if(/(\\font.*?=)c(\w+)/&&-e"TeXfonts/o$$2.tfm"){s//$$1o$$2/}' plain.tex
 	@sed 's|hyph-ru|TeXformats/&|' TeXformats/тех.tex >тех.tex
 	@cd ~/mf; for i in *.tfm; do ln -sf ~/mf/$$i ~/tex/TeXfonts/; done
-	@cp TeXfonts/* ~/tex/TeXfonts/
+	@cp TeXfonts/* ~/tex/TeXfonts/ # no link - this fact is used in MakePK
 	@~/tex/initex 'тех \input ../tex/paper+origin \dump' >/dev/null && mv тех.fmt ~/tex/TeXformats/
 	@sed -s '/TENRM/,$$d' тех.tex TeXformats/12pt.tex >12pt.tex
 	@~/tex/initex '12pt \input ../tex/paper+origin \dump' >/dev/null && mv 12pt.fmt ~/tex/TeXformats/
