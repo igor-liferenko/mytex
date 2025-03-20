@@ -7,8 +7,8 @@ all:
 	@sed 's|input hyphen|input ../tex/hyphen|' ~/tex/plain.tex >plain.tex
 	@perl -i -pe 'if(/(\\font.*?=)c(\w+)/&&-e"TeXfonts/o$$2.tfm"){s//$$1o$$2/}' plain.tex
 	@sed 's|hyph-ru|TeXformats/&|' TeXformats/тех.tex >тех.tex
-	@cd ~/mf; for i in *.tfm; do ln -sf ~/mf/$$i ~/tex/TeXfonts/; done
-	@cp TeXfonts/* ~/tex/TeXfonts/ # no link - this fact is used in MakePK
+	@cd ~/mf; for i in *.tfm; do ln -sf ~/mf/$$i ~/tex/TeXfonts/; done # see MakePK
+	@cp TeXfonts/* ~/tex/TeXfonts/                                     # see MakePK
 	@~/tex/initex 'тех \input ../tex/paper+origin \dump' >/dev/null && mv тех.fmt ~/tex/TeXformats/
 	@sed -s '/TENRM/,$$d' тех.tex TeXformats/12pt.tex >12pt.tex
 	@~/tex/initex '12pt \input ../tex/paper+origin \dump' >/dev/null && mv 12pt.fmt ~/tex/TeXformats/
