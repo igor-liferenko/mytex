@@ -1,6 +1,6 @@
 all:
 	@find ~/tex/TeXinputs/ -xtype l -exec rm {} \;
-	@for i in `ls ~/tex/TeXfonts`; do [ $$i = trip.tfm ] && continue; grep -q $${i%.tfm} ~/tex/plain.tex && continue; rm ~/tex/TeXfonts/$$i; done
+	@for i in `ls ~/tex/TeXfonts | grep -v trip.tfm`; do grep -q $${i%.tfm} ~/tex/plain.tex || rm ~/tex/TeXfonts/$$i; done
 	@find ~/mf/MFinputs/ -xtype l -exec rm {} \;
 	@ln -sf ~/cweb/cwebmac.tex ~/tex/TeXinputs/
 	@cd TeXinputs; for i in *; do ln -sf ~/mytex/TeXinputs/$$i ~/tex/TeXinputs/; done
