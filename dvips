@@ -1,5 +1,5 @@
 #!/bin/sh
-export PKFONTS=$HOME/.PKfonts/$mode # used in MakePK and dvips (if you change here, change also in mf/Makefile)
+export PKFONTS=$(sed -n "/mode parameters could change/s@~@$HOME@p" ~/mf/Makefile | cut -d' ' -f3)/$mode # used in MakePK and dvips
 mkdir /tmp/mf.$$
 resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
 rm -r /tmp/mf.$$
