@@ -659,16 +659,8 @@ endchar;
  
 "Overlapping thick\thin line border design--- character 5 (middle-right)";
 beginchar("e",uniform_square#,uniform_square#,0);
-x1=x2=good.x(9/10uniform_square);
-x3=x4=good.x(8/10uniform_square);
-y1=y3=good.y(0);
-y2=y4=good.y(uniform_square);
-pickup chunkypen;
-draw z1--z2;
-pickup bigpen;
-draw z3--z4;
-p4:=currentpicture;
-labels(1,2,3,4);
+currentpicture:=currentpicture + p4;
+currentpicture:=currentpicture reflectedabout((.5[0,0],0),(.5[0,0],1));
 endchar;
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
