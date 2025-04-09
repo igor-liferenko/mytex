@@ -1,4 +1,8 @@
 all:
+	@sed -n "/mode parameters could change/s/\t@//p" ~/mf/Makefile | sh
+	@find ~/tex/TeXinputs/ -xtype l -exec rm {} \;
+	@for i in `ls ~/tex/TeXfonts | grep -v trip.tfm`; do grep -q $${i%.tfm} ~/tex/plain.tex || rm ~/te
+	@find ~/mf/MFinputs/ -xtype l -exec rm {} \;
 	@cd TeXinputs; for i in *; do ln -sf ~/mytex/TeXinputs/$$i ~/tex/TeXinputs/; done
 	@cd ~/mf; for i in *.tfm; do ln -sf ~/mf/$$i ~/tex/TeXfonts/; done # see MakePK
 	@cp TeXfonts/* ~/tex/TeXfonts/                                     # see MakePK
