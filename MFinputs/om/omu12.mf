@@ -1,4 +1,4 @@
-design_size:=12;
+design_size=12;
 
 % Computer Modern Unslanted Italic
 if unknown cmbase: input cmbase fi

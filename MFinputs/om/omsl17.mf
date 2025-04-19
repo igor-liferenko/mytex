@@ -1,4 +1,4 @@
-design_size:=17.28;
+design_size=17.28;
 
 % Computer Modern Slanted Roman
 if unknown cmbase: input cmbase fi

@@ -1,4 +1,4 @@
-design_size:=14.4;
+design_size=14.4;
 
 % Computer Modern Sans Serif
 if unknown cmbase: input cmbase fi
