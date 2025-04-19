@@ -1,9 +1,8 @@
-design_size:=14.4;
-
+design_size=14.4;
 % Computer Modern Sans Serif Bold Extended.
 if unknown cmbase: input cmbase fi
 
-font_identifier:="CMSSBX"; font_size design_size * pt#;
+  font_identifier:="CMSSBX"; font_size design_size * pt#;
 
 input c-cmssbx;
 
@@ -16,3 +15,4 @@ gensize:=scantokens(substring(gensize,infinity) of jobname);
 input omcodes;
 input lcyrdefs;
 generate ldroman      % switch to the driver file
+
