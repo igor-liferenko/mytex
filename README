@@ -1,0 +1,9 @@
+For METAFONTbook p.39, run in /tmp:
+  If you will view (tex+ testfont):
+    mf '\mode=screen; mag=4; input io'
+  If you will print (tex- testfont):
+    mf '\mode=localfont; mag=4; input io'
+  Local system wizard does this:
+    cp io.tfm ~/tex/TeXfonts/
+    ~/gftopk/gftopk <resulting GF> <PK location from ~/mf/Makefile>/<mode>/<GF as PK> /dev/stdout
+  Running 'make' here will clean up ~/tex/TeXfonts/ and PK location
