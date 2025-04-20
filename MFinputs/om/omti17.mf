@@ -1,5 +1,4 @@
 design_size=17.28;
-
 % Computer Modern Text Italic
 if unknown cmbase: input cmbase fi
 
@@ -16,3 +15,4 @@ gensize:=scantokens(substring(gensize,infinity) of jobname);
 input omcodes;
 input lcyrdefs;
 generate ldtextit      % switch to the driver file
+

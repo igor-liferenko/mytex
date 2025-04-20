@@ -1,5 +1,4 @@
 design_size=17.28;
-
 % Computer Modern Slanted Roman
 if unknown cmbase: input cmbase fi
 
@@ -20,3 +19,4 @@ gensize:=scantokens(substring(gensize,infinity) of jobname);
 input omcodes;
 input lcyrdefs;
 generate ldroman      % switch to the driver file
+
