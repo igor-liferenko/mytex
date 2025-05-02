@@ -1,5 +1,5 @@
 all:
-	@sed -n "/mode parameters could change/s/\t@//p" ~/mf/Makefile | sh
+	@perl -ne '/mode parameters could change/||next;s/\t@//;system$$_;$$r=1;END{$$?=!$$r}' ~/mf/Makefile
 	@find ~/tex/TeXinputs/ -type l -exec rm {} \;
 	@for i in `ls ~/tex/TeXfonts | grep -v trip.tfm`; do grep -q $${i%.tfm} ~/tex/plain.tex || rm ~/tex/TeXfonts/$$i; done
 	@find ~/mf/MFinputs/ -type l -exec rm {} \;
