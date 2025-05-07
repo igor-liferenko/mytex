@@ -1,5 +1,5 @@
 all:
-	@perl -ne '/mode parameters could change/||next;s/\t@//;system$$_;$$r=1;END{$$?=!$$r}' ~/mf/Makefile
+	@sed -n '/mode parameters could change/{s/\t@//e;q5}' ~/mf/Makefile; test $$? = 5
 	@find ~/tex/TeXinputs/ -type l -exec rm {} \;
 	@for i in `ls ~/tex/TeXfonts | grep -v trip.tfm`; do grep -q $${i%.tfm} ~/tex/plain.tex || rm ~/tex/TeXfonts/$$i; done
 	@find ~/mf/MFinputs/ -type l -exec rm {} \;
@@ -18,7 +18,7 @@ all:
 	@~/tex/initex '14pt \dump' >/dev/null && mv 14pt.fmt ~/tex/TeXformats
 	@cat TeXformats/тех.tex TeXformats/17pt.tex ~/tex/paper+origin.tex >17pt.tex
 	@~/tex/initex '17pt \dump' >/dev/null && mv 17pt.fmt ~/tex/TeXformats
-	@rm -f plain.tex hyphen.tex hyph-ru.tex 10pt.* 12pt.* 14pt.* 17pt.*
+	@rm plain.tex hyphen.tex hyph-ru.tex 10pt.* 12pt.* 14pt.* 17pt.*
 	@for i in `cd MFinputs/cm; grep -L Math cm*[0-9]*`; do sed 's/generate /input lcyrbeg;\nfor i=length(jobname) downto 1:\n  gensize:=i;\n  exitif (substring(i-1,i) of jobname)>"9";\nendfor\ngensize:=scantokens(substring(gensize,infinity) of jobname);\ninput omcodes;\ninput lcyrdefs;\n&ld/' MFinputs/cm/$$i >MFinputs/om/om$${i#cm}; done # equivalent to fikparm.mf
 	@for i in `cd MFinputs/om; ls om*`; do sed 's/generate \(\w*\)/generate \U\1/' MFinputs/om/$$i >MFinputs/om/$$(echo $${i%.*}|tr a-z A-Z).mf; done # om/om* -> om/OM*
 	@for i in `cd MFinputs/lh; ls ld*`; do sed '0,/lgrusu/s//LGRUSU/' MFinputs/lh/$$i >MFinputs/om/$$(echo $${i%.*}|tr a-z A-Z).mf; done # lh/ld* -> om/LD*
