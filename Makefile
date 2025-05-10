@@ -3,7 +3,7 @@ all:
 	@find ~/tex/TeXinputs/ -type l -exec rm {} \;
 	@for i in `ls ~/tex/TeXfonts | grep -v trip.tfm`; do grep -q $${i%.tfm} ~/tex/plain.tex || rm ~/tex/TeXfonts/$$i; done
 	@find ~/mf/MFinputs/ -type l -exec rm {} \;
-	@[ -e ~/cweb/cwebmac.tex ] && ln -s ~/cweb/cwebmac.tex ~/tex/TeXinputs || echo ERROR: no \~/cweb/cwebmac.tex
+	@ln -s ~/cweb/cwebmac.tex ~/tex/TeXinputs
 	@cd TeXinputs; for i in *; do ln -s ~/mytex/TeXinputs/$$i ~/tex/TeXinputs; done
 	@cd ~/mf; for i in *.tfm; do ln -s ~/mf/$$i ~/tex/TeXfonts; done # see MakePK
 	@cp TeXfonts/* ~/tex/TeXfonts                                    # see MakePK
