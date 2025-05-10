@@ -7,3 +7,8 @@ For METAFONTbook p.39, run in /tmp:
     cp io.tfm ~/tex/TeXfonts/
     ~/gftopk/gftopk <resulting GF> <PK location from ~/mf/Makefile>/<mode>/<GF as PK> /dev/stdout
   Running 'make' here will clean up ~/tex/TeXfonts/ and PK location
+
+----------------------------------------------------------
+
+For METAFONTbook p.245, run:
+  /bin/mf 13-24
