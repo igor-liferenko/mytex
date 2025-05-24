@@ -1,14 +1,21 @@
-For METAFONTbook p.39, run in /tmp:
-  If you will view (tex+ testfont):
-    mf '\mode=screen; mag=4; input io'
-  If you will print (tex- testfont):
-    mf '\mode=localfont; mag=4; input io'
-  Local system wizard does this:
-    cp io.tfm ~/tex/TeXfonts/
-    ~/gftopk/gftopk <resulting GF> <PK location from ~/mf/Makefile>/<mode>/<GF as PK> /dev/stdout
-  Running 'make' here will clean up ~/tex/TeXfonts/ and PK location
+For METAFONTbook p.32, run:
+  ~/mytex/gftodvi mfput.2602gf
+  mode=localfont ~/mytex/dvips mfput.dvi
+  ~/mytex/print mfput.ps
 
-----------------------------------------------------------
+For METAFONTbook p.37 and p.38, run:
+  ~/mytex/gftodvi io.2602gf
+  mode=localfont ~/mytex/dvips io.dvi
+  ~/mytex/open io.ps
+
+For METAFONTbook p.39, run:
+  cp io.tfm ~/tex/TeXfonts/
+  ~/gftopk/gftopk io.nnngf <PK location from ~/mf/Makefile>/localfont/io.nnnpk /dev/stdout
+  (running 'make' in this repo will clean up ~/tex/TeXfonts/ and PK location)
+
+For METAFONTbook p.40, run:
+  mode=localfont ~/mytex/dvips testfont.dvi
+  ~/mytex/print testfont.ps
 
 For METAFONTbook p.245, run:
   /bin/mf 13-24
