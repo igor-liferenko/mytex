@@ -16,6 +16,6 @@ fi
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ] && [ -e $dvi ]; then
   dvi_file=`cat $dvi`
-  mode=screen ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps &
+  mode=screen ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
 fi
 rm -f $edit $dvi
