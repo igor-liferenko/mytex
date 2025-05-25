@@ -1,7 +1,7 @@
 For METAFONTbook p.32, run:
   ~/mytex/gftodvi mfput.2602gf
-  mode=localfont ~/mytex/dvips mfput.dvi
-  ~/mytex/print mfput.ps
+  mode=localfont ~/mytex/dvips mfput.dvi /tmp/PRINT.ps
+  ~/mytex/print /tmp/PRINT.ps
 
 For METAFONTbook p.37 and p.38, run:
   ~/mytex/gftodvi io.2602gf
@@ -14,8 +14,8 @@ For METAFONTbook p.39, run:
   (running 'make' in this repo will clean up ~/tex/TeXfonts/ and PK location)
 
 For METAFONTbook p.40, run:
-  mode=localfont ~/mytex/dvips testfont.dvi
-  ~/mytex/print testfont.ps
+  mode=localfont ~/mytex/dvips testfont.dvi /tmp/PRINT.ps
+  ~/mytex/print /tmp/PRINT.ps
 
 For METAFONTbook p.245, run:
   /bin/mf 13-24
