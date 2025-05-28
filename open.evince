@@ -1,5 +1,5 @@
 #!/bin/sh
-# kill evince which was started by tex+ except with file which we want to open now,
-# to make the same behavior as open.okular (--unique)
+# kill evince which was started by tex+/mf+ except when we open file that is already opened,
+# to make the same behavior as in open.okular (--unique)
 pgrep -a --parent `pgrep -f ~/mytex/evince | paste -sd,` evince 2>/dev/null | grep -v "$1$" | sed -n 's/\([0-9]\+\).*/kill \1/e'
 ~/mytex/evince $1 &
