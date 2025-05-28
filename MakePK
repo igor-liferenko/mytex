@@ -13,7 +13,7 @@ else
     exit 1
   fi
   if [ `md5sum $name.tfm | head -c32` != `md5sum $name.tfm.$$ | head -c32` ]; then
-    echo ERROR: update ./$name.tfm
+    echo ERROR: update $name.tfm
     mv $name.tfm.$$ $name.tfm
     exit 1
   fi
