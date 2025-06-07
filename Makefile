@@ -1,8 +1,11 @@
 all:
 	@sed -n '/mode parameters could change/{s/\t@//e;q5}' ~/mf/Makefile; test $$? = 5
+# begin cleanup
 	@find ~/tex/TeXinputs/ -type l -exec rm {} \;
 	@for i in `ls ~/tex/TeXfonts | grep -v trip.tfm`; do grep -q $${i%.tfm} ~/tex/plain.tex || rm ~/tex/TeXfonts/$$i; done
 	@find ~/mf/MFinputs/ -type l -exec rm {} \;
+	@rm -f TeXformats/*.fmt
+# end cleanup
 	@ln -s ~/cweb/cwebmac.tex ~/tex/TeXinputs
 	@cd TeXinputs; for i in *; do ln -s ~/mytex/TeXinputs/$$i ~/tex/TeXinputs; done
 	@cd ~/mf; for i in *.tfm; do ln -s ~/mf/$$i ~/tex/TeXfonts; done # see MakePK
