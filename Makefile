@@ -13,7 +13,7 @@ all:
 	@sed '/preloaded/b;/cmmi/b;/cmsy/b;/cmex/b;/^%/b;s/=c/=o/' ~/tex/plain.tex >plain.tex
 	@ln -s ~/tex/hyphen.tex; ln -s TeXformats/hyph-ru.tex
 	@for i in 10pt 12pt 14pt 17pt; do \
-	  cat TeXformats/тех.tex TeXformats/$$i.tex TeXformats/paper+origin.tex >$$i.tex; \
+	  cat TeXformats/тех.tex TeXformats/$$i.tex >$$i.tex; \
 	  ~/tex/initex "$$i \dump" >/dev/null && mv $$i.fmt ~/tex/TeXformats; rm $$i.tex; done
 	@rm plain.tex hyphen.tex hyph-ru.tex
 	@for i in `cd MFinputs/cm; grep -L Math cm*[0-9]*`; do sed 's/generate /input lcyrbeg;\nfor i=length(jobname) downto 1:\n  gensize:=i;\n  exitif (substring(i-1,i) of jobname)>"9";\nendfor\ngensize:=scantokens(substring(gensize,infinity) of jobname);\ninput omcodes;\ninput lcyrdefs;\n&ld/' MFinputs/cm/$$i >MFinputs/om/om$${i#cm}; done # equivalent to fikparm.mf
