@@ -1,3 +1,18 @@
+For TeXbook p.23, run:
+  dvi- texput
+
+For TeXbook p.26, run:
+  dvi- story
+
+For TeXbook p.27, run:
+  dvi+ story
+
+For TeXbook p.30, run:
+  dvi+ story
+
+For TeXbook p.34, run:
+  dvi+ story
+
 For METAFONTbook p.32, run:
   ~/mytex/gftodvi mfput.2602gf
   dvi- mfput
