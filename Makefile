@@ -7,6 +7,7 @@ all:
 	@for i in `ls ~/tex/TeXformats | grep -wv plain.fmt`; do rm ~/tex/TeXformats/$$i; done
 # end cleanup
 	@ln -s ~/cweb/cwebmac.tex ~/tex/TeXinputs
+	@ln -s ~/term/QUIRE.tex ~/tex/TeXinputs
 	@cd TeXinputs; for i in *; do ln -s ~/mytex/TeXinputs/$$i ~/tex/TeXinputs; done
 	@cd ~/mf; for i in *.tfm; do ln -s ~/mf/$$i ~/tex/TeXfonts; done # see MakePK
 	@cp TeXfonts/* ~/tex/TeXfonts                                    # see MakePK
