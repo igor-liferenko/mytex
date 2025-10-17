@@ -12,7 +12,7 @@ all:
 	@ln -s ~/cweb/cwebmac.tex $(TEX)/TeXinputs
 	@ln -s ~/term/QUIRE.tex $(TEX)/TeXinputs
 	@find TeXinputs -type f -exec ln -s $(PWD)/{} $(TEX)/TeXinputs \;
-	@cd $(MF)/MFinputs; for i in *.tfm; do ln -s $(MF)/$$i $(TEX)/TeXfonts; done # see MakePK for how
+	@cd $(MF); for i in *.tfm; do ln -s $(MF)/$$i $(TEX)/TeXfonts; done # see MakePK for how
 	@cp TeXfonts/* $(TEX)/TeXfonts                                               # 'ln' differs from 'cp'
 	@sed '/preloaded/b;/cmmi/b;/cmsy/b;/cmex/b;/^%/b;s/=c/=o/' $(TEX)/plain.tex >plain.tex
 	@ln -s $(TEX)/hyphen.tex; ln -s TeXformats/hyph-ru.tex
