@@ -23,10 +23,9 @@ For METAFONTbook p.37 and p.38, run:
   ~/mytex/open io.ps
 
 For METAFONTbook p.39, run:
-  cp io.tfm <TEXFONTS from Makefile>
-  ~/gftopk/gftopk io.nnngf <PKFONTS from Makefile>/localfont/io.nnnpk /dev/stdout
-  (running 'make' in mytex/ will clean up files, created by commands in 2 previous lines,
-   from TEXFONTS and PKFONTS)
+  cp io.tfm <TEX from Makefile>/TeXfonts/
+  ~/gftopk/gftopk io.nnngf <pkfonts from Makefile>/localfont/io.nnnpk /dev/stdout
+  (running 'make' will delete tfm and pk files, created by commands in 2 previous lines)
 
 For METAFONTbook p.40, run:
   dvi- testfont
