@@ -2,7 +2,7 @@ TEX := ~/tex
 MF  := ~/mf
 
 all:
-	@rm -rf ~/.PKfonts
+	@sed -n 's/.*PKFONTS=/rm -rf /e' dvips
 # begin cleanup
 	@find $(TEX)/TeXinputs -type l -exec rm {} \;
 	@for i in `ls $(TEX)/TeXfonts | grep -wv trip.tfm`; do grep -wq font.*=$${i%.tfm} $(TEX)/plain.tex || rm $(TEX)/TeXfonts/$$i; done
