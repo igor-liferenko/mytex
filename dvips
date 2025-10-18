@@ -1,4 +1,5 @@
 #!/bin/sh
+# dvips does not generate fonts the way I want, so I generate them via dvitype before calling dvips
 export PKFONTS=$HOME/.PKfonts/$mode # used in MakePK and dvips
 mkdir /tmp/mf.$$
 resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
