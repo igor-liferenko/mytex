@@ -10,7 +10,6 @@ all:
 	@for i in `ls $(TEX)/TeXformats | grep -wv plain.fmt`; do rm $(TEX)/TeXformats/$$i; done
 # end cleanup
 	@ln -s ~/cweb/cwebmac.tex $(TEX)/TeXinputs
-	@ln -s ~/term/QUIRE.tex $(TEX)/TeXinputs
 	@find TeXinputs -type f -exec ln -s $(PWD)/{} $(TEX)/TeXinputs \;
 	@cd $(MF); for i in *.tfm; do ln -s $(MF)/$$i $(TEX)/TeXfonts; done # see MakePK for how
 	@cp TeXfonts/* $(TEX)/TeXfonts                                      # 'ln' differs from 'cp'
