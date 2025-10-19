@@ -1,0 +1,22 @@
+% We always use \shthickness=non-zero. Due to this, margin size changes when number
+% of pages changes, which means text will not be aligned across pages (and text may
+% fall-off from printable area when number of pages is large enough).
+% Output of test.tex demonstrates this.
+% We want to avoid that. Therefore, we make \hsize depend on number of
+% pages. Output of test_QUIRE.tex demonstrates this.
+
+\input quire
+
+\catcode`\_=11
+
+\newdimen\QUIRE
+
+\def\quire#1% #1 = nr of pages
+   {\makequire{#1}{0}{1000}%
+% begin change
+    \count255=\q_goal \divide\count255 by2 \advance\count255 by-1
+    \QUIRE=\shthickness \multiply\QUIRE by\count255
+% end change
+   }
+
+\catcode`\_=12
