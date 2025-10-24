@@ -16,7 +16,7 @@ if [ $ret = 0 ] && [ -e $gf ]; then
   if ~/mytex/gftodvi $gf_file; then
     dvi_file=${gf_file%.*}.dvi
     ps_file=/tmp/PRINT.ps
-    mode=localfont ~/mytex/dvips $dvi_file $ps_file && ~/mytex/print $ps_file # if you change 'mode' here, change also in Makefile
+    mode=localfont ~/mytex/dvips $dvi_file $ps_file && ~/mytex/print $ps_file # 'mode' must be the same as in Makefile
   fi
 fi
 rm -f $edit $gf
