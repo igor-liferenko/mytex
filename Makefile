@@ -13,7 +13,7 @@ all:
 	@find TeXinputs -type f -exec ln -s $(PWD)/{} $(TEX)/TeXinputs \;
 	@find MFinputs -name '*.mf' -exec ln -s $(PWD)/{} $(MF)/MFinputs \;
 	@cd MFinputs/tfm; for i in *.mf; do base=plain $(MF)/virmf \
-	'\mode=localfont; batchmode; input '$$i >/dev/null || exit; done # 'mode' in mf+,mf- (it must be mode that is used for printing)
+	  '\mode=localfont; batchmode; input '$$i >/dev/null || exit; done # 'mode' in mf+,mf- (it must be mode that is used for printing)
 	@find TeXfonts -name '*.tfm' -exec ln -s $(PWD)/{} $(TEX)/TeXfonts \;
 	@sed '/preloaded/b;/cmmi/b;/cmsy/b;/cmex/b;/^%/b;s/=c/=o/' $(TEX)/plain.tex >plain.tex
 	@ln -s $(TEX)/hyphen.tex; ln -s TeXformats/hyph-ru.tex
