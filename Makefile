@@ -5,14 +5,16 @@ all:
 	@sed -n 's/.*PKFONTS=/rm -rf /e' dvips
 # begin cleanup
 	@find $(TEX)/TeXinputs -type l -exec rm {} \;
-	@for i in `ls $(TEX)/TeXfonts | grep -wv trip.tfm`; do grep -wq font.*=$${i%.tfm} $(TEX)/plain.tex || rm $(TEX)/TeXfonts/$$i; done
+	@find $(TEX)/TeXfonts -type l ! -name trip.tfm -exec rm {} \;
 	@find $(MF)/MFinputs -type l -exec rm {} \;
-	@for i in `ls $(TEX)/TeXformats | grep -wv plain.fmt`; do rm $(TEX)/TeXformats/$$i; done
+	@find $(TEX)/TeXformats -name '*.fmt' ! -name plain.fmt -exec rm {} \;
 # end cleanup
 	@ln -s ~/cweb/cwebmac.tex $(TEX)/TeXinputs
 	@find TeXinputs -type f -exec ln -s $(PWD)/{} $(TEX)/TeXinputs \;
-	@cd $(MF); for i in *.tfm; do ln -s $(MF)/$$i $(TEX)/TeXfonts; done # see MakePK for how
-	@cp TeXfonts/* $(TEX)/TeXfonts                                      # 'ln' differs from 'cp'
+	@find MFinputs -name '*.mf' -exec ln -s $(PWD)/{} $(MF)/MFinputs \;
+	@cd MFinputs/tfm; for i in *.mf; do base=plain $(MF)/virmf \
+	'\mode=localfont; batchmode; input '$$i >/dev/null || exit; done # 'mode' in mf+,mf- (it must be mode that is used for printing)
+	@find TeXfonts -name '*.tfm' -exec ln -s $(PWD)/{} $(TEX)/TeXfonts \;
 	@sed '/preloaded/b;/cmmi/b;/cmsy/b;/cmex/b;/^%/b;s/=c/=o/' $(TEX)/plain.tex >plain.tex
 	@ln -s $(TEX)/hyphen.tex; ln -s TeXformats/hyph-ru.tex
 	@for i in 10pt 12pt 14pt 17pt; do \
@@ -23,5 +25,3 @@ all:
 	@for i in `cd MFinputs/om; ls om*`; do sed 's/generate \(\w*\)/generate \U\1/' MFinputs/om/$$i >MFinputs/om/$$(echo $${i%.*}|tr a-z A-Z).mf; done # om/om* -> om/OM*
 	@for i in `cd MFinputs/lh; ls ld*`; do sed '0,/lgrusu/s//LGRUSU/' MFinputs/lh/$$i >MFinputs/om/$$(echo $${i%.*}|tr a-z A-Z).mf; done # lh/ld* -> om/LD*
 	@sed '/CYR_.YO\|CYR_.I_shrt/a charht:=cap_height#;' MFinputs/lh/lgrusu.mf >MFinputs/om/LGRUSU.mf # make height of uppercase accented characters the same as non-accented ones (for strut-based code)
-	@find MFinputs -name '*.mf' -exec ln -s $(PWD)/{} $(MF)/MFinputs \;
-	@for i in grayf slant; do ln -s $(MF)/MFinputs/$$i.mf $(MF)/MFinputs; done
