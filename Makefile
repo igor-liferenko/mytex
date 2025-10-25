@@ -20,7 +20,7 @@ all:
 	@find MFinputs -name '*.mf' -exec ln -s $(PWD)/{} $(MF)/MFinputs \;
 	@cd MFinputs/tfm; for i in *.mf; do base=plain $(MF)/virmf \
 	  '\mode=localfont; batchmode; input '$$i >/dev/null || exit; done # NOTE: 'localfont' must be used for printing
-	@find TeXfonts -name '*.tfm' -exec ln -s $(PWD)/{} $(TEX)/TeXfonts \;
+	@find TeXfonts MFinputs -name '*.tfm' -exec ln -s $(PWD)/{} $(TEX)/TeXfonts \;
 	@sed '/preloaded/b;/cmmi/b;/cmsy/b;/cmex/b;/^%/b;s/=c/=o/' $(TEX)/plain.tex >plain.tex
 	@ln -s $(TEX)/hyphen.tex; ln -s TeXformats/hyph-ru.tex
 	@for i in 10pt 12pt 14pt 17pt; do \
