@@ -11,10 +11,12 @@ all:
 # end cleanup
 	@ln -s ~/cweb/cwebmac.tex $(TEX)/TeXinputs
 	@find TeXinputs -type f -exec ln -s $(PWD)/{} $(TEX)/TeXinputs \;
+# begin generating OM-fonts
 	@for i in `cd MFinputs/cm; grep -L Math cm*[0-9]*`; do sed 's/generate /input lcyrbeg;\nfor i=length(jobname) downto 1:\n  gensize:=i;\n  exitif (substring(i-1,i) of jobname)>"9";\nendfor\ngensize:=scantokens(substring(gensize,infinity) of jobname);\ninput omcodes;\ninput lcyrdefs;\n&ld/' MFinputs/cm/$$i >MFinputs/om/om$${i#cm}; done # equivalent to fikparm.mf
 	@for i in `cd MFinputs/om; ls om*`; do sed 's/generate \(\w*\)/generate \U\1/' MFinputs/om/$$i >MFinputs/om/$$(echo $${i%.*}|tr a-z A-Z).mf; done # om/om* -> om/OM*
 	@for i in `cd MFinputs/lh; ls ld*`; do sed '0,/lgrusu/s//LGRUSU/' MFinputs/lh/$$i >MFinputs/om/$$(echo $${i%.*}|tr a-z A-Z).mf; done # lh/ld* -> om/LD*
 	@sed '/CYR_.YO\|CYR_.I_shrt/a charht:=cap_height#;' MFinputs/lh/lgrusu.mf >MFinputs/om/LGRUSU.mf # make height of uppercase accented characters the same as non-accented ones (for strut-based code)
+# end generating OM-fonts
 	@find MFinputs -name '*.mf' -exec ln -s $(PWD)/{} $(MF)/MFinputs \;
 	@cd MFinputs/tfm; for i in *.mf; do base=plain $(MF)/virmf \
 	  '\mode=localfont; batchmode; input '$$i >/dev/null || exit; done # NOTE: 'localfont' must be used for printing
