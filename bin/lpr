@@ -4,6 +4,10 @@
 
 [ $# != 2 ] && exit 1; [ $1 != none ] && [ $1 != long ] && [ $1 != short ] && exit 1
 
+mkdir /tmp/mf.$$
+resolution=$(cd /tmp/mf.$$; mf "\mode=localfont; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
+rm -r /tmp/mf.$$
+
 (
   printf '\33%%-12345X'
   echo @PJL JOB
@@ -13,7 +17,7 @@
     echo @PJL SET DUPLEX=ON
     echo @PJL SET BINDING=SHORTEDGE
   fi
-  echo @PJL SET RESOLUTION=600 # if you change this, change also pixels_per_inch
+  echo @PJL SET RESOLUTION=$resolution
   echo @PJL ENTER LANGUAGE=POSTSCRIPT
   cat $2
   printf '\33%%-12345X'
