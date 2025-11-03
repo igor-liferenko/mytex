@@ -20,7 +20,7 @@ all:
 	@find MFinputs -name '*.mf' -exec ln -s $(PWD)/{} $(MF)/MFinputs \;
 	@cd MFinputs/tfm; for i in *.mf; do mf '\mode=localfont; batchmode; input '$$i >/dev/null \
 	  || exit; done # NOTE: 'localfont' must be used for printing
-	@grep TeXLive MFinputs/tfm/*.log && exit 1
+	@grep TeXLive MFinputs/tfm/*.log && exit 1 || exit 0
 	@find TeXfonts MFinputs -name '*.tfm' -exec ln -s $(PWD)/{} $(TEX)/TeXfonts \;
 	@sed '/preloaded/b;/cmmi/b;/cmsy/b;/cmex/b;/^%/b;s/=c/=o/' $(TEX)/plain.tex >plain.tex
 	@ln -s $(TEX)/hyphen.tex; ln -s TeXformats/hyph-ru.tex
