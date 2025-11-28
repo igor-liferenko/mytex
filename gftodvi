@@ -1,14 +1,31 @@
 #!/bin/sh
-! printenv g >/dev/null || [ $g = p ] && g=$g+2cm+2cm
-if [ $g = ${g#p} ]; then
+# NOTE: use +X or -X if you do not want to change pdfhorigin/pdfvorigin
+# NOTE: 'p' stands for portrait (landscape is default)
+pdfhorigin=+2cm
+pdfvorigin=+2cm
+geometry=$pdfhorigin$pdfvorigin
+if printenv g >/dev/null; then
+  if [ $g = p ]; then
+    geometry=p$geometry
+  else
+    geometry=`echo ${g#p} | sed "s/^[+-]X/$pdfhorigin/;s/[+-]X/$pdfvorigin/"`
+    [ ${g#p} = $g ] || geometry=p$geometry
+  fi
+fi
+if ! echo ${geometry#p} | grep '^[+-][.0-9]\+[a-z]\+[+-][.0-9]\+[a-z]\+$' >/dev/null; then
+  echo ERROR: wrong geometry
+  exit 1
+fi
+
+if [ $geometry = ${geometry#p} ]; then
   pdfpagewidth=297mm
   pdfpageheight=210mm
 else
   pdfpagewidth=210mm
   pdfpageheight=297mm
 fi
-pdfhorigin=`echo ${g#p} | sed 's/[+-][^+-]*$//'`
-pdfvorigin=`echo ${g#p} | sed 's/^[+-][^+-]*//'`
+pdfhorigin=`echo ${geometry#p} | sed 's/[+-][^+-]*$//'`
+pdfvorigin=`echo ${geometry#p} | sed 's/^[+-][^+-]*//'`
 
 # for custom fonts, add to z.mf: special "...";
 x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
