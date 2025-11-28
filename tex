@@ -1,10 +1,12 @@
 #!/bin/sh
 export format=plain
 export edit=/tmp/edit.$$
+export dvi=/tmp/dvi.$$
 if [ "$1" ] && sed -n 1p "$1.tex" "$1" 2>/dev/null | grep -q '^%&'; then
   format=`sed -n '1s/^%&//p' "$1.tex" "$1" 2>/dev/null`
 fi
 ~/tex/virtex "$@"
+ret=$?
 if [ -t 0 ] && [ -t 1 ]; then
   stty -icanon -echo
   tput u7
@@ -12,4 +14,8 @@ if [ -t 0 ] && [ -t 1 ]; then
   stty icanon echo
 fi
 [ -e $edit ] && em `cat $edit`
-rm -f $edit
+if [ $ret = 0 ] && [ -e $dvi ]; then
+  dvi_file=`cat $dvi`
+  mode=viewer ~/mytex/dvips $dvi_file && ~/mytex/open ${dvi_file%dvi}ps
+fi
+rm -f $edit $dvi
