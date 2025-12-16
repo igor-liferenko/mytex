@@ -13,6 +13,10 @@ fi
 [ -e $edit ] && em `cat $edit`
 if [ $ret = 0 ] && [ -e $gf ]; then
   gf_file=`cat $gf`
+  if [ "$1" ] && sed -n 1p "$1.mf" "$1" 2>/dev/null | grep -q '^%&'; then
+    eval `sed -n '1s/^%!//p' "$1.mf" "$1" 2>/dev/null`
+    export pdfpagewidth pdfpageheight pdfhorigin pdfvorigin
+  fi
   if ~/mytex/gftodvi $gf_file; then
     dvi_file=${gf_file%.*}.dvi
     ps_file=/tmp/PRINT.ps
