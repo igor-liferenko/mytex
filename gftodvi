@@ -1,8 +1,6 @@
 #!/bin/sh
 # NOTE: use +X or -X if you do not want to change pdfhorigin/pdfvorigin
 # NOTE: 'p' stands for portrait (landscape is default)
-pdfhorigin=+2cm
-pdfvorigin=+2cm
 geometry=$pdfhorigin$pdfvorigin
 if printenv g >/dev/null; then
   if [ $g = p ]; then
