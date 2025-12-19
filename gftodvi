@@ -42,6 +42,12 @@ x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
 [ $x = cmti8 ] && set $1 'slantfont slant25000'
 [ $x = cmti9 ] && set $1 'slantfont slant25000'
 
+# from paper+origin.tex
+pdfpagewidth=${pdfpagewidth:-297mm}
+pdfpageheight=${pdfpageheight:-210mm}
+pdfhorigin=${pdfhorigin:-34.2mm}
+pdfvorigin=${pdfvorigin:-22.45mm}
+
 mkdir /tmp/tex.$$
 pdfpagewidth=$(cd /tmp/tex.$$; tex "\dimen0=$pdfpagewidth\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
 pdfpageheight=$(cd /tmp/tex.$$; tex "\dimen0=$pdfpageheight\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
