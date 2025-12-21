@@ -42,7 +42,7 @@ x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
 [ $x = cmti8 ] && set $1 'slantfont slant25000'
 [ $x = cmti9 ] && set $1 'slantfont slant25000'
 
-# from paper+origin.tex
+# as in paper+origin.tex from tex repo
 pdfpagewidth=${pdfpagewidth:-297mm}
 pdfpageheight=${pdfpageheight:-210mm}
 pdfhorigin=${pdfhorigin:-34.2mm}
