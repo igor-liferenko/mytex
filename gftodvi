@@ -54,7 +54,7 @@ pdfpageheight=$(cd /tmp/tex.$$; tex "\dimen0=$pdfpageheight\count0=\dimen0\messa
 pdfhorigin=$(cd /tmp/tex.$$; tex "\dimen0=$pdfhorigin\count0=\dimen0\message{\the\count0}\end" | sed -n '/-/!s/^/+/;2p')
 pdfvorigin=$(cd /tmp/tex.$$; tex "\dimen0=$pdfvorigin\count0=\dimen0\message{\the\count0}\end" | sed -n '/-/!s/^/+/;2p')
 rm -r /tmp/tex.$$
-export geometry=${pdfpagewidth}x${pdfpageheight}${pdfhorigin}${pdfvorigin}
+export gftodvi_comment=${pdfpagewidth}x${pdfpageheight}${pdfhorigin}${pdfvorigin}
 ~/gftodvi/gftodvi /tmp/gftodvi.$$ "$@"
 ret=$?
 if [ $ret = 0 ]; then
