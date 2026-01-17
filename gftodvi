@@ -42,7 +42,7 @@ x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
 [ $x = cmti8 ] && set $1 'slantfont slant25000'
 [ $x = cmti9 ] && set $1 'slantfont slant25000'
 
-# as in paper+origin.tex from tex repo
+# same as in paper+origin.tex from tex repo (can be overridden in mf-file - see mf+/mf- from mytex repo)
 : ${pdfpagewidth=297mm}
 : ${pdfpageheight=210mm}
 : ${pdfhorigin=34.2mm}
