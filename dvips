@@ -9,7 +9,7 @@ dvitype -output-level 0 $file | \
   sed '/^Postamble starts at byte/,$!d;/^Font [0-9]\+:/!d;s///;/scaled/!s/\w\+/& scaled 1000/' | \
   sed s/scaled/$resolution/ | while read REPLY; do ~/mytex/MakePK $REPLY || exit; done || exit
 
-if printenv gf >/dev/null; then
+if printenv gf >/dev/null; then # called from mf+/mf-
   # same as in paper+origin.tex from tex repo (can be overridden in mf-file - see mf+/mf-)
   : ${pdfpagewidth=297mm}
   : ${pdfpageheight=210mm}
@@ -26,7 +26,7 @@ if printenv gf >/dev/null; then
   p=${pdfpagewidth}sp,${pdfpageheight}sp
   x=$pdfhorigin
   y=$pdfvorigin
-else
+else # called from tex+/tex-
   eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
 fi
 
