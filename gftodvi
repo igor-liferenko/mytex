@@ -42,14 +42,12 @@ x=`echo ${1%.*} | sed 's%.*/%%;s/^o/c/'`
 [ $x = cmti8 ] && set $1 'slantfont slant25000'
 [ $x = cmti9 ] && set $1 'slantfont slant25000'
 
-~/gftodvi/gftodvi /tmp/gftodvi.$$ "$@"
+gftodvi "$@" >/tmp/gftodvi.$$
 ret=$?
 if [ $ret = 0 ]; then
-  grep -q '\[' /tmp/gftodvi.$$ || ret=1 # example: mf+ '\special "rule"; end'
   grep -o "Sorry, I can't make diagonal rules of slant.*!" /tmp/gftodvi.$$
-elif [ $ret != 2 ]; then
+else
   cat /tmp/gftodvi.$$
-  echo
 fi
 rm -f /tmp/gftodvi.$$
 exit $ret

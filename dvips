@@ -8,28 +8,7 @@ file=${1##*/}
 dvitype -output-level 0 $file | \
   sed '/^Postamble starts at byte/,$!d;/^Font [0-9]\+:/!d;s///;/scaled/!s/\w\+/& scaled 1000/' | \
   sed s/scaled/$resolution/ | while read REPLY; do ~/mytex/MakePK $REPLY || exit; done || exit
-
-if printenv gf >/dev/null; then # called from mf+/mf-
-  # same as in paper+origin.tex from tex repo (can be overridden in mf-file - see mf+/mf-)
-  : ${pdfpagewidth=297mm}
-  : ${pdfpageheight=210mm}
-  : ${pdfhorigin=34.2mm}
-  : ${pdfvorigin=22.45mm}
-
-  mkdir /tmp/tex.$$
-  pdfpagewidth=$(cd /tmp/tex.$$; tex "\dimen0=$pdfpagewidth\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
-  pdfpageheight=$(cd /tmp/tex.$$; tex "\dimen0=$pdfpageheight\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
-  pdfhorigin=$(cd /tmp/tex.$$; tex "\dimen0=$pdfhorigin\count0=\dimen0\message{\the\count0}\end" | sed -n '/-/!s/^/+/;2p')
-  pdfvorigin=$(cd /tmp/tex.$$; tex "\dimen0=$pdfvorigin\count0=\dimen0\message{\the\count0}\end" | sed -n '/-/!s/^/+/;2p')
-  rm -r /tmp/tex.$$
-
-  p=${pdfpagewidth}sp,${pdfpageheight}sp
-  x=$pdfhorigin
-  y=$pdfvorigin
-else # called from tex+/tex-
-  eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
-fi
-
+eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
 ~/dvips/dvips -t a4 `[ ${p#*,} \< ${p%,*} ] && echo -t landscape` \
