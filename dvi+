@@ -1,5 +1,8 @@
 #!/bin/sh
-# TODO: check 'MF output' in DVI comment and use mode=localfont
 dvitype -output-level 0 $1 | grep -q 'TFM file can.t be opened\|check sums do not agree' && \
   { echo ERROR: $1.dvi is not up-to-date; exit; }
-mode=viewer ~/mytex/dvips $1.dvi && ~/mytex/open $1.ps
+if hexdump -s15 -n9 -v -e '"%c"' $1.dvi | grep METAFONT >/dev/null; then
+  mode=localfont ~/mytex/dvips $1.dvi && ~/mytex/open $1.ps
+else
+  mode=viewer ~/mytex/dvips $1.dvi && ~/mytex/open $1.ps
+fi
