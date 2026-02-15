@@ -35,13 +35,14 @@ if ! mf "\mode=$mode; mag=$mag; batchmode; input $name" >/dev/null; then
   echo ERROR: mf failed for $name `[ $3 = 1000 ] || echo scaled $3`
   exit 1
 fi
-if ! ~/mytex/gftopk $name.${dpi}gf; then
+if ! gftopk $name.${dpi}gf >/tmp/gftopk.$$; then
+  cat /tmp/gftopk.$$
   cd /
-  rm -r /tmp/mf.$$
+  rm -r /tmp/mf.$$ /tmp/gftopk.$$
   echo ERROR: gftopk failed for $name `[ $3 = 1000 ] || echo scaled $3`
   exit 1
 fi
 mkdir -p $PKFONTS
 mv $name.${dpi}pk $PKFONTS
 cd /
-rm -r /tmp/mf.$$
+rm -r /tmp/mf.$$ /tmp/gftopk.$$

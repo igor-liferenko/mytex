@@ -1,9 +1,0 @@
-#!/bin/sh
-~/gftopk/gftopk $1 ${1%gf}pk /tmp/gftopk.$$
-ret=$?
-if [ $ret != 0 ] && [ $ret != 2 ]; then
-  cat /tmp/gftopk.$$
-  echo
-fi
-rm -f /tmp/gftopk.$$
-exit $ret
