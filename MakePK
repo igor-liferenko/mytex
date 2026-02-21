@@ -20,10 +20,13 @@ else
     exit 1
   fi
   rm $name.tfm.$$
-  if ! ~/mytex/gftopk $name.${dpi}gf; then
+  if ! gftopk $name.${dpi}gf >/tmp/gftopk.$$; then
+    cat /tmp/gftopk.$$
+    rm /tmp/gftopk.$$
     echo ERROR: gftopk failed for $name `[ $3 = 1000 ] || echo scaled $3`
     exit 1
   fi
+  rm /tmp/gftopk.$$
   exit 0
 fi
 [ $name = trip ] && { echo ERROR: font \'trip\' is reserved; exit 1; }
