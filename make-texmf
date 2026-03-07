@@ -1,0 +1,5 @@
+#!/bin/sh
+[ $# != 0 ] && exec make "$@"
+make
+cd ~/mytex
+make
