@@ -1,4 +1,7 @@
 #!/bin/sh
+if [ "$PWD" != ~/tex ] && [ "$PWD" != ~/mf ]; then
+  exec make "$@"
+fi
 [ $# != 0 ] && exec make "$@"
 make
 cd ~/mytex
