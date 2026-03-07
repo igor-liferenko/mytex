@@ -3,6 +3,6 @@ if [ "$PWD" != ~/tex ] && [ "$PWD" != ~/mf ]; then
   exec make "$@"
 fi
 [ $# != 0 ] && exec make "$@"
-make
+make || exit
 cd ~/mytex
 make
