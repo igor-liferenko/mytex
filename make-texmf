@@ -1,8 +1,8 @@
 #!/bin/sh
-if [ "$PWD" != ~/tex ] && [ "$PWD" != ~/mf ]; then
+# run 'make' in mytex/ only when 'make' is run without arguments in tex/ or mf/
+if [ "$PWD" != ~/tex ] && [ "$PWD" != ~/mf ] || [ $# != 0 ]; then
   exec make "$@"
 fi
-[ $# != 0 ] && exec make "$@"
 make || exit
 cd ~/mytex
 make
