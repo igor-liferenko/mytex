@@ -5,9 +5,14 @@ mkdir /tmp/mf.$$
 resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
 rm -r /tmp/mf.$$
 file=${1##*/}
-dvitype -output-level 0 $file | \
+if ! dvitype -output-level 0 $file >/tmp/dvitype.$$; then
+  rm /tmp/dvitype.$$
+  exit 1
+fi
+cat /tmp/dvitype.$$ | \
   sed '/^Postamble starts at byte/,$!d;/^Font [0-9]\+:/!d;s///;/scaled/!s/\w\+/& scaled 1000/' | \
   sed s/scaled/$resolution/ | while read REPLY; do ~/mytex/MakePK $REPLY || exit; done || exit
+rm /tmp/dvitype.$$
 eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
