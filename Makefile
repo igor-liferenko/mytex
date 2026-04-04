@@ -2,6 +2,8 @@ TEX := ~/tex
 MF  := ~/mf
 
 all:
+	@[ -e $(TEX)/initex ] || { echo Build TeX; exit 1; }
+	@[ -e $(MF)/virmf ] || { echo Build MF; exit 1; }
 	@sed -n 's/.*PKFONTS=/rm -rf /e' dvips
 # begin cleanup
 	@find $(TEX)/TeXinputs -type l -exec rm {} \;
