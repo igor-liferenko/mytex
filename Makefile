@@ -23,7 +23,7 @@ all:
 	@cd MFinputs/tfm; for i in *.mf; do mf '\mode=localfont; batchmode; input '$$i >/dev/null || exit; done
 	@find TeXfonts MFinputs -name '*.tfm' -exec ln -s $(PWD)/{} $(TEX)/TeXfonts \;
 	@sed '/preloaded/b;/cmmi/b;/cmsy/b;/cmex/b;/^%/b;s/=c/=o/' $(TEX)/plain.tex >plain.tex
-	@ln -s $(TEX)/hyphen.tex; ln -s TeXformats/hyph-ru.tex
+	@ln -sf $(TEX)/hyphen.tex; ln -sf TeXformats/hyph-ru.tex
 	@for i in 10pt 12pt 14pt 17pt; do \
 	  cat TeXformats/тех.tex TeXformats/$$i.tex $(TEX)/paper+origin.tex >$$i.tex; \
 	  $(TEX)/initex "$$i \dump" >/dev/null && mv $$i.fmt $(TEX)/TeXformats; rm $$i.tex; done
