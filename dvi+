@@ -1,4 +1,5 @@
 #!/bin/sh
+set ${1%.dvi}
 dvitype -output-level 0 $1 | grep -q 'TFM file can.t be opened\|check sums do not agree' && \
   { echo ERROR: $1.dvi is not up-to-date; exit; }
 if hexdump -s15 -n9 -v -e '"%c"' $1.dvi | grep METAFONT >/dev/null; then
