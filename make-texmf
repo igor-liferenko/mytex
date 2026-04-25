@@ -4,5 +4,7 @@ if [ "$PWD" != ~/tex ] && [ "$PWD" != ~/mf ] || [ $# != 0 ]; then
   exec make "$@"
 fi
 make || exit
-cd ~/mytex
-make
+if [ -e ~/tex/initex ] && [ -e ~/mf/virmf ]; then
+  cd ~/mytex
+  make
+fi
