@@ -1,5 +1,7 @@
 #!/bin/sh
+if dvitype -output-level 0 $1 | grep -q 'TFM file can.t be opened\|check sums do not agree'; then
+  echo ERROR: the DVI file is not up-to-date
+  exit
+fi
 set ${1%.dvi}
-dvitype -output-level 0 $1 | grep -q 'TFM file can.t be opened\|check sums do not agree' && \
-  { echo ERROR: $1.dvi is not up-to-date; exit; }
 mode=localfont ~/mytex/dvips $1.dvi && ~/mytex/print $1.ps
