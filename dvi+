@@ -4,8 +4,6 @@ if dvitype -output-level 0 $1 | grep -q 'TFM file can.t be opened\|check sums do
   exit
 fi
 set ${1%.dvi}
-if hexdump -s15 -n9 -v -e '"%c"' $1.dvi | grep METAFONT >/dev/null; then
-  mode=localfont ~/mytex/dvips $1.dvi && ~/mytex/open $1.ps
-else
-  mode=viewer ~/mytex/dvips $1.dvi && ~/mytex/open $1.ps
-fi
+export mode=viewer
+hexdump -s15 -n9 -v -e '"%c"' $1.dvi | grep -q METAFONT && mode=localfont
+~/mytex/dvips $1.dvi && ~/mytex/open $1.ps
