@@ -1,2 +1,2 @@
 #!/bin/sh
-cat >/tmp/0000
+cat >~/tmp/0000
