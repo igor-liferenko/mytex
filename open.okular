@@ -1,2 +1,6 @@
 #!/bin/sh
+# use wmctrl if okular is not brought to foreground by tex+/dvi+
+# (it can happen sometimes when okular is already opened in background)
+#id=$(wmctrl -l -p | awk -v p=`pgrep -f 'okular --unique'` '$3 == p { print $1 }')
 okular --unique $1 2>/dev/null &
+#[ "$id" ] && wmctrl -i -a $id
