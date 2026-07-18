@@ -1,5 +1,5 @@
 #!/bin/sh
-ssh p print >/dev/null 2>&1
+ssh root@p print >/dev/null 2>&1
 ret=$?
 if [ $ret = 10 ]; then zenity --error --title 'Printing failed' --text 'Printer is not powered on' &
 elif [ $ret = 11 ]; then zenity --error --title 'Printing failed' --text 'write() error' &
