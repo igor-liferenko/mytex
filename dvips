@@ -1,5 +1,5 @@
 #!/bin/sh
-export PKFONTS=$HOME/.PKfonts/$mode # used in MakePK and dvips
+export PKFONTS=~/.PKfonts/$mode # (used in MakePK and dvips)
 mkdir /tmp/mf.$$
 resolution=$(cd /tmp/mf.$$; mf "\mode=$mode; mode_setup; show pixels_per_inch; end" | sed -n 's/>> //p')
 rm -r /tmp/mf.$$
@@ -8,8 +8,8 @@ dvitype -output-level 0 $file | \
   sed '/^Postamble starts at byte/,$!d;/^Font [0-9]\+:/!d;s///;/scaled/!s/\w\+/& scaled 1000/' | \
   sed s/scaled/$resolution/ | while read REPLY; do ~/mytex/MakePK $REPLY || exit; done || exit
 eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/')"
-export TEXCONFIG=$HOME/dvips
-export DVIPSHEADERS=$HOME/dvips
-export TEXFONTS=$HOME/mytex/TeXfonts/gbsnu
+export TEXCONFIG=~/dvips
+export DVIPSHEADERS=~/dvips
+export TEXFONTS=~/mytex/TeXfonts/gbsnu
 ~/dvips/dvips -t a4 `[ ${p#*,} \< ${p%,*} ] && echo -t landscape` \
   -O $((x-4736286))sp,$((y-4736286))sp -D $resolution -q `[ $# = 2 ] && echo -o $2` $file
