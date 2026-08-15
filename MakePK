@@ -38,14 +38,14 @@ if ! mf "\mode=$mode; mag=$mag; batchmode; input $name" >/dev/null; then
   echo ERROR: mf failed for $name `[ $3 = 1000 ] || echo scaled $3`
   exit 1
 fi
-if ! gftopk $name.${dpi}gf >/tmp/gftopk.$$; then
-  cat /tmp/gftopk.$$
+if ! gftopk $name.${dpi}gf >gftopk.log; then
+  cat gftopk.log
   cd /
-  rm -r /tmp/mf.$$ /tmp/gftopk.$$
+  rm -r /tmp/mf.$$
   echo ERROR: gftopk failed for $name `[ $3 = 1000 ] || echo scaled $3`
   exit 1
 fi
 mkdir -p $PKFONTS
 mv $name.${dpi}pk $PKFONTS
 cd /
-rm -r /tmp/mf.$$ /tmp/gftopk.$$
+rm -r /tmp/mf.$$
