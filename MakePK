@@ -1,5 +1,5 @@
 #!/bin/sh
-eval "PKFONTS=$PKFONTS" # on some systems tilde is not expanded
+eval "PKFONTS=$PKFONTS" # expand tilde if it is not already expanded (on some systems it is not expanded)
 name=$1
 dpi=$(echo $2*$3/1000+0.5 | bc -l | cut -d. -f1)
 mag=$(echo $3/1000 | bc -l | sed 's/^\./0./' | cut -d. -f1)
