@@ -1,8 +1,15 @@
 #!/bin/sh
-if dvitype -output-level 0 $1 | grep -q 'TFM file can.t be opened\|check sums do not agree'; then
-  echo ERROR: the DVI file is not up-to-date
+if ! dvitype -output-level 0 $1 >/tmp/dvitype.$$; then
+  echo ERROR: dvitype
+  rm /tmp/dvitype.$$
   exit
 fi
+if grep -q 'TFM file can.t be opened\|check sums do not agree' /tmp/dvitype.$$; then
+  echo ERROR: the DVI file is not up-to-date
+  rm /tmp/dvitype.$$
+  exit
+fi
+rm /tmp/dvitype.$$
 set ${1%.dvi}
 if hexdump -s15 -n9 -v -e '"%c"' $1.dvi | grep METAFONT >/dev/null; then
   mode=localfont
