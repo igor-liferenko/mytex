@@ -16,4 +16,5 @@ if hexdump -s15 -n9 -v -e '"%c"' $1.dvi | grep METAFONT >/dev/null; then
 else
   mode=viewer
 fi
-mode=$mode ~/mytex/dvips $1.dvi && ~/mytex/open $1.ps
+ps_file=$1.ps
+mode=$mode ~/mytex/dvips $1.dvi $ps_file && ~/mytex/open $ps_file
