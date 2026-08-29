@@ -1,5 +1,5 @@
 #!/bin/sh
-eval PKFONTS=$PKFONTS # expand tilde if it has not been expanded on assignment (as is the case on some systems)
+eval PKFONTS=$PKFONTS # (on some systems tilde is not expanded on assignment in mytex/dvips)
 name=$1
 dpi=$(echo $2*$3/1000+0.5 | bc -l | cut -d. -f1)
 mag=$(echo $3/1000 | bc -l | sed 's/^\./0./' | cut -d. -f1)
