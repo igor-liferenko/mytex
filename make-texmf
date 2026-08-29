@@ -1,10 +1,23 @@
 #!/bin/sh
-# run 'make' in mytex/ only when 'make' is run without arguments in tex/ or mf/
-if [ "$PWD" != ~/tex ] && [ "$PWD" != ~/mf ] || [ $# != 0 ]; then
-  exec make "$@"
-fi
-make || exit
-if [ -e ~/tex/initex ] && [ -e ~/mf/virmf ]; then
-  cd ~/mytex
-  make
+
+# After building TeX and MF they must be configured by running 'make' in mytex/
+# This script does it automatically.
+
+if [ "$PWD" != ~/tex ] && [ "$PWD" != ~/mf ] || [ $# != 0 ]; then # we run 'make' not in tex/ and not in mf/, or we run 'make <args>' no matter where
+  if [ "$PWD" = ~/mytex ]; then # if 'make' is run in mytex/ (this implies that there are no args), do the same check as below
+    if [ -e ~/tex/initex ] && [ -e ~/mf/virmf ]; then
+      make
+    else
+      echo 'ERROR: both TeX and MF must be built (both are used in mytex/Makefile)'
+      exit
+    fi
+  else
+    make "$@"
+  fi
+else # we run 'make' in tex/ or mf/
+  make || exit
+  if [ -e ~/tex/initex ] && [ -e ~/mf/virmf ]; then
+    cd ~/mytex
+    make
+  fi
 fi
