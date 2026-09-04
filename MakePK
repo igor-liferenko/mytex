@@ -29,12 +29,6 @@ else
   exit 0
 fi
 [ $name = trip ] && { echo ERROR: font \'trip\' is reserved; exit 1; }
-if [ $name != ${name#gbsnu} ]; then
-  mkdir -p $PKFONTS
-  cd $PKFONTS
-  ps2pk -X$dpi -R$2 ~/th/gbsnu/$name.pfb $name.${dpi}pk >/dev/null || exit
-  exit 0
-fi
 mkdir /tmp/mf.$$
 cd /tmp/mf.$$
 if ! mf "\mode=$mode; mag=$mag; batchmode; input $name" >/dev/null; then
