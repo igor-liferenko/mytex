@@ -10,5 +10,4 @@ dvitype -output-level 0 $file | \
 eval "$(hexdump -s15 -n `hexdump -s14 -n1 -e '"%u"' $file` -v -e '"%c"' $file | sed 's/.* /p=/;s/x/sp,/;s/[+-][0-9]*/sp x=& y=/' | sed 's/39158276sp/39158280sp/;s/55380990sp/55380996sp/')"
 export TEXCONFIG=~/dvips
 export DVIPSHEADERS=~/dvips
-~/dvips/dvips -T $p `[ ${p#*,} \< ${p%,*} ] && echo -t landscape` \
-  -O $((x-4736286))sp,$((y-4736286))sp -D $resolution -q -o $2 $file
+~/dvips/dvips -T $p -O $((x-4736286))sp,$((y-4736286))sp -D $resolution -q -o $2 $file
