@@ -1,6 +1,6 @@
 #!/bin/sh
-# for gftodvi; by default landscape mode is used, so swap pdfpagewidth with pdfpageheight and
-# pdfhorigin with pdfvorigin
+# By default landscape mode is used in gftodvi proofsheet, so swap
+# pdfpagewidth with pdfpageheight and pdfhorigin with pdfvorigin.
 mkdir /tmp/tex.$$
 if [ "$pdfpagewidth" ]; then
   pdfpagewidth=$(cd /tmp/tex.$$; tex "\dimen0=$pdfpagewidth\count0=\dimen0\message{\the\count0}\end" | sed -n 2p)
