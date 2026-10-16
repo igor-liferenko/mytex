@@ -13,6 +13,7 @@ grep '@s sigaction' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1;
 grep 'struct sigaction' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
 grep '@s stat' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
 grep 'struct stat' $file.m && { echo ERROR: Use cyrillic a; rm $file.m; exit 1; }
+grep '\\\\-\|-\\\\' $file.m && { echo 'ERROR: such usage of \\ is not allowed in CWEB'; rm $file.m; exit 1; } # control sequence \\ is used in CWEB
 rm $file.m
 ~/cweb/cweave -b -h -p "$@" || exit 1
 LC_ALL=C grep -q '\\|[^[:cntrl:][:print:]]' $file.tex $file.idx $file.scn && { echo ERROR: one-letter identifiers must be ascii-only; exit 1; } # I do not set \matcharcode for cyrillic letters (because I do not have cyrillic math fonts), so cyrillic one-letter identifiers will be typeset in roman font instead of italic
