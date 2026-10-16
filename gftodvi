@@ -1,0 +1,8 @@
+#!/bin/sh
+gf_comment="$(hexdump -s3 -n `hexdump -s2 -n1 -e '"%u"' $1` -v -e '"%c"' $1)"
+export comment="$(echo $gf_comment | sed 's/\(.*\) .*/\1/')" # do not put on hardcopy proof the part of GF comment added from mytex/mf
+~/gftodvi/gftodvi /tmp/gftodvi.$$ "$@"
+ret=$?
+sed '$a\' /tmp/gftodvi.$$ 2>/dev/null
+rm -f /tmp/gftodvi.$$
+exit $ret
